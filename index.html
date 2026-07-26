@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christusgemeinde Gottes Wort Bochum</title>
+<meta name="description" content="Christusgemeinde Gottes Wort Bochum — eine deutsch-russischsprachige Gemeinde für die ganze Familie. Jeden Sonntag 11 Uhr, Harpener Heide 9.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --shell:#F6F1E9;
+    --shell-2:#EFE7D8;
+    --navy:#1B3B4D;
+    --navy-2:#15303F;
+    --storm:#2F4858;
+    --coastal:#4BA3C7;
+    --deepsea:#1F577A;
+    --sand:#E8D8C3;
+    --sage:#87A96B;
+    --line:rgba(27,59,77,0.12);
+    --line-dark:rgba(246,241,233,0.16);
+    --maxw:1180px;
+
+    --display:'Fraunces', serif;
+    --body:'Work Sans', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--shell);
+    color:var(--storm);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:var(--display); font-weight:600; line-height:1.05; color:var(--navy); text-wrap:balance;}
+  a{color:inherit;}
+  ::selection{background:var(--coastal); color:var(--shell);}
+  a:focus-visible, button:focus-visible, summary:focus-visible{outline:2px solid var(--deepsea); outline-offset:3px;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .mono{font-family:var(--mono); text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem;}
+  .eyebrow{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--deepsea); display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--deepsea);}
+  .eyebrow.on-dark{color:var(--sand);}
+  .eyebrow.on-dark::before{background:var(--sand);}
+
+  /* header */
+  header{position:fixed; top:0; left:0; right:0; z-index:50; padding:18px 0; transition:background .3s, box-shadow .3s;}
+  header.scrolled{background:rgba(246,241,233,0.92); backdrop-filter:blur(8px); box-shadow:0 1px 0 var(--line);}
+  .navrow{display:flex; align-items:center; justify-content:space-between;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand-mark{width:34px; height:34px; flex:none;}
+  .brand-text{display:flex; flex-direction:column; gap:1px;}
+  .brand-text .t1{font-family:var(--display); font-weight:600; font-size:1rem; color:var(--shell); letter-spacing:0.01em;}
+  .brand-text .t2{font-family:var(--mono); font-size:0.58rem; letter-spacing:0.14em; color:var(--sand); text-transform:uppercase;}
+  header.scrolled .brand-text .t1{color:var(--navy);}
+  header.scrolled .brand-text .t2{color:var(--deepsea);}
+  nav ul{list-style:none; display:flex; gap:30px;}
+  nav a{font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; text-decoration:none; color:var(--shell); opacity:0.9; transition:opacity .2s, color .2s;}
+  header.scrolled nav a{color:var(--storm);}
+  nav a:hover{opacity:1; color:var(--coastal);}
+  .navbtn{display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px;}
+  .navbtn span{width:22px; height:2px; background:var(--shell);}
+  header.scrolled .navbtn span{background:var(--navy);}
+  @media (max-width:900px){
+    nav ul{display:none;}
+    .navbtn{display:flex;}
+  }
+
+  /* hero */
+  .hero{
+    min-height:100svh; position:relative; display:flex; flex-direction:column; justify-content:flex-end;
+    padding-top:110px; overflow:hidden;
+  }
+  .hero-photo{position:absolute; inset:0; z-index:0;}
+  .hero-photo img{width:100%; height:100%; object-fit:cover; object-position:center 30%;}
+  .hero-photo::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(21,48,63,0.55) 0%, rgba(21,48,63,0.35) 40%, rgba(21,48,63,0.92) 100%);
+  }
+  .hero-inner{position:relative; z-index:1; padding-bottom:64px;}
+  h1.headline{font-size:clamp(2.6rem, 6.4vw, 4.6rem); color:var(--shell); max-width:14ch;}
+  .headline-sub{font-family:var(--display); font-style:italic; font-weight:400; font-size:clamp(1.2rem,2.6vw,1.7rem); color:var(--sand); margin-top:6px;}
+  .hero-text{max-width:520px; margin-top:24px; font-size:1.05rem; line-height:1.65; color:rgba(246,241,233,0.86);}
+  .hero-cta{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{font-family:var(--mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; padding:15px 28px; border-radius:100px; text-decoration:none; display:inline-block; transition:transform .25s, background .25s, color .25s, border-color .25s;}
+  .btn-solid{background:var(--coastal); color:var(--navy-2);}
+  .btn-solid:hover{transform:translateY(-2px); background:#5db3d6;}
+  .btn-ghost{border:1px solid rgba(246,241,233,0.4); color:var(--shell);}
+  .btn-ghost:hover{border-color:var(--sand); color:var(--sand);}
+  .btn-ghost.on-light{border-color:var(--line); color:var(--navy);}
+  .btn-ghost.on-light:hover{border-color:var(--deepsea); color:var(--deepsea);}
+
+  .hero-strip{border-top:1px solid rgba(246,241,233,0.2); margin-top:46px; display:grid; grid-template-columns:repeat(3,1fr);}
+  .hero-strip div{padding:18px 0; border-right:1px solid rgba(246,241,233,0.2);}
+  .hero-strip div:last-child{border-right:0;}
+  .hero-strip .num{font-family:var(--display); font-weight:600; font-size:1.4rem; color:var(--shell);}
+  .hero-strip .lbl{font-family:var(--mono); font-size:0.62rem; letter-spacing:0.08em; color:var(--sand); text-transform:uppercase; margin-top:4px;}
+  @media (max-width:640px){
+    .hero-strip{grid-template-columns:1fr;}
+    .hero-strip div{border-right:0; border-bottom:1px solid rgba(246,241,233,0.2);}
+  }
+
+  section{padding:100px 0;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:48px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(2rem,4.4vw,2.9rem);}
+  .section-head p{max-width:340px; color:var(--storm); opacity:0.75; font-size:0.94rem; line-height:1.6;}
+
+  /* about */
+  .about{background:var(--shell);}
+  .about-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:start;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;} }
+  .about-text p{font-size:1.08rem; line-height:1.7; color:var(--storm); margin-bottom:18px;}
+  .about-text strong{color:var(--navy); font-weight:600;}
+  .belief-list{display:flex; flex-direction:column;}
+  .belief-list li{list-style:none; display:flex; gap:18px; padding:20px 0; border-top:1px solid var(--line);}
+  .belief-list li:last-child{border-bottom:1px solid var(--line);}
+  .belief-list .bnum{font-family:var(--mono); color:var(--coastal); font-size:0.82rem; padding-top:3px;}
+  .belief-list h3{font-family:var(--body); font-weight:600; font-size:1rem; color:var(--navy); margin-bottom:5px;}
+  .belief-list p{font-size:0.9rem; color:var(--storm); opacity:0.8; line-height:1.55;}
+  details.creed{margin-top:26px; border-top:1px solid var(--line); padding-top:18px;}
+  details.creed summary{cursor:pointer; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--deepsea); list-style:none;}
+  details.creed summary::-webkit-details-marker{display:none;}
+  details.creed summary::after{content:"  →"; }
+  details.creed[open] summary::after{content:"  ↑";}
+  details.creed .creed-body{padding-top:18px; font-size:0.94rem; line-height:1.7; color:var(--storm); opacity:0.85;}
+  details.creed .creed-body p{margin-bottom:14px;}
+
+  /* gottesdienst */
+  .service{background:var(--navy); color:var(--shell);}
+  .service h2, .service .section-head p{color:var(--shell);}
+  .service .section-head p{opacity:0.65;}
+  .service-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:900px){ .service-grid{grid-template-columns:1fr;} }
+  .service-photo{border-radius:22px; overflow:hidden; aspect-ratio:4/5;}
+  .service-photo img{width:100%; height:100%; object-fit:cover;}
+  .service-time{font-family:var(--display); font-weight:600; font-size:clamp(3rem,7vw,4.6rem); color:var(--shell); line-height:1;}
+  .service-time span{display:block; font-family:var(--mono); font-size:0.72rem; color:var(--sand); letter-spacing:0.14em; margin-bottom:10px; text-transform:uppercase;}
+  .service-desc p{color:rgba(246,241,233,0.78); font-size:1rem; line-height:1.65; margin:18px 0;}
+  .info-row{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line-dark); margin-top:28px; border-radius:14px; overflow:hidden;}
+  .info-cell{background:var(--navy-2); padding:26px;}
+  .info-cell .mono{color:var(--sand); margin-bottom:8px; display:block;}
+  .info-cell p{color:rgba(246,241,233,0.75); font-size:0.9rem; line-height:1.55;}
+  @media (max-width:560px){ .info-row{grid-template-columns:1fr;} }
+
+  .faq{margin-top:36px;}
+  .faq-item{border-top:1px solid var(--line-dark);}
+  .faq-item:last-child{border-bottom:1px solid var(--line-dark);}
+  .faq-item summary{cursor:pointer; list-style:none; padding:18px 0; display:flex; justify-content:space-between; align-items:center; font-weight:500; font-size:0.98rem; color:var(--shell);}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+"; font-family:var(--display); font-size:1.3rem; color:var(--sand); margin-left:16px;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item .faq-a{padding:0 0 20px; font-size:0.92rem; line-height:1.6; color:rgba(246,241,233,0.72); max-width:60ch;}
+
+  /* kinder & jugend */
+  .kids{background:var(--shell);}
+  .kids-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border-radius:22px; overflow:hidden;}
+  @media (max-width:820px){ .kids-grid{grid-template-columns:1fr;} }
+  .kid-card{background:var(--shell); display:flex; flex-direction:column;}
+  .kid-photo{position:relative; aspect-ratio:5/4; overflow:hidden;}
+  .kid-photo img{width:100%; height:100%; object-fit:cover;}
+  .kid-photo.placeholder{
+    background:
+      radial-gradient(120% 90% at 15% 10%, rgba(75,163,199,0.55), transparent 55%),
+      radial-gradient(90% 70% at 90% 90%, rgba(232,216,195,0.7), transparent 60%),
+      var(--navy);
+  }
+  .kid-photo .flag{position:absolute; top:18px; left:18px; font-family:var(--mono); font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--shell); background:rgba(27,59,77,0.55); border:1px solid rgba(246,241,233,0.3); padding:5px 10px; border-radius:100px;}
+  .kid-body{padding:30px 32px 34px;}
+  .kid-body .mono{color:var(--deepsea); display:block; margin-bottom:10px;}
+  .kid-body h3{font-size:1.6rem; margin-bottom:12px;}
+  .kid-body p{font-size:0.95rem; line-height:1.65; color:var(--storm); opacity:0.85; margin-bottom:16px;}
+  .agegroups{display:flex; flex-wrap:wrap; gap:7px;}
+  .agegroups span{font-family:var(--mono); font-size:0.62rem; letter-spacing:0.04em; border:1px solid var(--line); padding:6px 10px; color:var(--storm); text-transform:uppercase; border-radius:100px;}
+
+  /* programme */
+  .programs{background:var(--shell-2);}
+  .program-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  @media (max-width:760px){ .program-grid{grid-template-columns:1fr;} }
+  .program-card{background:var(--shell); border:1px solid var(--line); border-radius:18px; padding:32px; position:relative; overflow:hidden;}
+  .program-card .mono{color:var(--coastal); display:block; margin-bottom:12px;}
+  .program-card h3{font-size:1.5rem; margin-bottom:10px;}
+  .program-card .when{font-family:var(--mono); font-size:0.72rem; color:var(--deepsea); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; display:block;}
+  .program-card p{font-size:0.94rem; line-height:1.6; color:var(--storm); opacity:0.85;}
+
+  /* geben */
+  .giving{background:var(--navy); color:var(--shell); position:relative;}
+  .giving .wrap{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;}
+  @media (max-width:900px){ .giving .wrap{grid-template-columns:1fr;} }
+  .giving h2{color:var(--shell);}
+  .giving p{font-size:1.02rem; line-height:1.7; margin-top:18px; max-width:460px; color:rgba(246,241,233,0.78);}
+  .giving-box{border:1px solid var(--line-dark); border-radius:18px; padding:32px; background:var(--navy-2);}
+  .giving-box .mono{color:var(--sand); margin-bottom:16px; display:block;}
+  .giving-box dl{display:flex; flex-direction:column; gap:14px;}
+  .giving-box dt{font-family:var(--mono); font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(246,241,233,0.55);}
+  .giving-box dd{font-size:1.02rem; margin-top:3px;}
+
+  /* kontakt */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact-list{display:flex; flex-direction:column; gap:24px; margin-top:32px;}
+  .contact-list .mono{color:var(--deepsea); display:block; margin-bottom:6px;}
+  .contact-list p, .contact-list a{font-size:1.1rem; text-decoration:none;}
+  .contact-list a:hover{color:var(--coastal);}
+  .map-box{
+    border:1px solid var(--line); border-radius:22px; aspect-ratio:4/3; position:relative;
+    background:
+      linear-gradient(rgba(246,241,233,0.4), rgba(246,241,233,0.75)),
+      repeating-linear-gradient(0deg, transparent 0 38px, rgba(27,59,77,0.06) 38px 39px),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(27,59,77,0.06) 38px 39px);
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; overflow:hidden;
+  }
+  .map-box .pin{width:14px; height:14px; background:var(--coastal); border-radius:50% 50% 50% 0; transform:rotate(-45deg); margin:0 auto 18px;}
+  .map-box .mono{color:var(--storm);}
+
+  footer{background:var(--navy-2); color:var(--shell); padding:56px 0 32px;}
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:44px;}
+  .foot-grid h4{font-family:var(--mono); font-size:0.65rem; letter-spacing:0.1em; color:var(--sand); text-transform:uppercase; margin-bottom:14px;}
+  .foot-grid ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .foot-grid a{text-decoration:none; color:rgba(246,241,233,0.72); font-size:0.9rem;}
+  .foot-grid a:hover{color:var(--shell);}
+  .foot-bottom{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:0.64rem; color:rgba(246,241,233,0.5); letter-spacing:0.06em; text-transform:uppercase; border-top:1px solid var(--line-dark); padding-top:22px;}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap navrow">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 2 L17 32 M8 11 L26 11" stroke="var(--sand)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">
+        <span class="t1">Christusgemeinde Gottes Wort</span>
+        <span class="t2">Bochum · Deutsch &amp; Русский</span>
+      </span>
+    </a>
+    <nav><ul>
+      <li><a href="#ueber-uns">Über uns</a></li>
+      <li><a href="#gottesdienst">Gottesdienst</a></li>
+      <li><a href="#kinder-jugend">Kinder &amp; Jugend</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#geben">Geben</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul></nav>
+    <button class="navbtn" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-photo">
+    <img src="/images/hero-beach.jpg" alt="" loading="eager">
+  </div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow on-dark">Harpener Heide 9 · 44805 Bochum</div>
+    <h1 class="headline">Herzlich willkommen.</h1>
+    <div class="headline-sub">Gemeinde für die ganze Familie.</div>
+    <p class="hero-text">Eine deutsch-russischsprachige Gemeinde mitten in Bochum. Jeden Sonntag feiern wir gemeinsam Gottesdienst — komm wie du bist und bleib so lange du magst.</p>
+    <div class="hero-cta">
+      <a href="#gottesdienst" class="btn btn-solid">Gottesdienst besuchen</a>
+      <a href="#kontakt" class="btn btn-ghost">Anfahrt &amp; Kontakt</a>
+    </div>
+    <div class="hero-strip">
+      <div><div class="num">11:00</div><div class="lbl">Sonntags · DE &amp; RU</div></div>
+      <div><div class="num">3–12</div><div class="lbl">Kinderarche</div></div>
+      <div><div class="num">A40/A43</div><div class="lbl">Eigener Parkplatz</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="ueber-uns">
+  <div class="wrap about-grid">
+    <div class="about-text reveal">
+      <span class="eyebrow">Über uns</span>
+      <h2 style="font-size:clamp(1.9rem,4.4vw,2.7rem); margin-bottom:26px;">Wer wir sind.</h2>
+      <p>Wir sind eine evangelisch-pfingstliche Freikirche auf biblischer Grundlage — deutsch-russischsprachig, mitten in Bochum. <strong>Wir feiern gemeinsam den Glauben, leben ihn im Alltag und pflegen echte, freundschaftliche Beziehungen.</strong></p>
+      <p>Als eingetragener Verein gehören wir zur Gemeinschaft Freier Christusgemeinden und zum Bund Freikirchlicher Pfingstgemeinden (KdöR).</p>
+      <details class="creed">
+        <summary>Unser Glaubensbekenntnis lesen</summary>
+        <div class="creed-body">
+          <p>Wir glauben an die göttliche Inspiration der Bibel als unfehlbares Wort Gottes und höchste Autorität in Fragen des Glaubens und Lebens.</p>
+          <p>Wir glauben an den einen ewigen Gott in drei Personen — Vater, Sohn und Heiliger Geist — als Schöpfer aller sichtbaren und unsichtbaren Welten.</p>
+          <p>Wir glauben, dass Jesus Christus, Gottes Sohn, wahrer Gott und wahrer Mensch ist und als Einziger ohne Sünde lebte.</p>
+          <p>Wir glauben, dass der Mensch mit freiem Willen geschaffen wurde und allein durch den Glauben an Jesus Christus als Herrn und Retter von der Sünde erlöst wird — durch sein stellvertretendes Sühneopfer am Kreuz.</p>
+          <p>Wir glauben an die Notwendigkeit zweier Sakramente: die Wassertaufe als Zeichen des Heils durch vollständiges Untertauchen nach persönlicher Entscheidung, und das Abendmahl, das Tod und Auferstehung Jesu verkündet.</p>
+          <p>Wir glauben, dass die Gemeinde als Leib Christi der Ort der Auferbauung und des gegenseitigen Dienstes ist, bevollmächtigt durch die Taufe des Heiligen Geistes.</p>
+          <p>Wir glauben an den Missionsauftrag aus Matthäus 28 — Zeugen der Frohen Botschaft zu sein und Jünger zu machen, ausgestattet mit individuellen Geistesgaben.</p>
+          <p>Wir glauben, dass Heiligung in der Verantwortung jedes Gläubigen liegt, getragen durch die Überführung des Heiligen Geistes und die Reinigung durch das Opfer Jesu.</p>
+          <p>Wir glauben, dass Jesus Christus wiederkommen wird — den Erretteten zum ewigen Leben, den Ungläubigen zum ewigen Gericht.</p>
+        </div>
+      </details>
+    </div>
+    <ul class="belief-list reveal">
+      <li><span class="bnum">01</span><div><h3>Zweisprachig von der Bühne</h3><p>Predigt und Lobpreis werden live ins Deutsche oder Russische übersetzt — niemand bleibt außen vor.</p></div></li>
+      <li><span class="bnum">02</span><div><h3>Raum für alle Generationen</h3><p>Von der Kinderarche bis zur Jugendarbeit hat jede Altersgruppe ihren eigenen Platz.</p></div></li>
+      <li><span class="bnum">03</span><div><h3>Getragen von Freiwilligen</h3><p>Unsere Gemeinde finanziert und gestaltet sich durch Menschen, die anpacken und geben.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="service" id="gottesdienst">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow on-dark">Gottesdienst</span>
+        <h2>Jeden Sonntag,<br>gemeinsam.</h2>
+      </div>
+      <p>Lobpreis, Gebet und eine Predigt, die im Alltag ankommt — bilingual, für jeden verständlich.</p>
+    </div>
+    <div class="service-grid reveal">
+      <div class="service-photo">
+        <img src="/images/img-2938.jpg" alt="Gottesdienst der Christusgemeinde Gottes Wort mit Lobpreisband und Gemeinde" loading="lazy">
+      </div>
+      <div>
+        <div class="service-time"><span>Jeden Sonntag</span>11:00</div>
+        <div class="service-desc">
+          <p>Der Gottesdienst wird von der Bühne aus ins Deutsche und Russische übersetzt — bilingual, ca. 2 Stunden.</p>
+          <p>Komm ruhig 15 Minuten früher, für einen Parkplatz, einen Kaffee und einen entspannten Start.</p>
+        </div>
+        <div class="info-row">
+          <div class="info-cell"><span class="mono">Anfahrt · PKW</span><p>Gut erreichbar über A40 &amp; A43. Eigener Parkplatz sowie entlang der Harpener Heide.</p></div>
+          <div class="info-cell"><span class="mono">Anfahrt · ÖPNV</span><p>Rund 10 Min. Fußweg von der S-Bahn-Haltestelle Weserstraße.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <details class="faq-item">
+        <summary>Wo kann ich parken?</summary>
+        <div class="faq-a">Wir haben einen eigenen Parkplatz auf dem Gemeindegrundstück, die ganze Straße Harpener Heide steht zur Verfügung und umliegend findest du größere Parkplätze.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Gibt es einen Dresscode?</summary>
+        <div class="faq-a">Nein — bei uns ist alles dabei, von lässiger Freizeitkleidung bis zur adretten Sonntagsgarderobe.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Was passiert nach dem Gottesdienst?</summary>
+        <div class="faq-a">Wir laden dich herzlich ein, länger zu bleiben: In unserer Kantine gibt's Mittagessen (3&nbsp;€ Erw. / 2&nbsp;€ Kinder), danach Gespräche, Gruppentreffen und sportliche Aktivitäten wie Volleyball oder Tischtennis.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Muss ich mich vorher anmelden?</summary>
+        <div class="faq-a">Nein, du kannst einfach kommen. Wir freuen uns auf dich!</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="kids" id="kinder-jugend">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Kinder &amp; Jugend</span>
+        <h2>Für jedes<br>Alter ein Zuhause.</h2>
+      </div>
+      <p>Altersgerecht, verlässlich, jede Woche — auf Deutsch &amp; Russisch.</p>
+    </div>
+
+    <div class="kids-grid reveal">
+      <div class="kid-card">
+        <div class="kid-photo placeholder"><span class="flag">Foto folgt</span></div>
+        <div class="kid-body">
+          <span class="mono">3–12 Jahre</span>
+          <h3>Kinderarche</h3>
+          <p>Die Kinder werden zu Beginn gesegnet und ziehen dann in eigene Räume, wo biblische Inhalte altersgerecht &amp; spielerisch vermittelt werden. Für die ganz Kleinen gibt's ein Babyzimmer mit Blick auf die Bühne.</p>
+          <div class="agegroups">
+            <span>Kita</span><span>Vorschule</span><span>1.–2. Kl.</span><span>3.–4. Kl.</span><span>5.–6. Kl.</span>
+          </div>
+        </div>
+      </div>
+      <div class="kid-card">
+        <div class="kid-photo">
+          <img src="/images/jugend-konferenz.jpg" alt="Jugendgruppe der Christusgemeinde Gottes Wort bei einem Treffen" loading="lazy">
+        </div>
+        <div class="kid-body">
+          <span class="mono">Jugendtreff · Samstags ab 18:00</span>
+          <h3>Jugend</h3>
+          <p>Wir schaffen Räume, in denen Jugendliche Gott ganz persönlich begegnen und erleben können — mit eigenen Treffen unter der Woche.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programme">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Unter der Woche</span>
+        <h2>Programme.</h2>
+      </div>
+      <p>Kleine Kreise, verschiedene Rhythmen — hier findest du deinen Platz.</p>
+    </div>
+    <div class="program-grid reveal">
+      <div class="program-card">
+        <span class="mono">Gebet</span>
+        <h3>Gebetsabend</h3>
+        <span class="when">Jeden Freitag · 19:00–21:00</span>
+        <p>Als Gemeinde wollen wir Gott näherkommen und gemeinsam füreinander im Gebet einstehen.</p>
+      </div>
+      <div class="program-card">
+        <span class="mono">Kleingruppen</span>
+        <h3>Bibelkreise</h3>
+        <span class="when">Unterschiedliche Zeiten in der Woche</span>
+        <p>Kleine Kreise an unterschiedlichen Orten teilen Interessen &amp; Alltag — und entdecken gemeinsam mehr über Gott.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="giving" id="geben">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow on-dark">Geben</span>
+      <h2>Möglichmacher<br>werden.</h2>
+      <p>Unsere Gemeinde finanziert sich ausschließlich durch die Großzügigkeit von Menschen wie dir. Auf Wunsch stellen wir dir gerne eine Spendenbescheinigung aus.</p>
+      <div style="margin-top:30px;"><a href="mailto:info@christusgemeinde-bo-nord.de?subject=Spendenbescheinigung" class="btn btn-solid">Jetzt unterstützen</a></div>
+    </div>
+    <div class="giving-box reveal">
+      <span class="mono">Bankverbindung</span>
+      <dl>
+        <div><dt>Empfänger</dt><dd>Gemeinschaft Freier Christusgemeinden e.&nbsp;V.</dd></div>
+        <div><dt>IBAN</dt><dd style="font-family:var(--mono); font-size:0.92rem;">DE62 4526 0475 0012 6367 00</dd></div>
+        <div><dt>BIC</dt><dd style="font-family:var(--mono); font-size:0.92rem;">GENODEM1BFG</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Kontakt &amp; Anfahrt</span>
+      <h2 style="font-size:clamp(1.9rem,4.4vw,2.7rem);">Wir freuen<br>uns auf dich.</h2>
+      <div class="contact-list">
+        <div><span class="mono">Adresse</span><p>Harpener Heide 9<br>44805 Bochum</p></div>
+        <div><span class="mono">Gottesdienst</span><p>Sonntags, 11:00 Uhr</p></div>
+        <div><span class="mono">Nachricht schreiben</span><a href="mailto:info@christusgemeinde-bo-nord.de">info@christusgemeinde-bo-nord.de</a></div>
+      </div>
+    </div>
+    <div class="map-box reveal">
+      <div>
+        <div class="pin"></div>
+        <p class="mono">Harpener Heide 9 · 44805 Bochum</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Christusgemeinde Gottes Wort</h4>
+        <ul>
+          <li>Harpener Heide 9</li>
+          <li>44805 Bochum</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Entdecken</h4>
+        <ul>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li><a href="#gottesdienst">Gottesdienst</a></li>
+          <li><a href="#kinder-jugend">Kinder &amp; Jugend</a></li>
+          <li><a href="#programme">Programme</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mitmachen</h4>
+        <ul>
+          <li><a href="#geben">Geben</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="https://christusgemeinde-bo-nord.de/impressum/">Impressum</a></li>
+          <li><a href="https://christusgemeinde-bo-nord.de/datenschutz/">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Christusgemeinde Gottes Wort Bochum</span>
+      <span>Neuer Website-Entwurf · in Arbeit</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
