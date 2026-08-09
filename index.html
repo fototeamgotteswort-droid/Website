@@ -91,7 +91,7 @@
   .headline-sub{font-family:var(--display); font-style:italic; font-weight:400; font-size:clamp(1.2rem,2.6vw,1.7rem); color:var(--sand); margin-top:6px;}
   .hero-text{max-width:520px; margin-top:24px; font-size:1.05rem; line-height:1.65; color:rgba(246,241,233,0.86);}
   .hero-cta{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
-  .btn{font-family:var(--mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; padding:15px 28px; border-radius:100px; text-decoration:none; display:inline-block; transition:transform .25s, background .25s, color .25s, border-color .25s;}
+  .btn{appearance:none; -webkit-appearance:none; background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; padding:15px 28px; border-radius:100px; text-decoration:none; display:inline-block; transition:transform .25s, background .25s, color .25s, border-color .25s;}
   .btn-solid{background:var(--coastal); color:var(--navy-2);}
   .btn-solid:hover{transform:translateY(-2px); background:#5db3d6;}
   .btn-ghost{border:1px solid rgba(246,241,233,0.4); color:var(--shell);}
@@ -239,6 +239,15 @@
 
   .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* cookie consent */
+  .cookie-banner{position:fixed; left:0; right:0; bottom:0; z-index:70; background:var(--navy-2); border-top:1px solid var(--line-dark); padding:20px 0;}
+  .cookie-banner-inner{max-width:var(--maxw); margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .cookie-banner p{color:rgba(246,241,233,0.82); font-size:0.9rem; line-height:1.55; max-width:640px; margin:0;}
+  .cookie-banner-actions{display:flex; gap:12px; flex:none;}
+  .cookie-banner .btn{padding:12px 22px; font-size:0.7rem;}
+  .cookie-settings-link{background:none; border:0; padding:0; font:inherit; text-decoration:none; color:rgba(246,241,233,0.72); font-size:0.9rem; cursor:pointer;}
+  .cookie-settings-link:hover{color:var(--shell);}
 </style>
 </head>
 <body>
@@ -508,6 +517,7 @@
         <ul>
           <li><a href="https://christusgemeinde-bo-nord.de/impressum/">Impressum</a></li>
           <li><a href="https://christusgemeinde-bo-nord.de/datenschutz/">Datenschutz</a></li>
+          <li><button type="button" id="cookieSettingsLink" class="cookie-settings-link">Cookie-Einstellungen</button></li>
         </ul>
       </div>
     </div>
@@ -517,6 +527,51 @@
     </div>
   </div>
 </footer>
+
+<div id="cookieBanner" class="cookie-banner" hidden>
+  <div class="cookie-banner-inner">
+    <p>Wir nutzen PostHog (EU-Server), um zu sehen, wie die Website genutzt wird, und sie so besser zu machen. Dafür setzen wir Cookies. Mehr dazu in unserer <a href="https://christusgemeinde-bo-nord.de/datenschutz/" style="text-decoration:underline;">Datenschutzerklärung</a>.</p>
+    <div class="cookie-banner-actions">
+      <button type="button" id="cookieDecline" class="btn btn-ghost">Ablehnen</button>
+      <button type="button" id="cookieAccept" class="btn btn-solid">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var CONSENT_KEY = 'cgw_analytics_consent';
+
+  function loadPostHog(){
+    if (window.posthog && window.posthog.__loaded) return;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_vPeTHGfcN3yAzAucU9x765AUtfyiMv9mR8cmqWLS6toP', {api_host: 'https://eu.i.posthog.com', person_profiles: 'identified_only'});
+  }
+
+  function initCookieConsent(){
+    var banner = document.getElementById('cookieBanner');
+    var consent = localStorage.getItem(CONSENT_KEY);
+
+    if (consent === 'granted') {
+      loadPostHog();
+    } else if (consent !== 'denied') {
+      banner.hidden = false;
+    }
+
+    document.getElementById('cookieAccept').addEventListener('click', function(){
+      localStorage.setItem(CONSENT_KEY, 'granted');
+      banner.hidden = true;
+      loadPostHog();
+    });
+    document.getElementById('cookieDecline').addEventListener('click', function(){
+      localStorage.setItem(CONSENT_KEY, 'denied');
+      banner.hidden = true;
+    });
+    document.getElementById('cookieSettingsLink').addEventListener('click', function(){
+      banner.hidden = false;
+    });
+  }
+  initCookieConsent();
+</script>
 
 <script>
   const header = document.getElementById('siteHeader');
