@@ -78,6 +78,26 @@ summary:focus-visible {
   outline-offset: 3px;
 }
 
+/* skip-link für Tastaturnavigation */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  background: var(--navy);
+  color: var(--shell);
+  padding: 12px 18px;
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
 .wrap {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -399,17 +419,43 @@ h1.headline {
 }
 @media (max-width: 640px) {
   .hero-strip {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
   .hero-strip div {
-    border-right: 0;
-    border-bottom: 1px solid rgba(246, 241, 233, 0.2);
+    padding: 14px 0;
+    padding-right: 10px;
+  }
+  .hero-strip .num {
+    font-size: 1.05rem;
+  }
+  .hero-strip .lbl {
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+  }
+}
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 92px;
+  }
+  .hero-inner {
+    padding-bottom: 40px;
+  }
+  .hero-text {
+    margin-top: 18px;
+    font-size: 1rem;
+  }
+  .hero-cta {
+    margin-top: 24px;
+  }
+  .hero-strip {
+    margin-top: 30px;
   }
 }
 
 section {
   padding: 100px 0;
   position: relative;
+  scroll-margin-top: 90px;
 }
 .section-head {
   display: flex;
@@ -530,10 +576,12 @@ details.creed .creed-body p {
 .andacht {
   background: var(--navy);
   padding: 0;
+  scroll-margin-top: 70px;
 }
 .andacht-photo {
   width: 100%;
   aspect-ratio: 16 / 11;
+  max-height: 62svh;
   overflow: hidden;
 }
 .andacht-photo img {
@@ -798,6 +846,7 @@ details.creed .creed-body p {
 /* programme */
 .programs {
   background: var(--shell-2);
+  padding: 84px 0;
 }
 .program-grid {
   display: grid;
@@ -813,7 +862,7 @@ details.creed .creed-body p {
   background: var(--shell);
   border: 1px solid var(--line);
   border-radius: 18px;
-  padding: 32px;
+  padding: 36px;
   position: relative;
   overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
@@ -900,11 +949,59 @@ details.creed .creed-body p {
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(246, 241, 233, 0.55);
+  color: rgba(246, 241, 233, 0.75);
 }
 .giving-box dd {
   font-size: 1.02rem;
   margin-top: 3px;
+}
+
+/* Spendendaten-Hinweis mit Copy-Button */
+.ru-note {
+  margin: 22px 0 4px;
+  padding: 20px 22px;
+  border-left: 2px solid var(--coastal);
+  background: rgba(75, 163, 199, 0.07);
+  border-radius: 0 14px 14px 0;
+}
+.ru-note p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--storm);
+  margin-bottom: 0;
+}
+.ru-note .mono {
+  color: var(--deepsea);
+  display: block;
+  margin-bottom: 8px;
+}
+.copy-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.copy-btn {
+  appearance: none;
+  background: none;
+  cursor: pointer;
+  border: 1px solid var(--line-dark);
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 233, 0.75);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.copy-btn:hover {
+  border-color: var(--coastal);
+  color: var(--shell);
+}
+.copy-btn.copied {
+  border-color: var(--sage);
+  color: var(--sage);
 }
 
 /* kontakt */
@@ -937,7 +1034,8 @@ details.creed .creed-body p {
 .contact-list a:hover {
   color: var(--coastal);
 }
-.map-box {
+.map-box,
+.map-shell {
   border: 1px solid var(--line);
   border-radius: 22px;
   aspect-ratio: 4 / 3;
@@ -973,6 +1071,51 @@ details.creed .creed-body p {
 .map-box .mono {
   color: var(--storm);
 }
+.map-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.map-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 18px;
+}
+.map-hint {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--storm);
+  opacity: 0.75;
+  max-width: 34ch;
+  margin-top: 10px;
+}
+.placeholder-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+.placeholder-mark svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.9;
+}
+.placeholder-mark span {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 233, 0.75);
+}
 
 footer {
   background: var(--navy-2);
@@ -1002,7 +1145,7 @@ footer {
 }
 .foot-grid a {
   text-decoration: none;
-  color: rgba(246, 241, 233, 0.72);
+  color: rgba(246, 241, 233, 0.82);
   font-size: 0.9rem;
 }
 .foot-grid a:hover {
@@ -1015,8 +1158,8 @@ footer {
   flex-wrap: wrap;
   gap: 14px;
   font-family: var(--mono);
-  font-size: 0.64rem;
-  color: rgba(246, 241, 233, 0.5);
+  font-size: 0.7rem;
+  color: rgba(246, 241, 233, 0.72);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border-top: 1px solid var(--line-dark);
@@ -1066,7 +1209,7 @@ footer {
   padding: 0;
   font: inherit;
   text-decoration: none;
-  color: rgba(246, 241, 233, 0.72);
+  color: rgba(246, 241, 233, 0.82);
   font-size: 0.9rem;
   cursor: pointer;
 }

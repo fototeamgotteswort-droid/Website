@@ -45,6 +45,7 @@ export default function Service() {
               alt="Gottesdienst der Christusgemeinde Gottes Wort mit Lobpreisband und Gemeinde"
               width={1000}
               height={1250}
+              sizes="(max-width: 900px) 100vw, 45vw"
               loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />

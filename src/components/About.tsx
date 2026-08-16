@@ -52,6 +52,14 @@ export default function About() {
             Christusgemeinden und zum Bund Freikirchlicher Pfingstgemeinden
             (KdöR).
           </p>
+          <div className="ru-note" lang="ru">
+            <span className="mono">По-русски</span>
+            <p>
+              Мы — немецко-русскоязычная церковь в Бохуме. Богослужение проходит
+              каждое воскресенье в 11:00, с переводом на русский язык.
+              Регистрация не нужна — просто приходите. Harpener Heide 9, 44805 Bochum.
+            </p>
+          </div>
           <details className="creed">
             <summary>Unser Glaubensbekenntnis lesen</summary>
             <div className="creed-body">

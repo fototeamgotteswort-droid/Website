@@ -1,3 +1,4 @@
+import CopyField from "./CopyField";
 import Reveal from "./Reveal";
 
 export default function Giving() {
@@ -34,14 +35,17 @@ export default function Giving() {
             </div>
             <div>
               <dt>IBAN</dt>
-              <dd style={{ fontFamily: "var(--mono)", fontSize: "0.92rem" }}>
-                DE62 4526 0475 0012 6367 00
+              <dd>
+                <CopyField
+                  value="DE62 4526 0475 0012 6367 00"
+                  copyValue="DE62452604750012636700"
+                />
               </dd>
             </div>
             <div>
               <dt>BIC</dt>
-              <dd style={{ fontFamily: "var(--mono)", fontSize: "0.92rem" }}>
-                GENODEM1BFG
+              <dd>
+                <CopyField value="GENODEM1BFG" />
               </dd>
             </div>
           </dl>

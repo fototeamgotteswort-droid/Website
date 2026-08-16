@@ -9,10 +9,12 @@ import Giving from "@/components/Giving";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
+import JsonLd from "@/components/JsonLd";
 
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Header />
       <Hero />
       <About />

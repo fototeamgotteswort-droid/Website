@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const STRIP = [
@@ -12,11 +12,29 @@ const STRIP = [
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduced ? ["0%", "0%"] : ["0%", "18%"],
+  );
+
+  const enter = (offsetY: number, delay: number, duration = 0.8) =>
+    reduced
+      ? {
+          initial: { opacity: 1, y: 0 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0 },
+        }
+      : {
+          initial: { opacity: 0, y: offsetY },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration, ease: [0.16, 1, 0.3, 1] as const, delay },
+        };
 
   return (
     <section className="hero" id="top" ref={sectionRef}>
@@ -31,46 +49,21 @@ export default function Hero() {
         />
       </motion.div>
       <div className="wrap hero-inner">
-        <motion.div
-          className="eyebrow on-dark"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <motion.div className="eyebrow on-dark" {...enter(12, 0, 0.6)}>
           Harpener Heide 9 · 44805 Bochum
         </motion.div>
-        <motion.h1
-          className="headline"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        >
+        <motion.h1 className="headline" {...enter(24, 0.1)}>
           Herzlich willkommen.
         </motion.h1>
-        <motion.div
-          className="headline-sub"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-        >
+        <motion.div className="headline-sub" {...enter(16, 0.2)}>
           Gemeinde für die ganze Familie.
         </motion.div>
-        <motion.p
-          className="hero-text"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        >
+        <motion.p className="hero-text" {...enter(16, 0.3)}>
           Eine deutsch-russischsprachige Gemeinde mitten in Bochum. Jeden Sonntag
           feiern wir gemeinsam Gottesdienst — komm wie du bist und bleib so lange
           du magst.
         </motion.p>
-        <motion.div
-          className="hero-cta"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-        >
+        <motion.div className="hero-cta" {...enter(16, 0.4)}>
           <a href="#gottesdienst" className="btn btn-solid">
             Gottesdienst besuchen
           </a>
@@ -80,16 +73,7 @@ export default function Hero() {
         </motion.div>
         <div className="hero-strip">
           {STRIP.map((item, i) => (
-            <motion.div
-              key={item.lbl}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.55 + i * 0.1,
-              }}
-            >
+            <motion.div key={item.lbl} {...enter(16, 0.55 + i * 0.1, 0.7)}>
               <div className="num">{item.num}</div>
               <div className="lbl">{item.lbl}</div>
             </motion.div>

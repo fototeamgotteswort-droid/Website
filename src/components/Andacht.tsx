@@ -10,6 +10,7 @@ export default function Andacht() {
           alt="Illustration: Jesus reitet auf einem Esel nach Jerusalem, im Hintergrund ein Kreuz auf einem Hügel"
           width={1600}
           height={1100}
+          sizes="100vw"
           loading="lazy"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />

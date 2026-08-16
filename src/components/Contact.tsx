@@ -1,3 +1,4 @@
+import MapEmbed from "./MapEmbed";
 import Reveal from "./Reveal";
 
 export default function Contact() {
@@ -25,6 +26,10 @@ export default function Contact() {
               <p>Sonntags, 11:00 Uhr</p>
             </div>
             <div>
+              <span className="mono">Anfahrt</span>
+              <p>Eigener Parkplatz · ca. 10 Min. Fußweg von der S-Bahn-Haltestelle Weserstraße.</p>
+            </div>
+            <div>
               <span className="mono">Nachricht schreiben</span>
               <a href="mailto:info@christusgemeinde-bo-nord.de">
                 info@christusgemeinde-bo-nord.de
@@ -32,11 +37,8 @@ export default function Contact() {
             </div>
           </div>
         </Reveal>
-        <Reveal className="map-box" delay={0.1}>
-          <div>
-            <div className="pin"></div>
-            <p className="mono">Harpener Heide 9 · 44805 Bochum</p>
-          </div>
+        <Reveal delay={0.1}>
+          <MapEmbed />
         </Reveal>
       </div>
     </section>

@@ -20,7 +20,12 @@ export default function Kids() {
         <Reveal className="kids-grid">
           <div className="kid-card">
             <div className="kid-photo placeholder">
-              <span className="flag">Foto folgt</span>
+              <div className="placeholder-mark">
+                <svg viewBox="0 0 34 34" stroke="var(--sand)" strokeWidth="2.4" strokeLinecap="round" fill="none">
+                  <path d="M17 2 L17 32 M8 11 L26 11" />
+                </svg>
+                <span>Kinderarche</span>
+              </div>
             </div>
             <div className="kid-body">
               <span className="mono">3–12 Jahre</span>
@@ -47,6 +52,7 @@ export default function Kids() {
                 alt="Jugendgruppe der Christusgemeinde Gottes Wort bei einem Treffen"
                 width={1000}
                 height={800}
+                sizes="(max-width: 820px) 100vw, 50vw"
                 loading="lazy"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

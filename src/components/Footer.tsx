@@ -36,6 +36,9 @@ export default function Footer() {
                 <a href="#geben">Geben</a>
               </li>
               <li>
+                <a href="#andacht">Andacht</a>
+              </li>
+              <li>
                 <a href="#kontakt">Kontakt</a>
               </li>
             </ul>
@@ -43,6 +46,7 @@ export default function Footer() {
           <div>
             <h4>Rechtliches</h4>
             <ul>
+              {/* zeigen noch auf die alte wordpress-seite — vor domain-umzug prüfen */}
               <li>
                 <a href="https://christusgemeinde-bo-nord.de/impressum/">
                   Impressum
@@ -69,7 +73,7 @@ export default function Footer() {
         </div>
         <div className="foot-bottom">
           <span>© Christusgemeinde Gottes Wort Bochum</span>
-          <span>Neuer Website-Entwurf · in Arbeit</span>
+          <span>Sonntags 11:00 Uhr · Harpener Heide 9, Bochum</span>
         </div>
       </div>
     </footer>
