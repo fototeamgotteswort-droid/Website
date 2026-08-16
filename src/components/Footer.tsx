@@ -1,5 +1,3 @@
-"use client";
-
 export default function Footer() {
   return (
     <footer>
@@ -56,17 +54,6 @@ export default function Footer() {
                 <a href="https://christusgemeinde-bo-nord.de/datenschutz/">
                   Datenschutz
                 </a>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="cookie-settings-link"
-                  onClick={() =>
-                    window.dispatchEvent(new Event("open-cookie-settings"))
-                  }
-                >
-                  Cookie-Einstellungen
-                </button>
               </li>
             </ul>
           </div>
