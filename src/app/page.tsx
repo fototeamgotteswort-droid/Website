@@ -8,7 +8,6 @@ import Programs from "@/components/Programs";
 import Giving from "@/components/Giving";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
       <Giving />
       <Contact />
       <Footer />
-      <CookieConsent />
     </>
   );
 }
