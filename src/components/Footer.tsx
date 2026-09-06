@@ -20,6 +20,11 @@ export default function Footer() {
                 <a href="#gottesdienst">Gottesdienst</a>
               </li>
               <li>
+                <a href="/api/live" target="_blank" rel="noopener noreferrer">
+                  Livestream
+                </a>
+              </li>
+              <li>
                 <a href="#kinder-jugend">Kinder &amp; Jugend</a>
               </li>
               <li>

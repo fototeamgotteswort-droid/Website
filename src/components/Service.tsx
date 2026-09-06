@@ -64,6 +64,20 @@ export default function Service() {
                 Kaffee und einen entspannten Start.
               </p>
             </div>
+            <div className="service-cta">
+              <a
+                href="/api/live"
+                className="btn btn-solid"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Online mitfeiern
+              </a>
+              <p>
+                Der Link führt direkt zur laufenden Übertragung auf YouTube.
+                Läuft gerade nichts, siehst du den nächsten Termin.
+              </p>
+            </div>
             <div className="info-row">
               <div className="info-cell">
                 <span className="mono">Anfahrt · PKW</span>
