@@ -284,68 +284,103 @@ header.scrolled .navbtn span {
 
 /* hero */
 .hero {
-  min-height: 100svh;
   position: relative;
+  min-height: 100svh;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 110px;
+  justify-content: center;
   overflow: hidden;
+  background: var(--navy-2);
 }
-.hero-photo {
+.hero-media {
   position: absolute;
-  inset: -8% 0;
+  inset: 0;
   z-index: 0;
-  will-change: transform;
 }
-.hero-photo img {
+.hero-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 45%;
+  display: block;
 }
-.hero-photo::after {
+.hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    180deg,
-    rgba(21, 48, 63, 0.55) 0%,
-    rgba(21, 48, 63, 0.35) 40%,
-    rgba(21, 48, 63, 0.92) 100%
-  );
+      100deg,
+      rgba(11, 26, 35, 0.82) 0%,
+      rgba(11, 26, 35, 0.55) 42%,
+      rgba(11, 26, 35, 0.18) 72%,
+      rgba(11, 26, 35, 0.3) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(11, 26, 35, 0.6) 0%,
+      rgba(11, 26, 35, 0.05) 38%,
+      rgba(11, 26, 35, 0.75) 100%
+    );
 }
 .hero-inner {
   position: relative;
   z-index: 1;
-  padding-bottom: 64px;
+  width: 100%;
+  padding-top: 130px;
+  padding-bottom: 120px;
+}
+.hero-kicker {
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: rgba(246, 241, 233, 0.92);
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 24px rgba(11, 26, 35, 0.5);
 }
 h1.headline {
-  font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+  margin-top: 26px;
+  font-size: clamp(1.85rem, 5.3vw, 4.9rem);
+  line-height: 1.02;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
   color: var(--shell);
-  max-width: 14ch;
-}
-.headline-sub {
-  font-family: var(--display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
-  color: var(--sand);
-  margin-top: 6px;
-}
-.hero-text {
-  max-width: 520px;
-  margin-top: 24px;
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: rgba(246, 241, 233, 0.86);
+  text-shadow: 0 2px 40px rgba(11, 26, 35, 0.45);
 }
 .hero-cta {
   display: flex;
   gap: 14px;
-  margin-top: 32px;
+  margin-top: 42px;
   flex-wrap: wrap;
 }
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 30px;
+  border: 1px solid rgba(246, 241, 233, 0.28);
+  background: rgba(11, 26, 35, 0.42);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--shell);
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.btn-hero span {
+  transition: transform 0.3s;
+}
+.btn-hero:hover {
+  background: rgba(11, 26, 35, 0.72);
+  border-color: rgba(246, 241, 233, 0.55);
+}
+.btn-hero:hover span {
+  transform: translateX(5px);
+}
+
 .btn {
   appearance: none;
   -webkit-appearance: none;
@@ -391,64 +426,94 @@ h1.headline {
 }
 
 .hero-strip {
-  border-top: 1px solid rgba(246, 241, 233, 0.2);
-  margin-top: 46px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  border-top: 1px solid rgba(246, 241, 233, 0.22);
+  background: linear-gradient(180deg, rgba(11, 26, 35, 0) 0%, rgba(11, 26, 35, 0.6) 100%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
-.hero-strip div {
-  padding: 18px 0;
-  border-right: 1px solid rgba(246, 241, 233, 0.2);
+.hero-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
-.hero-strip div:last-child {
-  border-right: 0;
+.hero-strip-addr {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+.hero-strip-facts {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.hero-strip-facts > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 .hero-strip .num {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.05rem;
   color: var(--shell);
 }
 .hero-strip .lbl {
   font-family: var(--mono);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
-  color: var(--sand);
+  color: rgba(232, 216, 195, 0.85);
   text-transform: uppercase;
-  margin-top: 4px;
+}
+@media (max-width: 900px) {
+  .hero-strip-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .hero-strip-facts {
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
 }
 @media (max-width: 640px) {
-  .hero-strip {
-    grid-template-columns: repeat(3, 1fr);
+  .hero-inner {
+    padding-top: 120px;
+    padding-bottom: 160px;
   }
-  .hero-strip div {
-    padding: 14px 0;
-    padding-right: 10px;
+  .hero-strip-addr {
+    font-size: 0.6rem;
+  }
+  .hero-strip-facts {
+    gap: 4px 16px;
+  }
+  /* Auf kleinen Displays nur die Gottesdienstzeit zeigen — der Rest steht
+     weiter unten auf der Seite. */
+  .hero-strip-facts > div:nth-child(n + 2) {
+    display: none;
+  }
+  .hero-strip-facts > div {
+    gap: 7px;
   }
   .hero-strip .num {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
   }
   .hero-strip .lbl {
     font-size: 0.55rem;
-    letter-spacing: 0.05em;
   }
-}
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 92px;
-  }
-  .hero-inner {
-    padding-bottom: 40px;
-  }
-  .hero-text {
-    margin-top: 18px;
-    font-size: 1rem;
-  }
-  .hero-cta {
-    margin-top: 24px;
-  }
-  .hero-strip {
-    margin-top: 30px;
+  .btn-hero {
+    padding: 15px 22px;
+    flex: 1 1 100%;
+    justify-content: space-between;
   }
 }
 

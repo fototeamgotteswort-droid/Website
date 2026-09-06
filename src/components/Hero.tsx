@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const STRIP = [
   { num: "11:00", lbl: "Sonntags · DE & RU" },
@@ -11,17 +10,8 @@ const STRIP = [
 ];
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduced ? ["0%", "0%"] : ["0%", "18%"],
-  );
 
   const enter = (offsetY: number, delay: number, duration = 0.8) =>
     reduced
@@ -36,50 +26,86 @@ export default function Hero() {
           transition: { duration, ease: [0.16, 1, 0.3, 1] as const, delay },
         };
 
+  // Die Quelle wird erst im Browser gesetzt: So laden Handys die kleine
+  // Datei, und wer "Bewegung reduzieren" aktiviert hat, sieht nur das
+  // Standbild.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    video.src = window.matchMedia("(max-width: 900px)").matches
+      ? "/video/hero-mobile.mp4"
+      : "/video/hero.mp4";
+    // Safari startet den Autoplay gelegentlich erst nach einem play()-Aufruf.
+    video.play().catch(() => {});
+  }, []);
+
   return (
-    <section className="hero" id="top" ref={sectionRef}>
-      <motion.div className="hero-photo" style={{ y }}>
-        <Image
-          src="/images/hero-beach.jpg"
-          alt=""
-          priority
-          fill
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center 30%" }}
+    <section className="hero" id="top">
+      <div className="hero-media">
+        <video
+          ref={videoRef}
+          className="hero-video"
+          poster="/images/hero-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          tabIndex={-1}
         />
-      </motion.div>
-      <div className="wrap hero-inner">
-        <motion.div className="eyebrow on-dark" {...enter(12, 0, 0.6)}>
-          Harpener Heide 9 · 44805 Bochum
-        </motion.div>
-        <motion.h1 className="headline" {...enter(24, 0.1)}>
-          Herzlich willkommen.
-        </motion.h1>
-        <motion.div className="headline-sub" {...enter(16, 0.2)}>
-          Gemeinde für die ganze Familie.
-        </motion.div>
-        <motion.p className="hero-text" {...enter(16, 0.3)}>
-          Eine deutsch-russischsprachige Gemeinde mitten in Bochum. Jeden Sonntag
-          feiern wir gemeinsam Gottesdienst — komm wie du bist und bleib so lange
-          du magst.
-        </motion.p>
-        <motion.div className="hero-cta" {...enter(16, 0.4)}>
-          <a href="#gottesdienst" className="btn btn-solid">
-            Gottesdienst besuchen
-          </a>
-          <a href="#kontakt" className="btn btn-ghost">
-            Anfahrt &amp; Kontakt
-          </a>
-        </motion.div>
-        <div className="hero-strip">
-          {STRIP.map((item, i) => (
-            <motion.div key={item.lbl} {...enter(16, 0.55 + i * 0.1, 0.7)}>
-              <div className="num">{item.num}</div>
-              <div className="lbl">{item.lbl}</div>
-            </motion.div>
-          ))}
-        </div>
       </div>
+
+      <div className="wrap hero-inner">
+        <motion.div className="hero-kicker" {...enter(12, 0, 0.7)}>
+          Christusgemeinde Gottes Wort
+        </motion.div>
+
+        <motion.h1 className="headline" {...enter(26, 0.1, 0.9)}>
+          Gemeinsam Glauben
+          <br />
+          Gemeinsam Wachsen
+        </motion.h1>
+
+        <motion.div className="hero-cta" {...enter(16, 0.25)}>
+          <a href="#gottesdienst" className="btn-hero">
+            Persönlich teilnehmen <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/api/live"
+            className="btn-hero"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Online teilnehmen <span aria-hidden="true">→</span>
+          </a>
+        </motion.div>
+      </div>
+
+      <motion.div
+        className="hero-strip"
+        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={
+          reduced
+            ? { duration: 0 }
+            : { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const, delay: 0.5 }
+        }
+      >
+        <div className="wrap hero-strip-inner">
+          <div className="hero-strip-addr">Harpener Heide 9 · 44805 Bochum</div>
+          <div className="hero-strip-facts">
+            {STRIP.map((item) => (
+              <div key={item.lbl}>
+                <span className="num">{item.num}</span>
+                <span className="lbl">{item.lbl}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
