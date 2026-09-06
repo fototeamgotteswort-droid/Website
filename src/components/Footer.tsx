@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot-grid">
           <div>
-            <h4>Christusgemeinde Gottes Wort</h4>
+            <h4>Christengemeinde Gottes Wort</h4>
             <ul>
               <li>Harpener Heide 9</li>
               <li>44805 Bochum</li>
@@ -64,7 +64,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© Christusgemeinde Gottes Wort Bochum</span>
+          <span>© Christengemeinde Gottes Wort Bochum</span>
           <span>Sonntags 11:00 Uhr · Harpener Heide 9, Bochum</span>
         </div>
       </div>

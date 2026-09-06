@@ -6,9 +6,9 @@ import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
 const SITE_URL = "https://christusgemeinde-bo-nord.de";
-const SITE_NAME = "Christusgemeinde Gottes Wort Bochum";
+const SITE_NAME = "Christengemeinde Gottes Wort Bochum";
 const SITE_DESCRIPTION =
-  "Christusgemeinde Gottes Wort Bochum — eine deutsch-russischsprachige Gemeinde für die ganze Familie. Jeden Sonntag 11 Uhr, Harpener Heide 9.";
+  "Christengemeinde Gottes Wort Bochum — eine deutsch-russischsprachige Gemeinde für die ganze Familie. Jeden Sonntag 11 Uhr, Harpener Heide 9.";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "/images/hero-poster.jpg",
         width: 1600,
         height: 899,
-        alt: "Christusgemeinde Gottes Wort Bochum",
+        alt: "Christengemeinde Gottes Wort Bochum",
       },
     ],
   },

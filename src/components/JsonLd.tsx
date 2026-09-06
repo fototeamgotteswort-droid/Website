@@ -2,7 +2,7 @@ export default function JsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "Church",
-    name: "Christusgemeinde Gottes Wort Bochum",
+    name: "Christengemeinde Gottes Wort Bochum",
     url: "https://christusgemeinde-bo-nord.de",
     email: "info@christusgemeinde-bo-nord.de",
     address: {

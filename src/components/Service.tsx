@@ -42,7 +42,7 @@ export default function Service() {
           <div className="service-photo">
             <Image
               src="/images/img-2938.jpg"
-              alt="Gottesdienst der Christusgemeinde Gottes Wort mit Lobpreisband und Gemeinde"
+              alt="Gottesdienst der Christengemeinde Gottes Wort mit Lobpreisband und Gemeinde"
               width={1000}
               height={1250}
               sizes="(max-width: 900px) 100vw, 45vw"

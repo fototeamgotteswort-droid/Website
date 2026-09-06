@@ -49,7 +49,7 @@ export default function Kids() {
             <div className="kid-photo">
               <Image
                 src="/images/jugend-konferenz.jpg"
-                alt="Jugendgruppe der Christusgemeinde Gottes Wort bei einem Treffen"
+                alt="Jugendgruppe der Christengemeinde Gottes Wort bei einem Treffen"
                 width={1000}
                 height={800}
                 sizes="(max-width: 820px) 100vw, 50vw"

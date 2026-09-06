@@ -50,7 +50,7 @@ export default function Header() {
               />
             </svg>
             <span className="brand-text">
-              <span className="t1">Christusgemeinde Gottes Wort</span>
+              <span className="t1">Christengemeinde Gottes Wort</span>
               <span className="t2">Bochum · Deutsch &amp; Русский</span>
             </span>
           </a>

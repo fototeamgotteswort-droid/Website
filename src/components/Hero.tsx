@@ -60,7 +60,7 @@ export default function Hero() {
 
       <div className="wrap hero-inner">
         <motion.div className="hero-kicker" {...enter(12, 0, 0.7)}>
-          Christusgemeinde Gottes Wort
+          Christengemeinde Gottes Wort
         </motion.div>
 
         <motion.h1 className="headline" {...enter(26, 0.1, 0.9)}>
