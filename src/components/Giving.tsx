@@ -1,37 +1,40 @@
+"use client";
+
 import CopyField from "./CopyField";
 import Reveal from "./Reveal";
+import { useT } from "./LanguageProvider";
 
 export default function Giving() {
+  const t = useT();
+
   return (
     <section className="giving" id="geben">
       <div className="wrap">
         <Reveal>
-          <span className="eyebrow on-dark">Geben</span>
+          <span className="eyebrow on-dark">{t.giving.eyebrow}</span>
           <h2>
-            Möglichmacher
+            {t.giving.heading[0]}
             <br />
-            werden.
+            {t.giving.heading[1]}
           </h2>
-          <p>
-            Unsere Gemeinde finanziert sich ausschließlich durch die
-            Großzügigkeit von Menschen wie dir. Auf Wunsch stellen wir dir
-            gerne eine Spendenbescheinigung aus.
-          </p>
+          <p>{t.giving.text}</p>
           <div style={{ marginTop: 30 }}>
             <a
-              href="mailto:info@christusgemeinde-bo-nord.de?subject=Spendenbescheinigung"
+              href={`mailto:info@christusgemeinde-bo-nord.de?subject=${encodeURIComponent(
+                t.giving.mailSubject,
+              )}`}
               className="btn btn-solid"
             >
-              Jetzt unterstützen
+              {t.giving.cta}
             </a>
           </div>
         </Reveal>
         <Reveal className="giving-box" delay={0.1}>
-          <span className="mono">Bankverbindung</span>
+          <span className="mono">{t.giving.bankLabel}</span>
           <dl>
             <div>
-              <dt>Empfänger</dt>
-              <dd>Gemeinschaft Freier Christusgemeinden e. V.</dd>
+              <dt>{t.giving.recipientLabel}</dt>
+              <dd>{t.giving.recipient}</dd>
             </div>
             <div>
               <dt>IBAN</dt>

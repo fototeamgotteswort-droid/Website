@@ -3,6 +3,8 @@ import { Fraunces, Work_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/MotionProvider";
+import LanguageProvider from "@/components/LanguageProvider";
+import SkipLink from "@/components/SkipLink";
 import "./globals.css";
 
 const SITE_URL = "https://christusgemeinde-bo-nord.de";
@@ -69,10 +71,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${fraunces.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <a href="#ueber-uns" className="skip-link">
-          Zum Inhalt springen
-        </a>
-        <MotionProvider>{children}</MotionProvider>
+        <LanguageProvider>
+          <SkipLink />
+          <MotionProvider>{children}</MotionProvider>
+        </LanguageProvider>
         <Analytics />
         <SpeedInsights />
       </body>

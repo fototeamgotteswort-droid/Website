@@ -1,71 +1,78 @@
+"use client";
+
+import { useT } from "./LanguageProvider";
+
 export default function Footer() {
+  const t = useT();
+
   return (
     <footer>
       <div className="wrap">
         <div className="foot-grid">
           <div>
-            <h4>Christengemeinde Gottes Wort</h4>
+            <h4>{t.footer.addressHeading}</h4>
             <ul>
-              <li>Harpener Heide 9</li>
-              <li>44805 Bochum</li>
+              {t.footer.address.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
             </ul>
           </div>
           <div>
-            <h4>Entdecken</h4>
+            <h4>{t.footer.discoverHeading}</h4>
             <ul>
               <li>
-                <a href="#ueber-uns">Über uns</a>
+                <a href="#ueber-uns">{t.nav.about}</a>
               </li>
               <li>
-                <a href="#gottesdienst">Gottesdienst</a>
+                <a href="#gottesdienst">{t.nav.service}</a>
               </li>
               <li>
                 <a href="/api/live" target="_blank" rel="noopener noreferrer">
-                  Livestream
+                  {t.footer.livestream}
                 </a>
               </li>
               <li>
-                <a href="#kinder-jugend">Kinder &amp; Jugend</a>
+                <a href="#kinder-jugend">{t.nav.kids}</a>
               </li>
               <li>
-                <a href="#programme">Programme</a>
+                <a href="#programme">{t.nav.programs}</a>
               </li>
             </ul>
           </div>
           <div>
-            <h4>Mitmachen</h4>
+            <h4>{t.footer.joinHeading}</h4>
             <ul>
               <li>
-                <a href="#geben">Geben</a>
+                <a href="#geben">{t.nav.giving}</a>
               </li>
               <li>
-                <a href="#andacht">Andacht</a>
+                <a href="#andacht">{t.nav.andacht}</a>
               </li>
               <li>
-                <a href="#kontakt">Kontakt</a>
+                <a href="#kontakt">{t.nav.contact}</a>
               </li>
             </ul>
           </div>
           <div>
-            <h4>Rechtliches</h4>
+            <h4>{t.footer.legalHeading}</h4>
             <ul>
               {/* zeigen noch auf die alte wordpress-seite — vor domain-umzug prüfen */}
               <li>
                 <a href="https://christusgemeinde-bo-nord.de/impressum/">
-                  Impressum
+                  {t.footer.imprint}
                 </a>
               </li>
               <li>
                 <a href="https://christusgemeinde-bo-nord.de/datenschutz/">
-                  Datenschutz
+                  {t.footer.privacy}
                 </a>
               </li>
             </ul>
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© Christengemeinde Gottes Wort Bochum</span>
-          <span>Sonntags 11:00 Uhr · Harpener Heide 9, Bochum</span>
+          <span>{t.footer.copyright}</span>
+          <span>{t.footer.meta}</span>
         </div>
       </div>
     </footer>

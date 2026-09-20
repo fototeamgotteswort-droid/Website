@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useT } from "./LanguageProvider";
 
 const ROUTE_URL =
   "https://www.google.com/maps/dir/?api=1&destination=Harpener+Heide+9%2C+44805+Bochum";
 
 export default function MapEmbed() {
+  const t = useT();
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   if (isMapLoaded) {
@@ -16,7 +18,7 @@ export default function MapEmbed() {
           <iframe
             className="map-frame"
             src="https://www.openstreetmap.org/export/embed.html?bbox=7.2680%2C51.4930%2C7.2880%2C51.5030&layer=mapnik&marker=51.4980%2C7.2780"
-            title="Karte: Harpener Heide 9, 44805 Bochum"
+            title={t.map.title}
             loading="lazy"
           />
         </div>
@@ -27,7 +29,7 @@ export default function MapEmbed() {
             rel="noopener noreferrer"
             className="btn btn-solid"
           >
-            Route planen
+            {t.map.route}
           </a>
         </div>
       </div>
@@ -38,17 +40,15 @@ export default function MapEmbed() {
     <div className="map-shell">
       <div>
         <div className="pin" />
-        <p className="mono">Harpener Heide 9 · 44805 Bochum</p>
-        <p className="map-hint">
-          Beim Laden der Karte werden Daten an OpenStreetMap übertragen.
-        </p>
+        <p className="mono">{t.map.address}</p>
+        <p className="map-hint">{t.map.hint}</p>
         <div className="map-actions">
           <button
             type="button"
             className="btn btn-ghost on-light"
             onClick={() => setIsMapLoaded(true)}
           >
-            Karte laden
+            {t.map.load}
           </button>
           <a
             href={ROUTE_URL}
@@ -56,7 +56,7 @@ export default function MapEmbed() {
             rel="noopener noreferrer"
             className="btn btn-solid"
           >
-            Route planen
+            {t.map.route}
           </a>
         </div>
       </div>

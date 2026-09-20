@@ -2,14 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-
-const STRIP = [
-  { num: "11:00", lbl: "Sonntags · DE & RU" },
-  { num: "3–12", lbl: "Kinderarche" },
-  { num: "A40/A43", lbl: "Eigener Parkplatz" },
-];
+import { useT } from "./LanguageProvider";
 
 export default function Hero() {
+  const t = useT();
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
 
@@ -60,18 +56,18 @@ export default function Hero() {
 
       <div className="wrap hero-inner">
         <motion.div className="hero-kicker" {...enter(12, 0, 0.7)}>
-          Christengemeinde Gottes Wort
+          {t.hero.kicker}
         </motion.div>
 
         <motion.h1 className="headline" {...enter(26, 0.1, 0.9)}>
-          Gemeinsam Glauben
+          {t.hero.headline[0]}
           <br />
-          Gemeinsam Wachsen
+          {t.hero.headline[1]}
         </motion.h1>
 
         <motion.div className="hero-cta" {...enter(16, 0.25)}>
           <a href="#gottesdienst" className="btn-hero">
-            Persönlich teilnehmen <span aria-hidden="true">→</span>
+            {t.hero.ctaOnsite} <span aria-hidden="true">→</span>
           </a>
           <a
             href="/api/live"
@@ -79,7 +75,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Online teilnehmen <span aria-hidden="true">→</span>
+            {t.hero.ctaOnline} <span aria-hidden="true">→</span>
           </a>
         </motion.div>
       </div>
@@ -95,10 +91,10 @@ export default function Hero() {
         }
       >
         <div className="wrap hero-strip-inner">
-          <div className="hero-strip-addr">Harpener Heide 9 · 44805 Bochum</div>
+          <div className="hero-strip-addr">{t.hero.address}</div>
           <div className="hero-strip-facts">
-            {STRIP.map((item) => (
-              <div key={item.lbl}>
+            {t.hero.strip.map((item) => (
+              <div key={item.num}>
                 <span className="num">{item.num}</span>
                 <span className="lbl">{item.lbl}</span>
               </div>

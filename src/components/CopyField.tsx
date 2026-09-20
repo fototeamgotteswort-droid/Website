@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useT } from "./LanguageProvider";
 
 export default function CopyField({
   value,
@@ -9,6 +10,7 @@ export default function CopyField({
   value: string;
   copyValue?: string;
 }) {
+  const t = useT();
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -32,7 +34,7 @@ export default function CopyField({
         onClick={handleCopy}
         aria-live="polite"
       >
-        {isCopied ? "Kopiert" : "Kopieren"}
+        {isCopied ? t.copy.done : t.copy.action}
       </button>
     </div>
   );

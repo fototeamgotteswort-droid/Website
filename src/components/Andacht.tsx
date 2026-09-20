@@ -1,13 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Reveal from "./Reveal";
+import { useT } from "./LanguageProvider";
 
 export default function Andacht() {
+  const t = useT();
+
   return (
     <section className="andacht" id="andacht">
       <div className="andacht-photo">
         <Image
           src="/images/andacht-palmsonntag.png"
-          alt="Illustration: Jesus reitet auf einem Esel nach Jerusalem, im Hintergrund ein Kreuz auf einem Hügel"
+          alt={t.andacht.imageAlt}
           width={1600}
           height={1100}
           sizes="100vw"
@@ -16,14 +21,9 @@ export default function Andacht() {
         />
       </div>
       <Reveal className="wrap andacht-inner" style={{ color: "var(--shell)" }}>
-        <span className="eyebrow on-dark">Andacht</span>
-        <h2>Gefeiert — und doch für uns ans Kreuz gegangen.</h2>
-        <p className="andacht-text">
-          An Palmsonntag zog Jesus auf einem Esel in Jerusalem ein — nicht mit
-          Macht, sondern in Demut. Die Menge feierte ihn. Wenige Tage später
-          ging er für uns ans Kreuz. Deshalb feiern wir ihn: nicht weil er
-          herrschte, sondern weil er sich hingab.
-        </p>
+        <span className="eyebrow on-dark">{t.andacht.eyebrow}</span>
+        <h2>{t.andacht.heading}</h2>
+        <p className="andacht-text">{t.andacht.text}</p>
       </Reveal>
     </section>
   );

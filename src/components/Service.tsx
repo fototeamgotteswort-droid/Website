@@ -1,48 +1,31 @@
+"use client";
+
 import Image from "next/image";
 import Reveal from "./Reveal";
-
-const FAQ = [
-  {
-    q: "Wo kann ich parken?",
-    a: "Wir haben einen eigenen Parkplatz auf dem Gemeindegrundstück, die ganze Straße Harpener Heide steht zur Verfügung und umliegend findest du größere Parkplätze.",
-  },
-  {
-    q: "Gibt es einen Dresscode?",
-    a: "Nein — bei uns ist alles dabei, von lässiger Freizeitkleidung bis zur adretten Sonntagsgarderobe.",
-  },
-  {
-    q: "Was passiert nach dem Gottesdienst?",
-    a: "Wir laden dich herzlich ein, länger zu bleiben: In unserer Kantine gibt's Mittagessen (3 € Erw. / 2 € Kinder), danach Gespräche, Gruppentreffen und sportliche Aktivitäten wie Volleyball oder Tischtennis.",
-  },
-  {
-    q: "Muss ich mich vorher anmelden?",
-    a: "Nein, du kannst einfach kommen. Wir freuen uns auf dich!",
-  },
-];
+import { useT } from "./LanguageProvider";
 
 export default function Service() {
+  const t = useT();
+
   return (
     <section className="service" id="gottesdienst">
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="eyebrow on-dark">Gottesdienst</span>
+            <span className="eyebrow on-dark">{t.service.eyebrow}</span>
             <h2>
-              Jeden Sonntag,
+              {t.service.heading[0]}
               <br />
-              gemeinsam.
+              {t.service.heading[1]}
             </h2>
           </div>
-          <p>
-            Lobpreis, Gebet und eine Predigt, die im Alltag ankommt — bilingual,
-            für jeden verständlich.
-          </p>
+          <p>{t.service.lead}</p>
         </Reveal>
         <Reveal className="service-grid">
           <div className="service-photo">
             <Image
               src="/images/img-2938.jpg"
-              alt="Gottesdienst der Christengemeinde Gottes Wort mit Lobpreisband und Gemeinde"
+              alt={t.service.imageAlt}
               width={1000}
               height={1250}
               sizes="(max-width: 900px) 100vw, 45vw"
@@ -52,17 +35,13 @@ export default function Service() {
           </div>
           <div>
             <div className="service-time">
-              <span>Jeden Sonntag</span>11:00
+              <span>{t.service.timeLabel}</span>
+              {t.service.time}
             </div>
             <div className="service-desc">
-              <p>
-                Der Gottesdienst wird von der Bühne aus ins Deutsche und
-                Russische übersetzt — bilingual, ca. 2 Stunden.
-              </p>
-              <p>
-                Komm ruhig 15 Minuten früher, für einen Parkplatz, einen
-                Kaffee und einen entspannten Start.
-              </p>
+              {t.service.desc.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
             </div>
             <div className="service-cta">
               <a
@@ -71,33 +50,25 @@ export default function Service() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Online mitfeiern
+                {t.service.ctaOnline}
               </a>
-              <p>
-                Der Link führt direkt zur laufenden Übertragung auf YouTube.
-                Läuft gerade nichts, siehst du den nächsten Termin.
-              </p>
+              <p>{t.service.ctaNote}</p>
             </div>
             <div className="info-row">
               <div className="info-cell">
-                <span className="mono">Anfahrt · PKW</span>
-                <p>
-                  Gut erreichbar über A40 &amp; A43. Eigener Parkplatz sowie
-                  entlang der Harpener Heide.
-                </p>
+                <span className="mono">{t.service.infoCar.label}</span>
+                <p>{t.service.infoCar.text}</p>
               </div>
               <div className="info-cell">
-                <span className="mono">Anfahrt · ÖPNV</span>
-                <p>
-                  Rund 10 Min. Fußweg von der S-Bahn-Haltestelle Weserstraße.
-                </p>
+                <span className="mono">{t.service.infoTransit.label}</span>
+                <p>{t.service.infoTransit.text}</p>
               </div>
             </div>
           </div>
         </Reveal>
 
         <Reveal className="faq">
-          {FAQ.map((item) => (
+          {t.service.faq.map((item) => (
             <details className="faq-item" key={item.q}>
               <summary>{item.q}</summary>
               <div className="faq-a">{item.a}</div>

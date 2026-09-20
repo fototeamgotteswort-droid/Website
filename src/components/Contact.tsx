@@ -1,36 +1,41 @@
+"use client";
+
 import MapEmbed from "./MapEmbed";
 import Reveal from "./Reveal";
+import { useT } from "./LanguageProvider";
 
 export default function Contact() {
+  const t = useT();
+
   return (
     <section id="kontakt">
       <div className="wrap contact-grid">
         <Reveal>
-          <span className="eyebrow">Kontakt &amp; Anfahrt</span>
+          <span className="eyebrow">{t.contact.eyebrow}</span>
           <h2 style={{ fontSize: "clamp(1.9rem,4.4vw,2.7rem)" }}>
-            Wir freuen
+            {t.contact.heading[0]}
             <br />
-            uns auf dich.
+            {t.contact.heading[1]}
           </h2>
           <div className="contact-list">
             <div>
-              <span className="mono">Adresse</span>
+              <span className="mono">{t.contact.addressLabel}</span>
               <p>
-                Harpener Heide 9
+                {t.contact.address[0]}
                 <br />
-                44805 Bochum
+                {t.contact.address[1]}
               </p>
             </div>
             <div>
-              <span className="mono">Gottesdienst</span>
-              <p>Sonntags, 11:00 Uhr</p>
+              <span className="mono">{t.contact.serviceLabel}</span>
+              <p>{t.contact.serviceText}</p>
             </div>
             <div>
-              <span className="mono">Anfahrt</span>
-              <p>Eigener Parkplatz · ca. 10 Min. Fußweg von der S-Bahn-Haltestelle Weserstraße.</p>
+              <span className="mono">{t.contact.routeLabel}</span>
+              <p>{t.contact.routeText}</p>
             </div>
             <div>
-              <span className="mono">Nachricht schreiben</span>
+              <span className="mono">{t.contact.mailLabel}</span>
               <a href="mailto:info@christusgemeinde-bo-nord.de">
                 info@christusgemeinde-bo-nord.de
               </a>

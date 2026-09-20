@@ -2,18 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Dict } from "@/lib/i18n";
+import { useT } from "./LanguageProvider";
+import LanguageToggle from "./LanguageToggle";
 
-const NAV_LINKS = [
-  { href: "#ueber-uns", label: "Über uns" },
-  { href: "#andacht", label: "Andacht" },
-  { href: "#gottesdienst", label: "Gottesdienst" },
-  { href: "#kinder-jugend", label: "Kinder & Jugend" },
-  { href: "#programme", label: "Programme" },
-  { href: "#geben", label: "Geben" },
-  { href: "#kontakt", label: "Kontakt" },
+const NAV_LINKS: { href: string; key: keyof Dict["nav"] }[] = [
+  { href: "#ueber-uns", key: "about" },
+  { href: "#andacht", key: "andacht" },
+  { href: "#gottesdienst", key: "service" },
+  { href: "#kinder-jugend", key: "kids" },
+  { href: "#programme", key: "programs" },
+  { href: "#geben", key: "giving" },
+  { href: "#kontakt", key: "contact" },
 ];
 
 export default function Header() {
+  const t = useT();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -50,29 +54,32 @@ export default function Header() {
               />
             </svg>
             <span className="brand-text">
-              <span className="t1">Christengemeinde Gottes Wort</span>
-              <span className="t2">Bochum · Deutsch &amp; Русский</span>
+              <span className="t1">{t.brand.name}</span>
+              <span className="t2">{t.brand.tagline}</span>
             </span>
           </a>
           <nav>
             <ul>
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href}>{t.nav[link.key]}</a>
                 </li>
               ))}
             </ul>
           </nav>
-          <button
-            className={`navbtn${open ? " open" : ""}`}
-            aria-label={open ? "Menü schließen" : "Menü öffnen"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+          <div className="navrow-end">
+            <LanguageToggle />
+            <button
+              className={`navbtn${open ? " open" : ""}`}
+              aria-label={open ? t.menu.close : t.menu.open}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -94,7 +101,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                {link.label}
+                {t.nav[link.key]}
               </motion.a>
             ))}
           </motion.div>
