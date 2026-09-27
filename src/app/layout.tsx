@@ -47,7 +47,7 @@ export const metadata: Metadata = {
       {
         url: "/images/hero-poster.jpg",
         width: 1600,
-        height: 899,
+        height: 900,
         alt: "Christengemeinde Gottes Wort Bochum",
       },
     ],
