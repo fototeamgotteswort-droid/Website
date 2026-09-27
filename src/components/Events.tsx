@@ -57,97 +57,190 @@ const EVENTS: {
   },
 ];
 
-type Metrics = {
-  atStart: boolean;
-  atEnd: boolean;
-  /** Anteil des Sichtfensters am Gesamtinhalt — die Breite des Balkens. */
-  visible: number;
-  /** Scrollfortschritt von 0 bis 1 — die Position des Balkens. */
-  progress: number;
-};
-
-function readMetrics(el: HTMLElement): Metrics {
-  const scrollable = el.scrollWidth - el.clientWidth;
-  return {
-    atStart: el.scrollLeft <= 1,
-    atEnd: el.scrollLeft >= scrollable - 1,
-    visible: el.scrollWidth > 0 ? el.clientWidth / el.scrollWidth : 1,
-    progress: scrollable > 0 ? el.scrollLeft / scrollable : 0,
-  };
-}
+// Die Liste steht dreimal hintereinander im Markup. Gelaufen wird immer in
+// der mittleren Kopie: so ist links und rechts eine ganze Runde Vorlauf da,
+// und beim Umsetzen um genau eine Runde sieht das Bild identisch aus.
+const COPIES = 3;
+/** Tempo des Selbstlaufs in Pixeln pro Sekunde. */
+const SPEED = 26;
+/** So lange nach einer Eingabe bleibt der Selbstlauf aus. */
+const HOLD_AFTER_INPUT = 2500;
 
 export default function Events() {
   const t = useT();
   const reduced = useReducedMotion();
   const scroller = useRef<HTMLDivElement>(null);
-  /** Zuletzt angefragte Scrollposition, solange die Bewegung noch laeuft. */
-  const pending = useRef<number | null>(null);
-  const [metrics, setMetrics] = useState<Metrics>({
-    atStart: true,
-    atEnd: false,
-    visible: 1,
-    progress: 0,
-  });
+
+  // Laenge einer Runde, also aller sechs Karten inklusive Abstaenden.
+  const lap = useRef(0);
+  // Sollposition als Gleitkommazahl: 26 px/s sind pro Bild weniger als ein
+  // Pixel, ein Integer-Zaehler wuerde stehen bleiben.
+  const target = useRef<number | null>(null);
+  const placed = useRef(false);
+  const pointerDown = useRef(false);
+  const hovered = useRef(false);
+  const holdUntil = useRef(0);
+  const [visible, setVisible] = useState(false);
+
+  const hold = useCallback((ms: number) => {
+    holdUntil.current = Math.max(
+      holdUntil.current,
+      performance.now() + ms,
+    );
+  }, []);
 
   useEffect(() => {
     const el = scroller.current;
     if (!el) return;
 
-    let idle: ReturnType<typeof setTimeout>;
-    const update = () => {
-      setMetrics(readMetrics(el));
-      // Kommen keine Scroll-Events mehr, ist die Bewegung angekommen und das
-      // angefragte Ziel darf vergessen werden.
-      clearTimeout(idle);
-      idle = setTimeout(() => {
-        pending.current = null;
-      }, 140);
+    const measure = () => {
+      const cards = Array.from(el.querySelectorAll<HTMLElement>(".event-card"));
+      const first = cards[0];
+      const secondLap = cards[EVENTS.length];
+      lap.current =
+        first && secondLap ? secondLap.offsetLeft - first.offsetLeft : 0;
     };
 
-    el.addEventListener("scroll", update, { passive: true });
     // Der Observer meldet sich direkt nach observe() einmal von selbst —
-    // damit stehen die Startwerte da, ohne setState im Effekt-Rumpf.
-    const observer = new ResizeObserver(update);
-    observer.observe(el);
+    // damit steht das Mass da, ohne setState im Effekt-Rumpf.
+    const sizes = new ResizeObserver(measure);
+    sizes.observe(el);
+    // Ausserhalb des Blickfelds muss nichts laufen.
+    const inView = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: "120px" },
+    );
+    inView.observe(el);
 
     return () => {
-      clearTimeout(idle);
-      el.removeEventListener("scroll", update);
-      observer.disconnect();
+      sizes.disconnect();
+      inView.disconnect();
     };
   }, []);
+
+  // Eingaben anmelden: waehrend und kurz nach einer Beruehrung, einem Wisch
+  // oder einem Radscroll fassen wir die Position nicht an, sonst wuerde der
+  // Selbstlauf den Schwung des Nutzers abschneiden.
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+
+    const down = () => {
+      pointerDown.current = true;
+      hold(HOLD_AFTER_INPUT);
+    };
+    const up = () => {
+      pointerDown.current = false;
+      hold(HOLD_AFTER_INPUT);
+    };
+    const input = () => hold(HOLD_AFTER_INPUT);
+    const enter = () => {
+      hovered.current = true;
+    };
+    const leave = () => {
+      hovered.current = false;
+    };
+
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("wheel", input, { passive: true });
+    el.addEventListener("keydown", input);
+    el.addEventListener("mouseenter", enter);
+    el.addEventListener("mouseleave", leave);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+
+    return () => {
+      el.removeEventListener("pointerdown", down);
+      el.removeEventListener("wheel", input);
+      el.removeEventListener("keydown", input);
+      el.removeEventListener("mouseenter", enter);
+      el.removeEventListener("mouseleave", leave);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+    };
+  }, [hold]);
+
+  useEffect(() => {
+    if (reduced || !visible) return;
+    const el = scroller.current;
+    if (!el) return;
+
+    let frame = 0;
+    let previous = performance.now();
+
+    // Tastaturfokus im Karussell: der Browser scrollt das fokussierte Element
+    // selbst ins Bild. Dann darf weder der Selbstlauf noch der Umlauf die
+    // Position verschieben, sonst wandert der Fokusrahmen aus dem Bild.
+    // ":focus-visible" trennt Tastatur von Maus — nach einem Klick bleibt das
+    // Karussell also nicht stehen.
+    const keyboardInside = () => {
+      const active = document.activeElement;
+      return !!active && el.contains(active) && active.matches(":focus-visible");
+    };
+
+    const tick = (now: number) => {
+      frame = requestAnimationFrame(tick);
+      // Nach einem Tab-Wechsel ist der Abstand riesig — nicht springen.
+      const elapsed = Math.min(now - previous, 100);
+      previous = now;
+
+      const length = lap.current;
+      if (length <= 0) return;
+
+      if (!placed.current) {
+        el.scrollLeft = length;
+        target.current = length;
+        placed.current = true;
+        return;
+      }
+
+      if (pointerDown.current || now < holdUntil.current) {
+        // Der Nutzer hat das Steuer; danach lesen wir neu ein.
+        target.current = null;
+        return;
+      }
+
+      const focusHeld = keyboardInside();
+      if (focusHeld) {
+        target.current = null;
+        return;
+      }
+
+      if (target.current === null || Math.abs(el.scrollLeft - target.current) > 2) {
+        target.current = el.scrollLeft;
+      }
+      if (!hovered.current) {
+        target.current += (SPEED * elapsed) / 1000;
+      }
+      // In der mittleren Kopie halten. Weil sich der Inhalt alle "length"
+      // Pixel wiederholt, ist der Sprung nicht zu sehen.
+      if (target.current >= length * 2) target.current -= length;
+      else if (target.current < length) target.current += length;
+
+      el.scrollLeft = target.current;
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [reduced, visible]);
 
   const step = useCallback(
     (direction: 1 | -1) => {
       const el = scroller.current;
       if (!el) return;
-      const cards = Array.from(el.querySelectorAll<HTMLElement>(".event-card"));
-      if (cards.length === 0) return;
-
-      // Die Rastpunkte liegen genau auf den Kartenkanten. Wir springen auf
-      // einen davon statt um eine Distanz zu scrollen: bei "mandatory" macht
-      // der Browser eine Zwischenposition sonst sofort wieder rueckgaengig.
-      const base = cards[0].offsetLeft;
-      const stops = cards.map((card) => card.offsetLeft - base);
-
-      // Waehrend eine weiche Bewegung noch laeuft, liefert scrollLeft einen
-      // Zwischenwert. Dann rechnen wir vom angefragten Ziel weiter, sonst
-      // verpuffen schnelle Klicks.
-      const from = pending.current ?? el.scrollLeft;
-      const next =
-        direction > 0
-          ? stops.find((stop) => stop > from + 1)
-          : stops.filter((stop) => stop < from - 1).pop();
-      if (next === undefined) return;
-
-      const left = Math.min(next, el.scrollWidth - el.clientWidth);
-      pending.current = left;
-      el.scrollTo({ left, behavior: reduced ? "auto" : "smooth" });
+      const card = el.querySelector<HTMLElement>(".event-card");
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      const distance = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
+      // Der Selbstlauf schreibt jedes Bild in scrollLeft und wuerde die
+      // weiche Bewegung sofort ueberschreiben — also kurz aussetzen.
+      hold(reduced ? 0 : 900);
+      el.scrollBy({
+        left: distance * direction,
+        behavior: reduced ? "auto" : "smooth",
+      });
     },
-    [reduced],
+    [hold, reduced],
   );
-
-  const barWidth = Math.min(100, metrics.visible * 100);
 
   return (
     <section className="events" id="termine">
@@ -162,7 +255,6 @@ export default function Events() {
             <button
               type="button"
               aria-label={t.events.prev}
-              disabled={metrics.atStart}
               onClick={() => step(-1)}
             >
               <span aria-hidden="true">←</span>
@@ -170,7 +262,6 @@ export default function Events() {
             <button
               type="button"
               aria-label={t.events.next}
-              disabled={metrics.atEnd}
               onClick={() => step(1)}
             >
               <span aria-hidden="true">→</span>
@@ -186,42 +277,43 @@ export default function Events() {
         aria-label={t.events.regionLabel}
         tabIndex={0}
       >
-        {EVENTS.map((event, i) => {
-          const copy = t.events.items[event.id];
-          return (
-            <article className="event-card" key={event.id}>
-              <div className="event-media">
-                <Image
-                  src={event.image}
-                  alt={copy.imageAlt}
-                  fill
-                  sizes="(max-width: 640px) 78vw, (max-width: 1024px) 40vw, 320px"
-                  loading={i < 2 ? "eager" : "lazy"}
-                  style={{ objectFit: "cover", objectPosition: event.position }}
-                />
-              </div>
-              <div className="event-body">
-                <span className="event-when">{copy.when}</span>
-                <h3>{copy.title}</h3>
-                <p>{copy.text}</p>
-                <a href={event.href} className="btn btn-ghost on-light event-cta">
-                  {copy.cta}
-                </a>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-
-      <div className="wrap">
-        <div className="events-rail" aria-hidden="true">
-          <span
-            style={{
-              width: `${barWidth}%`,
-              left: `${metrics.progress * (100 - barWidth)}%`,
-            }}
-          />
-        </div>
+        {Array.from({ length: COPIES }, (_, copy) =>
+          EVENTS.map((event, i) => {
+            const copy0 = copy === 0;
+            const info = t.events.items[event.id];
+            return (
+              <article
+                className="event-card"
+                key={`${copy}-${event.id}`}
+                data-copy={copy0 ? undefined : "repeat"}
+                aria-hidden={copy0 ? undefined : true}
+              >
+                <div className="event-media">
+                  <Image
+                    src={event.image}
+                    alt={copy0 ? info.imageAlt : ""}
+                    fill
+                    sizes="(max-width: 640px) 78vw, (max-width: 1024px) 40vw, 320px"
+                    loading={copy0 && i < 2 ? "eager" : "lazy"}
+                    style={{ objectFit: "cover", objectPosition: event.position }}
+                  />
+                </div>
+                <div className="event-body">
+                  <span className="event-when">{info.when}</span>
+                  <h3>{info.title}</h3>
+                  <p>{info.text}</p>
+                  <a
+                    href={event.href}
+                    className="btn btn-ghost on-light event-cta"
+                    tabIndex={copy0 ? undefined : -1}
+                  >
+                    {info.cta}
+                  </a>
+                </div>
+              </article>
+            );
+          }),
+        )}
       </div>
     </section>
   );
