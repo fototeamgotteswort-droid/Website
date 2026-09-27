@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Events from "@/components/Events";
 import Andacht from "@/components/Andacht";
 import Service from "@/components/Service";
 import Kids from "@/components/Kids";
@@ -17,6 +18,7 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
+      <Events />
       <Andacht />
       <Service />
       <Kids />

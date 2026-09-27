@@ -1065,6 +1065,183 @@ details.creed .creed-body p {
   opacity: 0.85;
 }
 
+/* termine — karussell zwischen "ueber uns" und der andacht */
+.events {
+  background: var(--shell-2);
+  padding: 92px 0;
+  /* die karten laufen rechts aus dem bild; ohne clip gaebe es eine
+     seitliche scrollbar fuer die ganze seite */
+  overflow: hidden;
+}
+.events-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px 48px;
+  margin-bottom: 42px;
+  flex-wrap: wrap;
+}
+.events-head h2 {
+  font-size: clamp(2rem, 4.4vw, 2.9rem);
+}
+.events-head-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 28px;
+  flex: 1 1 380px;
+  flex-wrap: wrap;
+}
+.events-head-end p {
+  max-width: 330px;
+  color: var(--storm);
+  opacity: 0.75;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+.events-nav {
+  display: flex;
+  gap: 10px;
+  flex: none;
+}
+.events-nav button {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: none;
+  color: var(--navy);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s, opacity 0.25s;
+}
+.events-nav button:hover:not(:disabled) {
+  border-color: var(--deepsea);
+  color: var(--deepsea);
+}
+.events-nav button:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+/* der scroller beginnt an der textkante und endet offen am rechten rand */
+.events-scroller {
+  /* linker einzug = textkante der wrap-spalte, damit die erste karte
+     unter der ueberschrift beginnt */
+  --events-inset: max(28px, calc((100% - var(--maxw)) / 2 + 28px));
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* ohne scroll-padding rastet die erste karte auf den rand statt auf die
+     textkante und der scroller startet um den einzug verschoben */
+  scroll-padding-inline-start: var(--events-inset);
+  scroll-behavior: smooth;
+  padding-block: 6px;
+  padding-inline: var(--events-inset) 28px;
+  scrollbar-width: none;
+}
+.events-scroller::-webkit-scrollbar {
+  display: none;
+}
+/* der scroller ist per tastatur erreichbar; der rahmen liegt innen, weil die
+   sektion rechts abschneidet */
+.events-scroller:focus-visible {
+  outline: 2px solid var(--deepsea);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .events-scroller {
+    scroll-behavior: auto;
+  }
+}
+.event-card {
+  flex: 0 0 clamp(252px, 25vw, 318px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(27, 59, 77, 0.1);
+  border-color: var(--coastal);
+}
+.event-media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--navy-2);
+  flex: none;
+}
+.event-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 22px 24px 26px;
+  flex: 1;
+}
+.event-when {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--deepsea);
+}
+.event-body h3 {
+  font-size: 1.3rem;
+  line-height: 1.15;
+}
+.event-body p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--storm);
+  opacity: 0.85;
+  flex: 1;
+}
+.event-cta {
+  margin-top: 6px;
+  padding: 12px 22px;
+  font-size: 0.7rem;
+}
+
+/* haarlinie als fortschrittsanzeige — greift den strich der eyebrow auf */
+.events-rail {
+  position: relative;
+  height: 1px;
+  margin-top: 30px;
+  background: var(--line);
+}
+.events-rail span {
+  position: absolute;
+  top: 0;
+  height: 1px;
+  background: var(--deepsea);
+  transition: left 0.2s ease, width 0.2s ease;
+}
+
+@media (max-width: 760px) {
+  .events {
+    padding: 74px 0;
+  }
+  .events-head {
+    margin-bottom: 32px;
+  }
+  .events-head-end {
+    width: 100%;
+  }
+  .event-card {
+    flex-basis: min(78vw, 300px);
+  }
+}
+
 /* geben */
 .giving {
   background: var(--navy);
