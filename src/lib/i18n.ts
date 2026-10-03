@@ -131,7 +131,7 @@ const de = {
           ref: "Matthäus 18,20",
         },
         text: "Jeden Freitag kommen wir gemeinsam vor Gott, bringen ihm, was uns bewegt, danken ihm und beten für unsere Stadt und füreinander. Wir glauben: Wenn Christen gemeinsam beten, liegt darin eine gewaltige Kraft, die etwas bewegt.",
-        action: "Frag uns per WhatsApp",
+        action: null,
         imageAlt: "Frau mit rotem Kopftuch betet mit gefalteten Händen an einem Tisch",
       },
       jugendtreff: {
@@ -139,7 +139,7 @@ const de = {
         title: "Jugendtreff (16–24 Jahre)",
         verse: null,
         text: "Wir sind eine Generation, die für Jesus brennt, und glauben, dass Gott mit der Jugend Großes vorhat. Komm samstags dazu, feiere mit uns Gottesdienst, tausch dich aus und lass uns gemeinsam im Glauben wachsen.",
-        action: "Zur Jugend auf Instagram",
+        action: null,
         imageAlt: "Jugendliche sitzen nebeneinander an einer Hauswand im Gras und lächeln in die Kamera",
       },
       teenieTreff: {
@@ -147,7 +147,7 @@ const de = {
         title: "Teenie Treff (12–16 Jahre)",
         verse: null,
         text: "Wir glauben, dass Glaube schon in jungen Herzen Wurzeln schlägt. Deshalb treffen wir uns alle zwei Wochen samstags, lernen zusammen von Jesus, spielen, lachen und verbringen Zeit miteinander. Wer neu dazukommt, findet bei uns schnell Freunde.",
-        action: "Frag uns per WhatsApp",
+        action: null,
         imageAlt: "Gruppe von Kindern und Teenagern mit erhobenen Händen vor einer Leinwand",
       },
       // nicht aus dem Briefing: aus der Einladung des Frauendienst-Teams zusammengefasst
@@ -156,7 +156,7 @@ const de = {
         title: "Frauentreff",
         verse: null,
         text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen.",
-        action: "Frag uns per WhatsApp",
+        action: null,
         imageAlt: "Drei Frauen sitzen lächelnd zusammen an einem Tisch",
       },
       kleingruppen: {
@@ -164,7 +164,7 @@ const de = {
         title: "Kleingruppen",
         verse: null,
         text: "Christliches Leben spielt sich nicht nur am Sonntag ab. Deshalb treffen wir uns wie die ersten Christen in kleinen Gruppen, in der Gemeinde oder zu Hause. Wir sprechen über den Glauben und unseren Alltag und stärken uns gegenseitig als Brüder und Schwestern. Es gibt viele Gruppen, bestimmt auch eine, die zu dir passt.",
-        action: "Finde deine Gruppe",
+        action: null,
         imageAlt: "Frau spricht zu einer Gruppe an einem festlich gedeckten Tisch mit Kerzen",
       },
     },
@@ -211,10 +211,6 @@ const de = {
   // vorausgefuellte WhatsApp-Nachrichten aus Abschnitt 3 und 6
   whatsappText: {
     visit: "Hallo, ich möchte am Sonntag vorbeikommen",
-    gebetsabend: "Frage zum Gebetsabend",
-    teenieTreff: "Frage zum Teenie Treff",
-    frauentreff: "Frage zum Frauentreff",
-    kleingruppen: "Ich interessiere mich für eine Kleingruppe",
   },
 
   map: {

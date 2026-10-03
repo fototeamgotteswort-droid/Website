@@ -9,7 +9,6 @@ export const EMAIL = "info@christusgemeinde-bo-nord.de";
 // leitet serverseitig auf den aktuellen YouTube-Livestream weiter
 export const LIVESTREAM_URL = "/api/live";
 export const INSTAGRAM_URL = "https://www.instagram.com/gottes_wort.bochum/";
-export const INSTAGRAM_YOUTH_URL = "[Instagram-Account der Jugend]";
 export const STORIES_HIGHLIGHT_URL = "[Instagram-Highlight „Bochumer Geschichten“]";
 export const STORY_REEL_URL = "[Instagram-Reel-URL]";
 export const EVENTBRITE_URL = "[Eventbrite-URL]";

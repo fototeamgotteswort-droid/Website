@@ -11,11 +11,7 @@ import {
 import { useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
-import {
-  EVENTBRITE_URL,
-  INSTAGRAM_YOUTH_URL,
-  whatsappUrl,
-} from "@/lib/links";
+import { EVENTBRITE_URL } from "@/lib/links";
 import Dialog from "./Dialog";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
@@ -25,14 +21,14 @@ type EventId = keyof Dict["events"]["items"];
 // Termine in Briefing-Reihenfolge. Texte stehen im Woerterbuch, hier nur
 // Darstellung und Ziel. "until" (JJJJ-MM-TT) blendet einmalige Termine nach
 // diesem Tag automatisch aus; regelmaessige Termine haben keins.
-// "Mehr erfahren"-Links sind Uebergaenge, bis es /gemeindeleben gibt.
+// Nur Termine mit echtem Ziel (Anmeldung) haben einen Link; fuer die
+// regelmaessigen Treffen kommt er mit der Seite /gemeindeleben.
 type EventEntry = {
   id: EventId;
   image: string;
   position: string;
   until?: string;
-  href: (t: Dict) => string;
-  external: boolean;
+  href?: string;
 };
 
 const EVENTS: EventEntry[] = [
@@ -41,49 +37,33 @@ const EVENTS: EventEntry[] = [
     image: "/images/events/machine-gun-preacher.jpg",
     position: "center",
     until: "2026-10-18",
-    href: () => EVENTBRITE_URL,
-    external: true,
+    href: EVENTBRITE_URL,
   },
   {
     id: "gebetsabend",
     image: "/images/events/gebetsabend.jpg",
     position: "55% center",
-    // spaeter: /gemeindeleben#gebet
-    href: (t) => whatsappUrl(t.whatsappText.gebetsabend),
-    external: true,
   },
   {
     id: "jugendtreff",
     image: "/images/events/jugendtreff-wiese.jpg",
     position: "30% center",
-    // spaeter: /gemeindeleben#jugend
-    href: () => INSTAGRAM_YOUTH_URL,
-    external: true,
   },
   {
     id: "teenieTreff",
     image: "/images/events/teenie-treff.jpg",
     position: "center",
-    // spaeter: /gemeindeleben#teens
-    href: (t) => whatsappUrl(t.whatsappText.teenieTreff),
-    external: true,
   },
   {
     id: "frauentreff",
     image: "/images/events/frauentreff-runde.jpg",
     // im Hochformat passen nicht alle drei: so sind zwei Gesichter ganz im Bild
     position: "22% center",
-    // spaeter: /gemeindeleben#frauen
-    href: (t) => whatsappUrl(t.whatsappText.frauentreff),
-    external: true,
   },
   {
     id: "kleingruppen",
     image: "/images/events/kleingruppen-tisch.jpg",
     position: "40% center",
-    // spaeter: /gemeindeleben#kleingruppen
-    href: (t) => whatsappUrl(t.whatsappText.kleingruppen),
-    external: true,
   },
 ];
 
@@ -417,18 +397,19 @@ function EventDialog({
           </p>
         )}
         <p>{info.text}</p>
-        <div>
-          <a
-            href={event.href(t)}
-            className="btn btn-primary"
-            {...(event.external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-          >
-            {info.action}
-            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
-          </a>
-        </div>
+        {event.href && info.action && (
+          <div>
+            <a
+              href={event.href}
+              className="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {info.action}
+              <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+            </a>
+          </div>
+        )}
       </div>
     </Dialog>
   );
