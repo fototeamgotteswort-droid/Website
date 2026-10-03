@@ -153,7 +153,7 @@ const de = {
         when: "Jeden 2. Sonntag · 14:00",
         title: "Frauentreff",
         verse: null,
-        text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen, von Herz zu Herz.",
+        text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen.",
         cta: "Mehr erfahren",
         imageAlt: "Drei Frauen sitzen lächelnd zusammen an einem Tisch",
       },
