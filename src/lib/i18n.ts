@@ -80,19 +80,19 @@ const de = {
       {
         time: "11–13 Uhr",
         title: "Gottesdienst",
-        photo: "Foto: Lobpreis im Gottesdienst",
+        imageAlt: "Lobpreisband auf der Bühne vor dem Schriftzug Jesus, davor die Gemeinde",
         text: "Wir feiern mit Lobpreis, Gebet und einer Predigt, die mitten ins Leben spricht. Alles wird auf Deutsch und Russisch übersetzt, und auch für Kinder haben wir eine eigene Kinderkirche.",
       },
       {
         time: "13–14:30 Uhr",
         title: "Mittagstisch",
-        photo: "Foto: gemeinsames Mittagessen",
+        imageAlt: "Festlich gedeckter Tisch mit Kerzen, eine Frau spricht lächelnd zur Runde",
         text: "In unserer Kantine essen und lachen wir zusammen, denn am Tisch lernt man sich am besten kennen. Setz dich gern dazu, das erste Essen geht auf uns.",
       },
       {
         time: "Ab 14:30 Uhr",
         title: "Gemeinschaft",
-        photo: "Foto: Volleyball & Gespräche",
+        imageAlt: "Große Gruppe junger Leute winkt fröhlich in die Kamera",
         text: "Beim Volleyball, Fußball oder bei einem Kaffee ist immer Platz für einen mehr. Viele von uns bleiben bis in den Abend und verbringen den Sonntag zusammen.",
       },
     ],

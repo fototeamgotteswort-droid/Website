@@ -1,11 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { useT } from "./LanguageProvider";
-import PhotoPlaceholder from "./PhotoPlaceholder";
 import Reveal from "./Reveal";
 
-// Platzhalterflaechen, bis echte Fotos da sind (Briefing: nur Personen mit Einwilligung).
-const PHOTO_COLORS = ["#7EC8E3", "#E8D8C3", "#9FE2BF"];
+// Fotos echter Gemeindemomente, in Reihenfolge des Tages. Fuer "Gemeinschaft"
+// fehlt noch ein Volleyball-Foto (Briefing 3.3), bis dahin das Gruppenbild.
+const PHOTOS = [
+  { src: "/images/img-2938.jpg", position: "center 40%" },
+  { src: "/images/events/kleingruppen.jpg", position: "60% center" },
+  { src: "/images/jugend-konferenz.jpg", position: "center 45%" },
+];
 
 export default function Sunday() {
   const t = useT();
@@ -18,22 +23,27 @@ export default function Sunday() {
           <p className="lead">{t.sunday.text}</p>
         </Reveal>
 
-        <div className="sunday-grid">
+        {/* Der Tag als Zeitleiste: eine durchgehende Linie verbindet die drei Stationen */}
+        <ol className="day-line">
           {t.sunday.items.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.08}>
-              <article className="sunday-item">
-                <PhotoPlaceholder
-                  label={item.photo}
-                  color={PHOTO_COLORS[i]}
-                  ratio="4 / 3"
-                />
-                <span className="sunday-time">{item.time}</span>
+            <li key={item.title} className="day-stop">
+              <Reveal delay={i * 0.1} className="day-stop-inner">
+                <span className="day-time">{item.time}</span>
+                <div className="day-photo">
+                  <Image
+                    src={PHOTOS[i].src}
+                    alt={item.imageAlt}
+                    fill
+                    sizes="(max-width: 760px) 90vw, 400px"
+                    style={{ objectFit: "cover", objectPosition: PHOTOS[i].position }}
+                  />
+                </div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
-              </article>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

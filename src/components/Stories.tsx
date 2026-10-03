@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CirclePlay } from "lucide-react";
 import { STORIES_HIGHLIGHT_URL, STORY_REEL_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
@@ -23,7 +24,15 @@ export default function Stories() {
           rel="noopener noreferrer"
           aria-label={t.stories.reel}
         >
-          <CirclePlay size={44} strokeWidth={1.5} aria-hidden="true" />
+          {/* Stimmungsbild, bis das echte Reel-Thumbnail da ist */}
+          <Image
+            src="/images/hero-poster.jpg"
+            alt=""
+            fill
+            sizes="(max-width: 760px) 90vw, 440px"
+            style={{ objectFit: "cover", objectPosition: "35% center" }}
+          />
+          <CirclePlay size={56} strokeWidth={1.5} aria-hidden="true" />
           <span aria-hidden="true">{t.stories.reelPlaceholder}</span>
         </a>
         <Reveal className="stories-body">

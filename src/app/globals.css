@@ -17,6 +17,8 @@
   --on-navy: #d5e3e8;
 
   --maxw: 1200px;
+  /* eine Textbreite fuer alle Einleitungen, FAQ und Kaesten */
+  --measure: 860px;
   --gutter: 24px;
   --radius: 12px;
   --radius-lg: 16px;
@@ -188,7 +190,7 @@ summary:focus-visible,
   display: flex;
   flex-direction: column;
   gap: 18px;
-  max-width: 860px;
+  max-width: var(--measure);
 }
 
 .lead {
@@ -595,7 +597,7 @@ summary:focus-visible,
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1px;
-  max-width: 820px;
+  max-width: var(--measure);
   margin-top: 8px;
   background: rgba(246, 241, 233, 0.22);
   border-radius: var(--radius);
@@ -777,40 +779,106 @@ summary:focus-visible,
   }
 }
 
-/* ---------- Ein Sonntag bei uns ---------- */
+/* ---------- Ein Sonntag bei uns: Zeitleiste ---------- */
 
-.sunday-grid {
+/* mobil: senkrechte Linie links, jede Station haengt mit einem Punkt daran */
+.day-line {
+  --dot: 15px;
+  list-style: none;
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 40px;
+  gap: 48px;
+  padding-left: 32px;
 }
-.sunday-item {
+.day-line::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--dot) / 2 - 1px);
+  top: 12px;
+  bottom: 0;
+  width: 2px;
+  background: var(--teal);
+  opacity: 0.35;
+}
+.day-stop {
+  position: relative;
+}
+.day-stop::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 12px;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 999px;
+  background: var(--sea-mist);
+  border: 3px solid var(--teal);
+}
+.day-stop:first-child::before {
+  background: var(--teal);
+}
+.day-stop-inner {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-.sunday-time {
+.day-time {
   font-family: var(--display);
   font-size: 32px;
   font-weight: 600;
   line-height: 1.2;
   color: var(--deep-sea);
-  margin-top: 4px;
 }
-.sunday-item h3 {
+.day-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--storm);
+  box-shadow: 0 18px 40px -18px rgba(27, 59, 77, 0.45);
+}
+.day-photo img {
+  transition: transform 0.6s ease;
+}
+.day-stop:hover .day-photo img {
+  transform: scale(1.04);
+}
+.day-stop h3 {
   font-family: var(--body);
   font-size: 19px;
   font-weight: 700;
-  margin-top: -6px;
+  margin-top: 4px;
 }
-.sunday-item p {
+.day-stop p {
   font-size: 15px;
 }
 
+/* ab Tablet: waagerechte Linie ueber den drei Spalten, Uhrzeiten darunter */
 @media (min-width: 761px) {
-  .sunday-grid {
+  .day-line {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+    gap: 28px;
+    padding-left: 0;
+    padding-top: 36px;
+  }
+  .day-line::before {
+    left: 0;
+    right: 0;
+    top: calc(var(--dot) / 2 - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+  .day-stop::before {
+    left: 0;
+    top: -36px;
+  }
+  .day-photo {
+    aspect-ratio: 4 / 5;
+  }
+  .day-time {
+    font-size: clamp(30px, 3vw, 40px);
   }
 }
 
@@ -842,12 +910,15 @@ summary:focus-visible,
   gap: 40px;
 }
 .stories-reel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   aspect-ratio: 9 / 10;
   width: 100%;
   max-width: 440px;
   border-radius: var(--radius);
   background: var(--storm);
-  color: #9fb8c2;
+  color: var(--powder);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -859,9 +930,29 @@ summary:focus-visible,
   text-decoration: none;
   transition: background-color 0.2s ease;
 }
-.stories-reel:hover {
-  background: #284050;
+.stories-reel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(27, 59, 77, 0.62);
+  transition: background-color 0.3s ease;
+}
+.stories-reel img {
+  z-index: -2;
+}
+.stories-reel svg {
   color: var(--shell);
+  transition: transform 0.3s ease;
+}
+.stories-reel:hover {
+  color: var(--shell);
+}
+.stories-reel:hover::before {
+  background: rgba(27, 59, 77, 0.45);
+}
+.stories-reel:hover svg {
+  transform: scale(1.1);
 }
 .stories-body {
   display: flex;
@@ -923,12 +1014,14 @@ summary:focus-visible,
 
 /* Karten fluchten links mit dem Container und laufen rechts aus dem Bild */
 .events-scroller {
-  --inset: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+  margin-top: -8px;
+  /* fluchtet mit .wrap: % statt vw, sonst zaehlt der Scrollbalken mit */
+  --inset: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px var(--inset) 16px;
+  padding: 12px var(--inset) 28px;
   scroll-padding: 0 var(--inset);
   scrollbar-width: thin;
   scrollbar-color: var(--sand) transparent;
@@ -941,10 +1034,24 @@ summary:focus-visible,
   flex: 0 0 min(330px, 84vw);
   scroll-snap-align: start;
   background: var(--white);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.event-media img {
+  transition: transform 0.6s ease;
+}
+.event-card:hover .event-media img {
+  transform: scale(1.04);
 }
 .event-media {
   position: relative;
@@ -1097,7 +1204,7 @@ summary:focus-visible,
 /* ---------- FAQ ---------- */
 
 .faq-list {
-  max-width: 880px;
+  max-width: var(--measure);
   border-top: 1px solid var(--sand);
 }
 .faq-list details {
@@ -1131,7 +1238,7 @@ summary:focus-visible,
 }
 
 .contact-box {
-  max-width: 880px;
+  max-width: var(--measure);
   margin-top: 8px;
   padding: 28px 24px;
   border-radius: 20px;
@@ -1262,7 +1369,7 @@ summary:focus-visible,
 }
 
 .closing-inner {
-  max-width: 880px;
+  max-width: var(--measure);
   display: flex;
   flex-direction: column;
   align-items: center;
