@@ -1,18 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BookOpen, Cross, Flame, Plus, X, type LucideIcon } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
 type CardId = keyof Dict["who"]["cards"];
 
-const CARDS: { id: CardId; icon: LucideIcon; color: string }[] = [
-  { id: "bibel", icon: BookOpen, color: "var(--sea-mist)" },
-  { id: "jesus", icon: Cross, color: "var(--sand)" },
-  { id: "geist", icon: Flame, color: "var(--mint)" },
+// Fotos von Unsplash (freie Unsplash-Lizenz, Namensnennung nicht noetig):
+// Bibel: Aaron Burden · unsplash.com/photos/9zsHNt5OpqE
+// Kreuz: Shutter Speed · unsplash.com/photos/3APnkQ8h60Q
+// Taube: Ahmed Nishaath · unsplash.com/photos/2EoMV_zj9gQ
+const CARDS: { id: CardId; image: string; position: string }[] = [
+  { id: "bibel", image: "/images/glaube/bibel.jpg", position: "50% 70%" },
+  { id: "jesus", image: "/images/glaube/kreuz.jpg", position: "52% center" },
+  { id: "geist", image: "/images/glaube/taube-himmel.jpg", position: "48% 40%" },
 ];
 
 export default function WhoWeAre() {
@@ -32,7 +37,7 @@ export default function WhoWeAre() {
         </Reveal>
 
         <div className="flip-cards">
-          {CARDS.map(({ id, icon: Icon, color }) => {
+          {CARDS.map(({ id, image, position }) => {
             const card = t.who.cards[id];
             const isBack = flipped[id];
             return (
@@ -42,7 +47,6 @@ export default function WhoWeAre() {
                 className={`flip-card${isBack ? " is-back" : ""}`}
                 aria-pressed={isBack}
                 onClick={() => setFlipped((prev) => ({ ...prev, [id]: !prev[id] }))}
-                style={isBack ? undefined : { background: color }}
               >
                 {isBack ? (
                   <>
@@ -56,11 +60,14 @@ export default function WhoWeAre() {
                   </>
                 ) : (
                   <>
-                    <Icon
-                      className="flip-icon-art"
-                      size={56}
-                      strokeWidth={1.3}
-                      aria-hidden="true"
+                    {/* Bild ist Stimmung, der Name der Karte steht im Text */}
+                    <Image
+                      className="flip-photo"
+                      src={image}
+                      alt=""
+                      fill
+                      sizes="(max-width: 760px) 82vw, 400px"
+                      style={{ objectFit: "cover", objectPosition: position }}
                     />
                     <span className="flip-bottom">
                       <span className="flip-word">{card.word}</span>
