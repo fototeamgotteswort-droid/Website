@@ -1065,10 +1065,10 @@ summary:focus-visible,
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  /* bewusst ohne scroll-snap: der Selbstlauf setzt scrollLeft in jedem Bild,
+     scroll-snap wuerde ihn jedes Mal zurueckziehen */
   margin: -12px calc(var(--bleed) * -1) -16px;
   padding: 12px var(--bleed) 28px;
-  scroll-padding: 0 var(--bleed);
   scrollbar-width: none;
 }
 .events-scroller::-webkit-scrollbar {
@@ -1086,7 +1086,6 @@ summary:focus-visible,
 
 .event-card {
   flex: 0 0 min(330px, 84vw);
-  scroll-snap-align: start;
   background: var(--white);
   border-radius: var(--radius-lg);
   overflow: hidden;

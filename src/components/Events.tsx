@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
@@ -65,7 +71,8 @@ const EVENTS: EventEntry[] = [
   {
     id: "frauentreff",
     image: "/images/events/frauentreff-runde.jpg",
-    position: "center 30%",
+    // im Hochformat passen nicht alle drei: so sind zwei Gesichter ganz im Bild
+    position: "22% center",
     // spaeter: /gemeindeleben#frauen
     href: (t) => whatsappUrl(t.whatsappText.frauentreff),
     external: true,
@@ -89,6 +96,15 @@ function today() {
 }
 const noop = () => () => {};
 
+// Die Liste steht dreimal hintereinander im Markup. Gelaufen wird immer in
+// der mittleren Kopie: so ist links und rechts eine ganze Runde Vorlauf da,
+// und beim Umsetzen um genau eine Runde sieht das Bild identisch aus.
+const COPIES = 3;
+/** Tempo des Selbstlaufs in Pixeln pro Sekunde. */
+const SPEED = 26;
+/** So lange nach einer Eingabe bleibt der Selbstlauf aus. */
+const HOLD_AFTER_INPUT = 2500;
+
 export default function Events() {
   const t = useT();
   const reduced = useReducedMotion();
@@ -101,6 +117,161 @@ export default function Events() {
   const upcoming = EVENTS.filter(
     (event) => !event.until || now === null || event.until >= now,
   );
+  const count = upcoming.length;
+
+  // Laenge einer Runde, also aller Karten inklusive Abstaenden.
+  const lap = useRef(0);
+  // Sollposition als Gleitkommazahl: 26 px/s sind pro Bild weniger als ein
+  // Pixel, ein Integer-Zaehler wuerde stehen bleiben.
+  const target = useRef<number | null>(null);
+  const placed = useRef(false);
+  const pointerDown = useRef(false);
+  const hovered = useRef(false);
+  const holdUntil = useRef(0);
+  const dialogOpen = useRef(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    dialogOpen.current = openId !== null;
+  }, [openId]);
+
+  const hold = useCallback((ms: number) => {
+    holdUntil.current = Math.max(holdUntil.current, performance.now() + ms);
+  }, []);
+
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+
+    const measure = () => {
+      const cards = Array.from(el.querySelectorAll<HTMLElement>(".event-card"));
+      const first = cards[0];
+      const secondLap = cards[count];
+      lap.current =
+        first && secondLap ? secondLap.offsetLeft - first.offsetLeft : 0;
+    };
+    // Aendert sich die Zahl der Termine (Filter nach der Hydration), wird
+    // neu in die mittlere Kopie gesetzt.
+    placed.current = false;
+
+    // Der Observer meldet sich direkt nach observe() einmal von selbst.
+    const sizes = new ResizeObserver(measure);
+    sizes.observe(el);
+    // Ausserhalb des Blickfelds muss nichts laufen.
+    const inView = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: "120px" },
+    );
+    inView.observe(el);
+
+    return () => {
+      sizes.disconnect();
+      inView.disconnect();
+    };
+  }, [count]);
+
+  // Eingaben anmelden: waehrend und kurz nach einer Beruehrung, einem Wisch
+  // oder einem Radscroll fassen wir die Position nicht an, sonst wuerde der
+  // Selbstlauf den Schwung des Nutzers abschneiden.
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+
+    const down = () => {
+      pointerDown.current = true;
+      hold(HOLD_AFTER_INPUT);
+    };
+    const up = () => {
+      pointerDown.current = false;
+      hold(HOLD_AFTER_INPUT);
+    };
+    const input = () => hold(HOLD_AFTER_INPUT);
+    const enter = () => {
+      hovered.current = true;
+    };
+    const leave = () => {
+      hovered.current = false;
+    };
+
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("wheel", input, { passive: true });
+    el.addEventListener("keydown", input);
+    el.addEventListener("mouseenter", enter);
+    el.addEventListener("mouseleave", leave);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+
+    return () => {
+      el.removeEventListener("pointerdown", down);
+      el.removeEventListener("wheel", input);
+      el.removeEventListener("keydown", input);
+      el.removeEventListener("mouseenter", enter);
+      el.removeEventListener("mouseleave", leave);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+    };
+  }, [hold]);
+
+  useEffect(() => {
+    if (reduced || !visible) return;
+    const el = scroller.current;
+    if (!el) return;
+
+    let frame = 0;
+    let previous = performance.now();
+
+    // Tastaturfokus im Karussell: der Browser scrollt das fokussierte Element
+    // selbst ins Bild. Dann darf weder der Selbstlauf noch der Umlauf die
+    // Position verschieben, sonst wandert der Fokusrahmen aus dem Bild.
+    const keyboardInside = () => {
+      const active = document.activeElement;
+      return !!active && el.contains(active) && active.matches(":focus-visible");
+    };
+
+    const tick = (now: number) => {
+      frame = requestAnimationFrame(tick);
+      // Nach einem Tab-Wechsel ist der Abstand riesig — nicht springen.
+      const elapsed = Math.min(now - previous, 100);
+      previous = now;
+
+      const length = lap.current;
+      if (length <= 0) return;
+
+      if (!placed.current) {
+        el.scrollLeft = length;
+        target.current = length;
+        placed.current = true;
+        return;
+      }
+
+      if (
+        pointerDown.current ||
+        now < holdUntil.current ||
+        dialogOpen.current ||
+        keyboardInside()
+      ) {
+        // Der Nutzer hat das Steuer; danach lesen wir neu ein.
+        target.current = null;
+        return;
+      }
+
+      if (target.current === null || Math.abs(el.scrollLeft - target.current) > 2) {
+        target.current = el.scrollLeft;
+      }
+      if (!hovered.current) {
+        target.current += (SPEED * elapsed) / 1000;
+      }
+      // In der mittleren Kopie halten. Weil sich der Inhalt alle "length"
+      // Pixel wiederholt, ist der Sprung nicht zu sehen.
+      if (target.current >= length * 2) target.current -= length;
+      else if (target.current < length) target.current += length;
+
+      el.scrollLeft = target.current;
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [reduced, visible]);
 
   const step = useCallback(
     (direction: 1 | -1) => {
@@ -109,12 +280,15 @@ export default function Events() {
       const card = el.querySelector<HTMLElement>(".event-card");
       const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
       const distance = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
+      // Der Selbstlauf schreibt jedes Bild in scrollLeft und wuerde die
+      // weiche Bewegung sofort ueberschreiben — also kurz aussetzen.
+      hold(reduced ? 0 : 900);
       el.scrollBy({
         left: distance * direction,
         behavior: reduced ? "auto" : "smooth",
       });
     },
-    [reduced],
+    [hold, reduced],
   );
 
   return (
@@ -152,37 +326,46 @@ export default function Events() {
           aria-label={t.events.regionLabel}
           tabIndex={0}
         >
-          {upcoming.map((event, i) => {
-            const info = t.events.items[event.id];
-            return (
-              <article className="event-card" key={event.id}>
-                <div className="event-media">
-                  <Image
-                    src={event.image}
-                    alt={info.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 84vw, 330px"
-                    loading={i < 3 ? "eager" : "lazy"}
-                    style={{ objectFit: "cover", objectPosition: event.position }}
-                  />
-                </div>
-                <div className="event-body">
-                  <span className="event-when">{info.when}</span>
-                  <h3>{info.title}</h3>
-                  {/* auf der Karte nur angerissen, alles Weitere im Pop-up */}
-                  <p className="event-text">{info.text}</p>
-                  <button
-                    type="button"
-                    className="text-link event-cta"
-                    aria-haspopup="dialog"
-                    onClick={() => setOpenId(event.id)}
-                  >
-                    {t.events.more} <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-              </article>
-            );
-          })}
+          {Array.from({ length: COPIES }, (_, copy) =>
+            upcoming.map((event, i) => {
+              // nur die erste Kopie ist fuer Screenreader und Tastatur da
+              const copy0 = copy === 0;
+              const info = t.events.items[event.id];
+              return (
+                <article
+                  className="event-card"
+                  key={`${copy}-${event.id}`}
+                  aria-hidden={copy0 ? undefined : true}
+                >
+                  <div className="event-media">
+                    <Image
+                      src={event.image}
+                      alt={copy0 ? info.imageAlt : ""}
+                      fill
+                      sizes="(max-width: 640px) 84vw, 330px"
+                      loading={copy0 && i < 3 ? "eager" : "lazy"}
+                      style={{ objectFit: "cover", objectPosition: event.position }}
+                    />
+                  </div>
+                  <div className="event-body">
+                    <span className="event-when">{info.when}</span>
+                    <h3>{info.title}</h3>
+                    {/* auf der Karte nur angerissen, alles Weitere im Pop-up */}
+                    <p className="event-text">{info.text}</p>
+                    <button
+                      type="button"
+                      className="text-link event-cta"
+                      aria-haspopup="dialog"
+                      tabIndex={copy0 ? undefined : -1}
+                      onClick={() => setOpenId(event.id)}
+                    >
+                      {t.events.more} <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                </article>
+              );
+            }),
+          )}
         </div>
       </div>
 
