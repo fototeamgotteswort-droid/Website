@@ -2,11 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { CirclePlay, Clock, MapPin, UserRound } from "lucide-react";
+import { CirclePlay } from "lucide-react";
 import { LIVESTREAM_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
-
-const STRIP_ICONS = [Clock, MapPin, UserRound];
 
 export default function Hero() {
   const t = useT();
@@ -80,21 +78,19 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        <motion.ul className="info-strip" {...enter(12, 0.35)}>
-          {t.hero.strip.map((item, i) => {
-            const Icon = STRIP_ICONS[i];
-            return (
-              <li key={item.strong}>
-                <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
-                <span>
-                  <strong>{item.strong}</strong>
-                  {item.text}
-                </span>
-              </li>
-            );
-          })}
-        </motion.ul>
       </div>
+
+      {/* Leiste im Stil der bisherigen Seite: volle Breite am unteren Rand */}
+      <motion.div className="hero-strip" {...enter(0, 0.4)}>
+        <ul className="wrap hero-strip-inner">
+          {t.hero.strip.map((item) => (
+            <li key={item.strong}>
+              <span className="num">{item.strong}</span>
+              <span className="lbl">{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
     </section>
   );
 }

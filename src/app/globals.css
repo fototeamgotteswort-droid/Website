@@ -558,10 +558,12 @@ summary:focus-visible,
 
 .hero {
   position: relative;
+  flex-direction: column;
+  justify-content: flex-end;
   min-height: 620px;
   min-height: calc(100svh - 72px);
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   background: var(--storm);
   color: var(--shell);
   overflow: hidden;
@@ -605,48 +607,73 @@ summary:focus-visible,
   padding: 15px 26px;
 }
 
-.info-strip {
+/* Info-Leiste wie auf der bisherigen Seite: schmales Band ueber die volle
+   Breite, Zahl in Playfair, Label in kleinen Versalien */
+.hero-strip {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid rgba(246, 241, 233, 0.22);
+  background: linear-gradient(180deg, rgba(11, 26, 35, 0) 0%, rgba(11, 26, 35, 0.6) 100%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.hero-strip-inner {
   list-style: none;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1px;
-  max-width: var(--measure);
-  margin-top: 8px;
-  background: rgba(246, 241, 233, 0.22);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.info-strip li {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: rgba(27, 59, 77, 0.8);
-  font-size: 14px;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  /* mobil rechts Platz fuer das Spenden-Herz */
+  padding-right: 96px;
 }
-.info-strip svg {
-  flex: none;
-  color: var(--aqua);
+.hero-strip li {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
 }
-.info-strip strong {
-  display: block;
-  font-size: 16px;
+.hero-strip .num {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--shell);
+}
+.hero-strip .lbl {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(232, 216, 195, 0.9);
 }
 
 @media (min-width: 761px) {
+  /* Hero inklusive Leiste passt in den ersten Bildschirm */
   .hero {
-    min-height: 760px;
+    min-height: max(600px, calc(100svh - 72px));
   }
   .hero-inner {
     padding-top: 120px;
     padding-bottom: 56px;
   }
-  .info-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 8px;
+  .hero-strip-inner {
+    /* bis 1500px liegt das Spenden-Herz ueber der Leiste: rechts freihalten */
+    padding-right: 112px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
-  .info-strip li {
-    padding: 18px 20px;
+  .hero-strip .num {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .hero-strip-inner {
+    padding-right: var(--gutter);
   }
 }
 
