@@ -140,7 +140,7 @@ const de = {
         verse: null,
         text: "Wir sind eine Generation, die für Jesus brennt, und glauben, dass Gott mit der Jugend Großes vorhat. Komm samstags dazu, feiere mit uns Gottesdienst, tausch dich aus und lass uns gemeinsam im Glauben wachsen.",
         action: "Zur Jugend auf Instagram",
-        imageAlt: "Jugendliche mit erhobenen Händen beim Lobpreis, im Hintergrund ein Gitarrist",
+        imageAlt: "Jugendliche sitzen nebeneinander an einer Hauswand im Gras und lächeln in die Kamera",
       },
       teenieTreff: {
         when: "Jeden 2. Samstag · 14:00",

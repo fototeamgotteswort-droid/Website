@@ -48,8 +48,8 @@ const EVENTS: EventEntry[] = [
   },
   {
     id: "jugendtreff",
-    image: "/images/events/jugendtreff.jpg",
-    position: "center",
+    image: "/images/events/jugendtreff-wiese.jpg",
+    position: "30% center",
     // spaeter: /gemeindeleben#jugend
     href: () => INSTAGRAM_YOUTH_URL,
     external: true,
