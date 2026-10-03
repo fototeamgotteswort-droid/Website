@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, JetBrains_Mono, Montserrat, Playfair_Display } from "next/font/google";
+import { Montserrat, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/MotionProvider";
@@ -20,20 +20,6 @@ const playfair = Playfair_Display({
   subsets: ["latin", "cyrillic"],
   weight: ["500", "600"],
   style: ["normal", "italic"],
-});
-
-// Logo-Name in der Schrift der bisherigen Seite
-const fraunces = Fraunces({
-  variable: "--font-brand",
-  subsets: ["latin"],
-  weight: ["600"],
-});
-
-// Schreibmaschinenschrift fuer Navigation und Unterzeile wie auf der bisherigen Seite
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
 });
 
 const montserrat = Montserrat({
@@ -78,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${playfair.variable} ${montserrat.variable} ${mono.variable} ${fraunces.variable}`}
+      className={`${playfair.variable} ${montserrat.variable}`}
     >
       <body>
         <LanguageProvider>

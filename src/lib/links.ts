@@ -12,9 +12,6 @@ export const EVENTBRITE_URL = "[Eventbrite-URL]";
 export const ROUTE_URL =
   "https://www.google.com/maps/dir/?api=1&destination=Harpener+Heide+9%2C+44805+Bochum";
 
-// zeigt noch auf die alte WordPress-Seite, bis /datenschutz hier steht
-export const PRIVACY_URL = "https://christusgemeinde-bo-nord.de/datenschutz/";
-
 export const BANK = {
   recipient: "Gemeinschaft Freier Christusgemeinden e. V.",
   iban: "DE62452604750012636700",

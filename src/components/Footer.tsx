@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { INSTAGRAM_URL, PRIVACY_URL } from "@/lib/links";
+import { INSTAGRAM_URL } from "@/lib/links";
 import { useOpenGive } from "./Give";
 import { useT } from "./LanguageProvider";
 
@@ -59,7 +59,7 @@ export default function Footer() {
                 <Link href="/impressum">{t.footer.imprint}</Link>
               </li>
               <li>
-                <a href={PRIVACY_URL}>{t.footer.privacy}</a>
+                <Link href="/datenschutz">{t.footer.privacy}</Link>
               </li>
             </ul>
           </nav>
