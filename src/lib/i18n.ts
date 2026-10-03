@@ -151,7 +151,7 @@ const de = {
       // nicht aus dem Briefing: aus der Einladung des Frauendienst-Teams zusammengefasst
       frauentreff: {
         when: "Jeden 2. Sonntag · 14:00",
-        title: "Frauentreff: Von Frau zu Frau",
+        title: "Frauentreff",
         verse: null,
         text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen, von Herz zu Herz.",
         cta: "Mehr erfahren",
