@@ -23,13 +23,13 @@ export default function Sunday() {
           <p className="lead">{t.sunday.text}</p>
         </Reveal>
 
-        {/* Der Tag als Zeitleiste: eine durchgehende Linie verbindet die drei Stationen */}
+        {/* Der Tag in drei Stationen, die Uhrzeit steht als Etikett auf dem Foto */}
         <ol className="day-line">
           {t.sunday.items.map((item, i) => (
             <li key={item.title} className="day-stop">
               <Reveal delay={i * 0.1} className="day-stop-inner">
-                <span className="day-time">{item.time}</span>
                 <div className="day-photo">
+                  <span className="day-time">{item.time}</span>
                   <Image
                     src={PHOTOS[i].src}
                     alt={item.imageAlt}

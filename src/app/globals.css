@@ -854,56 +854,18 @@ summary:focus-visible,
   }
 }
 
-/* ---------- Ein Sonntag bei uns: Zeitleiste ---------- */
+/* ---------- Ein Sonntag bei uns ---------- */
 
-/* mobil: senkrechte Linie links, jede Station haengt mit einem Punkt daran */
 .day-line {
-  --dot: 15px;
   list-style: none;
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 48px;
-  padding-left: 32px;
-}
-.day-line::before {
-  content: "";
-  position: absolute;
-  left: calc(var(--dot) / 2 - 1px);
-  top: 12px;
-  bottom: 0;
-  width: 2px;
-  background: var(--teal);
-  opacity: 0.35;
-}
-.day-stop {
-  position: relative;
-}
-.day-stop::before {
-  content: "";
-  position: absolute;
-  left: -32px;
-  top: 12px;
-  width: var(--dot);
-  height: var(--dot);
-  border-radius: 999px;
-  background: var(--sea-mist);
-  border: 3px solid var(--teal);
-}
-.day-stop:first-child::before {
-  background: var(--teal);
+  gap: 40px;
 }
 .day-stop-inner {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-.day-time {
-  font-family: var(--display);
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--deep-sea);
+  gap: 12px;
 }
 .day-photo {
   position: relative;
@@ -912,6 +874,7 @@ summary:focus-visible,
   overflow: hidden;
   background: var(--storm);
   box-shadow: 0 18px 40px -18px rgba(27, 59, 77, 0.45);
+  margin-bottom: 8px;
 }
 .day-photo img {
   transition: transform 0.6s ease;
@@ -919,41 +882,44 @@ summary:focus-visible,
 .day-stop:hover .day-photo img {
   transform: scale(1.04);
 }
+/* Uhrzeit als helles Etikett unten links auf dem Foto */
+.day-time {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  padding: 6px 16px 7px;
+  border-radius: 999px;
+  background: var(--shell);
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 6px 16px rgba(27, 59, 77, 0.25);
+}
 .day-stop h3 {
-  font-family: var(--body);
-  font-size: 19px;
-  font-weight: 700;
-  margin-top: 4px;
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 .day-stop p {
   font-size: 15px;
 }
 
-/* ab Tablet: waagerechte Linie ueber den drei Spalten, Uhrzeiten darunter */
 @media (min-width: 761px) {
   .day-line {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
-    padding-left: 0;
-    padding-top: 36px;
-  }
-  .day-line::before {
-    left: 0;
-    right: 0;
-    top: calc(var(--dot) / 2 - 1px);
-    bottom: auto;
-    width: auto;
-    height: 2px;
-  }
-  .day-stop::before {
-    left: 0;
-    top: -36px;
   }
   .day-photo {
     aspect-ratio: 4 / 5;
   }
   .day-time {
-    font-size: clamp(30px, 3vw, 40px);
+    left: 16px;
+    bottom: 16px;
+    font-size: 22px;
   }
 }
 
