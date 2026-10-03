@@ -17,7 +17,23 @@ export default function Faq() {
 
         <div className="faq-list">
           {t.faq.items.map((item, i) => (
-            <details key={item.q} open={i === 0}>
+            // Gleicher "name" macht daraus ein Akkordeon: der Browser schliesst
+            // die anderen Fragen, sobald eine geoeffnet wird. onToggle macht
+            // dasselbe fuer aeltere Browser ohne diese Funktion.
+            <details
+              key={item.q}
+              name="faq"
+              open={i === 0}
+              onToggle={(event) => {
+                const opened = event.currentTarget;
+                if (!opened.open) return;
+                opened.parentElement
+                  ?.querySelectorAll("details[open]")
+                  .forEach((other) => {
+                    if (other !== opened) other.removeAttribute("open");
+                  });
+              }}
+            >
               <summary>
                 {item.q}
                 <Plus
