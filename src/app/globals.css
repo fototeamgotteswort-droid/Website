@@ -1675,14 +1675,6 @@ summary:focus-visible,
 .legal a {
   font-weight: 600;
 }
-.legal-note {
-  margin-bottom: 32px;
-  padding: 14px 18px;
-  border-radius: var(--radius);
-  background: var(--sea-mist);
-  color: var(--navy);
-  font-weight: 600;
-}
 .legal-meta {
   margin-top: 40px;
   color: var(--muted);

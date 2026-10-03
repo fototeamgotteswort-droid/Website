@@ -25,11 +25,6 @@ export default function Datenschutz() {
       <section className="section section-white">
         <div className="wrap">
           <div className="legal">
-            <p className="legal-note">
-              [Entwurf: Diese Datenschutzerklärung muss vor dem Go-live rechtlich
-              geprüft werden.]
-            </p>
-
             <h2>Verantwortlich</h2>
             <p>
               Christengemeinde Gottes Wort e. V.
