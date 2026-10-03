@@ -1206,38 +1206,103 @@ summary:focus-visible,
   font-weight: 600;
 }
 
+/* Kartenbild aus lokal gespeicherten OSM-Kacheln: sofort sichtbar, ohne dass
+   beim Seitenaufruf Daten an Dritte gehen. Klick oeffnet Google Maps. */
 .map-shell {
+  position: relative;
+  display: block;
   min-height: 360px;
+  /* die Kacheln reichen 690px hoch und 672px breit um die Adresse */
+  max-height: 680px;
   border-radius: var(--radius-lg);
   background: var(--sea-mist);
   overflow: hidden;
-  display: flex;
+  isolation: isolate;
+  text-decoration: none;
+  box-shadow: var(--shadow);
 }
-.map-consent {
-  flex: 1;
+.map-tiles {
+  position: absolute;
+  /* die Kirche liegt bei 336/345 px im 768er-Raster -> genau in die Mitte */
+  left: calc(50% - 336px);
+  top: calc(50% - 345px);
+  display: grid;
+  grid-template-columns: repeat(3, 256px);
+  grid-template-rows: repeat(3, 256px);
+  filter: saturate(0.7) contrast(0.95);
+  transition: transform 0.6s ease;
+  transform-origin: 336px 345px;
+}
+.map-tiles span {
+  background-size: cover;
+}
+.map-shell:hover .map-tiles {
+  transform: scale(1.04);
+}
+.map-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  /* Spitze der gedrehten Nadel genau auf die Adresse */
+  margin: -58px 0 0 -24px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--navy);
+  border: 3px solid var(--shell);
+  box-shadow: 0 8px 18px rgba(27, 59, 77, 0.4);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 32px 24px;
-  text-align: center;
-  color: var(--teal);
 }
-.map-address {
-  font-weight: 600;
+.map-pin svg {
+  transform: rotate(45deg);
+  color: var(--aqua);
+}
+.map-label {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: 0 8px 20px rgba(27, 59, 77, 0.18);
   color: var(--navy);
+  font-size: 14px;
 }
-.map-hint {
-  max-width: 320px;
-  font-size: 13px;
+.map-label strong {
+  font-weight: 600;
+}
+.map-label span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--deep-sea);
+}
+.map-shell:hover .map-label span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.map-credit {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
   color: var(--muted);
-}
-.map-frame {
-  flex: 1;
-  width: 100%;
-  min-height: 360px;
-  border: 0;
 }
 
 @media (min-width: 900px) {

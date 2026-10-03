@@ -207,9 +207,9 @@ const de = {
 
   map: {
     address: "Harpener Heide 9 · 44805 Bochum",
-    hint: "Beim Laden der Karte werden Daten an OpenStreetMap übertragen.",
-    load: "Karte laden",
-    title: "Karte: Harpener Heide 9, 44805 Bochum",
+    open: "Route in Google Maps",
+    label: "Karte: Harpener Heide 9, 44805 Bochum. Öffnet die Route in Google Maps",
+    credit: "© OpenStreetMap-Mitwirkende",
   },
 
   give: {
