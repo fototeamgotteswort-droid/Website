@@ -828,6 +828,8 @@ summary:focus-visible,
 }
 .flip-media {
   position: relative;
+  /* Safari streckt Kinder eines <button> nicht auf die volle Breite */
+  width: 100%;
   flex: 1;
   min-height: 200px;
   overflow: hidden;
