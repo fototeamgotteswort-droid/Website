@@ -4,12 +4,11 @@ import Image from "next/image";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
-// Fotos echter Gemeindemomente, in Reihenfolge des Tages. Fuer "Gemeinschaft"
-// fehlt noch ein Volleyball-Foto (Briefing 3.3), bis dahin das Gruppenbild.
+// Fotos echter Gemeindemomente, in Reihenfolge des Tages.
 const PHOTOS = [
-  { src: "/images/img-2938.jpg", position: "center 40%" },
-  { src: "/images/events/kleingruppen.jpg", position: "60% center" },
-  { src: "/images/jugend-konferenz.jpg", position: "center 45%" },
+  { src: "/images/sonntag/gottesdienst.jpg", position: "50% 45%" },
+  { src: "/images/sonntag/mittagstisch.jpg", position: "28% center" },
+  { src: "/images/sonntag/gemeinschaft.jpg", position: "45% center" },
 ];
 
 export default function Sunday() {
