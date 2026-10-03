@@ -136,7 +136,7 @@ const de = {
       },
       jugendtreff: {
         when: "Samstag · 18:00",
-        title: "Jugendtreff (16–24 Jahre)",
+        title: "Jugend-Treff (16–24 Jahre)",
         verse: null,
         text: "Wir sind eine Generation, die für Jesus brennt, und glauben, dass Gott mit der Jugend Großes vorhat. Komm samstags dazu, feiere mit uns Gottesdienst, tausch dich aus und lass uns gemeinsam im Glauben wachsen.",
         action: null,
@@ -144,7 +144,7 @@ const de = {
       },
       teenieTreff: {
         when: "Jeden 2. Samstag · 14:00",
-        title: "Teenie Treff (12–16 Jahre)",
+        title: "Teenie-Treff (12–16 Jahre)",
         verse: null,
         text: "Wir glauben, dass Glaube schon in jungen Herzen Wurzeln schlägt. Deshalb treffen wir uns alle zwei Wochen samstags, lernen zusammen von Jesus, spielen, lachen und verbringen Zeit miteinander. Wer neu dazukommt, findet bei uns schnell Freunde.",
         action: null,
@@ -153,7 +153,7 @@ const de = {
       // nicht aus dem Briefing: aus der Einladung des Frauendienst-Teams zusammengefasst
       frauentreff: {
         when: "Jeden 2. Sonntag · 14:00",
-        title: "Frauentreff",
+        title: "Frauen-Treff",
         verse: null,
         text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen.",
         action: null,
