@@ -20,12 +20,35 @@ export default function BeliefPage() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="wrap">
+      <section className="page-hero belief-hero">
+        <div className="wrap belief-hero-inner">
           <Reveal className="section-head">
             <h1>{b.heading}</h1>
             <p className="lead">{b.lead}</p>
           </Reveal>
+
+          {/* Die drei Teile als Bildkacheln: Ueberblick und Sprungmarken zugleich */}
+          <nav aria-label={b.heading} className="belief-toc">
+            <ol>
+              {b.parts.map((part, i) => (
+                <li key={part.label}>
+                  <a href={`#teil-${i + 1}`}>
+                    <span className="belief-toc-photo">
+                      <Image
+                        src={PARTS[i].image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 760px) 30vw, 200px"
+                        style={{ objectFit: "cover", objectPosition: PARTS[i].position }}
+                      />
+                    </span>
+                    <span className="part-label">{part.label}</span>
+                    <span className="belief-toc-title">{part.heading}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
       </section>
 
@@ -33,22 +56,21 @@ export default function BeliefPage() {
         <section
           key={part.label}
           className={`section ${PARTS[i].section}`}
-          aria-labelledby={`teil-${i + 1}`}
+          aria-labelledby={`teil-${i + 1}-titel`}
         >
           <div className="wrap stack-lg">
-            <div className="part-head">
-              <div>
+            {/* Bildbanner zum Auftakt jedes Teils */}
+            <div className="part-banner" id={`teil-${i + 1}`}>
+              <Image
+                src={PARTS[i].image}
+                alt={part.imageAlt}
+                fill
+                sizes="(max-width: 1320px) 100vw, 1224px"
+                style={{ objectFit: "cover", objectPosition: PARTS[i].position }}
+              />
+              <div className="part-banner-text">
                 <span className="part-label">{part.label}</span>
-                <h2 id={`teil-${i + 1}`}>{part.heading}</h2>
-              </div>
-              <div className="part-photo">
-                <Image
-                  src={PARTS[i].image}
-                  alt={part.imageAlt}
-                  fill
-                  sizes="(max-width: 760px) 90vw, 420px"
-                  style={{ objectFit: "cover", objectPosition: PARTS[i].position }}
-                />
+                <h2 id={`teil-${i + 1}-titel`}>{part.heading}</h2>
               </div>
             </div>
 
@@ -66,7 +88,12 @@ export default function BeliefPage() {
                   </div>
                   <div className="creed-right">
                     <p>{item.text}</p>
-                    <span className="creed-refs">{item.refs}</span>
+                    {/* Bibelstellen als einzelne Etiketten */}
+                    <ul className="creed-refs">
+                      {item.refs.split(" · ").map((ref) => (
+                        <li key={ref}>{ref}</li>
+                      ))}
+                    </ul>
                   </div>
                 </li>
               ))}

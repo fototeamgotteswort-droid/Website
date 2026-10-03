@@ -14,8 +14,8 @@ const de = {
   skipLink: "Zum Inhalt springen",
 
   brand: {
-    name: "Gottes Wort",
-    tagline: "Christengemeinde Bochum",
+    name: "Christengemeinde Gottes Wort",
+    tagline: "Bochum · Deutsch & Русский",
   },
 
   nav: {
@@ -179,9 +179,6 @@ const de = {
     transitLabel: "Mit Bus & Bahn",
     transitText: "Rund 10 Minuten zu Fuß von der S-Bahn-Haltestelle Weserstraße.",
     ctaRoute: "Route planen",
-    onlineStrong: "Lieber erst online reinschauen?",
-    onlineText: "Sonntags ab 11:00 live auf YouTube.",
-    onlineLink: "Zum Livestream",
   },
 
   faq: {
@@ -229,7 +226,7 @@ const de = {
     instagram: "Instagram",
     imprint: "Impressum",
     privacy: "Datenschutz",
-    copyright: "© 2026 Christengemeinde Gottes Wort Bochum · Sonntags 11:00",
+    copyright: "© 2026 Christengemeinde Gottes Wort Bochum",
     bfp: "Teil des BFP",
   },
 

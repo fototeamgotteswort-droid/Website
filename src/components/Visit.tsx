@@ -1,7 +1,7 @@
 "use client";
 
-import { Car, MapPin, MonitorPlay, TrainFront } from "lucide-react";
-import { LIVESTREAM_URL, ROUTE_URL } from "@/lib/links";
+import { Car, MapPin, TrainFront } from "lucide-react";
+import { ROUTE_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
 import MapEmbed from "./MapEmbed";
 import Reveal from "./Reveal";
@@ -52,16 +52,6 @@ export default function Visit() {
             >
               {t.visit.ctaRoute} <span aria-hidden="true">→</span>
             </a>
-          </div>
-
-          <div className="info-box">
-            <MonitorPlay size={26} strokeWidth={1.8} aria-hidden="true" />
-            <p>
-              <strong>{t.visit.onlineStrong}</strong> {t.visit.onlineText}{" "}
-              <a href={LIVESTREAM_URL} target="_blank" rel="noopener noreferrer">
-                {t.visit.onlineLink}
-              </a>
-            </p>
           </div>
         </Reveal>
 

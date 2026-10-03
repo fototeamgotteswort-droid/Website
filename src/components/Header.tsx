@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -15,10 +16,23 @@ const NAV_LINKS: { href: string; key: keyof Dict["nav"] }[] = [
   { href: "/was-wir-glauben", key: "belief" },
 ];
 
+// Stil der bisherigen Seite: ueber dem Hero-Video transparent mit heller
+// Schrift, nach dem Scrollen hell hinterlegt. Unterseiten haben keinen
+// dunklen Kopf, dort ist der Header von Anfang an hell.
 export default function Header() {
   const t = useT();
   const openGive = useOpenGive();
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const solid = scrolled || pathname !== "/";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -39,11 +53,23 @@ export default function Header() {
   };
 
   return (
-    <header className="site-header">
+    <header
+      className={`site-header${solid ? " solid" : ""}${open ? " menu-open" : ""}`}
+    >
       <div className="wrap navrow">
         <Link href="/" className="brand">
-          <span className="brand-name">{t.brand.name}</span>
-          <span className="brand-tag">{t.brand.tagline}</span>
+          <svg className="brand-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <path
+              d="M17 2 L17 32 M8 11 L26 11"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="brand-text">
+            <span className="brand-name">{t.brand.name}</span>
+            <span className="brand-tag">{t.brand.tagline}</span>
+          </span>
         </Link>
 
         <nav aria-label={t.nav.label} className="nav-main">
@@ -59,22 +85,22 @@ export default function Header() {
               </button>
             </li>
           </ul>
-          <LanguageToggle />
         </nav>
 
         <div className="navrow-end">
+          <LanguageToggle />
           <button
             type="button"
-            className="icon-btn on-dark nav-menu-btn"
+            className="nav-menu-btn"
             aria-label={open ? t.menu.close : t.menu.open}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? (
-              <X size={20} strokeWidth={2} aria-hidden="true" />
+              <X size={22} strokeWidth={2} aria-hidden="true" />
             ) : (
-              <Menu size={20} strokeWidth={2} aria-hidden="true" />
+              <Menu size={22} strokeWidth={2} aria-hidden="true" />
             )}
           </button>
         </div>
@@ -86,10 +112,10 @@ export default function Header() {
             id="mobile-menu"
             className="mobile-menu"
             aria-label={t.nav.label}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
             <ul>
               {NAV_LINKS.map((link) => (
@@ -105,7 +131,6 @@ export default function Header() {
                 </button>
               </li>
             </ul>
-            <LanguageToggle />
           </motion.nav>
         )}
       </AnimatePresence>
