@@ -11,9 +11,7 @@ import { useOpenGive } from "./Give";
 
 // Absolute Pfade, damit die Links auch von Unterseiten aus funktionieren.
 const NAV_LINKS: { href: string; key: keyof Dict["nav"] }[] = [
-  { href: "/#glaube", key: "who" },
-  { href: "/#sonntag", key: "sunday" },
-  { href: "/#termine", key: "events" },
+  { href: "/", key: "home" },
   { href: "/was-wir-glauben", key: "belief" },
 ];
 
@@ -65,9 +63,6 @@ export default function Header() {
         </nav>
 
         <div className="navrow-end">
-          <Link href="/#besuch" className="btn btn-aqua nav-cta">
-            {t.nav.visit}
-          </Link>
           <button
             type="button"
             className="icon-btn on-dark nav-menu-btn"

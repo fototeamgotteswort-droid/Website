@@ -20,12 +20,12 @@ const de = {
 
   nav: {
     label: "Hauptnavigation",
+    home: "Startseite",
     who: "Wer wir sind",
     sunday: "Sonntag",
     events: "Termine",
     belief: "Was wir glauben",
     give: "Geben",
-    visit: "Besuch planen",
   },
 
   menu: {
@@ -179,7 +179,6 @@ const de = {
     carText: "Über A40 & A43. Eigener Parkplatz und Plätze entlang der Harpener Heide.",
     transitLabel: "Mit Bus & Bahn",
     transitText: "Rund 10 Minuten zu Fuß von der S-Bahn-Haltestelle Weserstraße.",
-    ctaPlan: "Besuch planen",
     ctaRoute: "Route planen",
     onlineStrong: "Lieber erst online reinschauen?",
     onlineText: "Sonntags ab 11:00 live auf YouTube.",
@@ -206,11 +205,6 @@ const de = {
     contactText: "Schreib uns jederzeit, wir melden uns so bald wie möglich bei dir.",
     whatsapp: "WhatsApp",
     phone: "[Telefonnummer]",
-  },
-
-  // vorausgefuellte WhatsApp-Nachrichten aus Abschnitt 3 und 6
-  whatsappText: {
-    visit: "Hallo, ich möchte am Sonntag vorbeikommen",
   },
 
   map: {

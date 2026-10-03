@@ -1,7 +1,7 @@
 "use client";
 
 import { Car, MapPin, MonitorPlay, TrainFront } from "lucide-react";
-import { LIVESTREAM_URL, ROUTE_URL, whatsappUrl } from "@/lib/links";
+import { LIVESTREAM_URL, ROUTE_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
 import MapEmbed from "./MapEmbed";
 import Reveal from "./Reveal";
@@ -44,22 +44,13 @@ export default function Visit() {
           </ul>
 
           <div className="btn-row">
-            {/* Uebergang per WhatsApp, spaeter /neu-hier mit Formular */}
             <a
-              href={whatsappUrl(t.whatsappText.visit)}
+              href={ROUTE_URL}
               className="btn btn-primary"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {t.visit.ctaPlan} <span aria-hidden="true">→</span>
-            </a>
-            <a
-              href={ROUTE_URL}
-              className="btn btn-outline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t.visit.ctaRoute}
+              {t.visit.ctaRoute} <span aria-hidden="true">→</span>
             </a>
           </div>
 
