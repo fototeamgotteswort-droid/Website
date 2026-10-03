@@ -1,112 +1,119 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import { useT } from "./LanguageProvider";
 import LanguageToggle from "./LanguageToggle";
+import { useOpenGive } from "./Give";
 
+// Absolute Pfade, damit die Links auch von Unterseiten aus funktionieren.
 const NAV_LINKS: { href: string; key: keyof Dict["nav"] }[] = [
-  { href: "#ueber-uns", key: "about" },
-  { href: "#andacht", key: "andacht" },
-  { href: "#gottesdienst", key: "service" },
-  { href: "#kinder-jugend", key: "kids" },
-  { href: "#programme", key: "programs" },
-  { href: "#geben", key: "giving" },
-  { href: "#kontakt", key: "contact" },
+  { href: "/#glaube", key: "who" },
+  { href: "/#sonntag", key: "sunday" },
+  { href: "/#termine", key: "events" },
+  { href: "/was-wir-glauben", key: "belief" },
 ];
 
 export default function Header() {
   const t = useT();
-  const [scrolled, setScrolled] = useState(false);
+  const openGive = useOpenGive();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
+  const give = () => {
+    setOpen(false);
+    openGive();
+  };
+
   return (
-    <>
-      <header id="siteHeader" className={scrolled ? "scrolled" : ""}>
-        <div className="wrap navrow">
-          <a href="#top" className="brand">
-            <svg
-              className="brand-mark"
-              viewBox="0 0 34 34"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 2 L17 32 M8 11 L26 11"
-                stroke="var(--sand)"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="brand-text">
-              <span className="t1">{t.brand.name}</span>
-              <span className="t2">{t.brand.tagline}</span>
-            </span>
-          </a>
-          <nav>
-            <ul>
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>{t.nav[link.key]}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="navrow-end">
-            <LanguageToggle />
-            <button
-              className={`navbtn${open ? " open" : ""}`}
-              aria-label={open ? t.menu.close : t.menu.open}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
+    <header className="site-header">
+      <div className="wrap navrow">
+        <Link href="/" className="brand">
+          <span className="brand-name">{t.brand.name}</span>
+          <span className="brand-tag">{t.brand.tagline}</span>
+        </Link>
+
+        <nav aria-label={t.nav.label} className="nav-main">
+          <ul>
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href}>{t.nav[link.key]}</Link>
+              </li>
+            ))}
+            <li>
+              <button type="button" className="nav-give" onClick={give}>
+                {t.nav.give}
+              </button>
+            </li>
+          </ul>
+          <LanguageToggle />
+        </nav>
+
+        <div className="navrow-end">
+          <Link href="/#besuch" className="btn btn-aqua nav-cta">
+            {t.nav.visit}
+          </Link>
+          <button
+            type="button"
+            className="icon-btn on-dark nav-menu-btn"
+            aria-label={open ? t.menu.close : t.menu.open}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? (
+              <X size={20} strokeWidth={2} aria-hidden="true" />
+            ) : (
+              <Menu size={20} strokeWidth={2} aria-hidden="true" />
+            )}
+          </button>
         </div>
-      </header>
+      </div>
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <motion.nav
+            id="mobile-menu"
             className="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            aria-label={t.nav.label}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
           >
-            {NAV_LINKS.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {t.nav[link.key]}
-              </motion.a>
-            ))}
-          </motion.div>
+            <ul>
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} onClick={() => setOpen(false)}>
+                    {t.nav[link.key]}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <button type="button" onClick={give}>
+                  {t.nav.give}
+                </button>
+              </li>
+            </ul>
+            <LanguageToggle />
+          </motion.nav>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

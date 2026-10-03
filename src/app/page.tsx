@@ -1,13 +1,11 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import WhoWeAre from "@/components/WhoWeAre";
+import Sunday from "@/components/Sunday";
+import Stories from "@/components/Stories";
 import Events from "@/components/Events";
-import Andacht from "@/components/Andacht";
-import Service from "@/components/Service";
-import Kids from "@/components/Kids";
-import Programs from "@/components/Programs";
-import Giving from "@/components/Giving";
-import Contact from "@/components/Contact";
+import Visit from "@/components/Visit";
+import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
@@ -16,15 +14,15 @@ export default function Home() {
     <>
       <JsonLd />
       <Header />
-      <Hero />
-      <About />
-      <Events />
-      <Andacht />
-      <Service />
-      <Kids />
-      <Programs />
-      <Giving />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <WhoWeAre />
+        <Sunday />
+        <Stories />
+        <Events />
+        <Visit />
+        <Faq />
+      </main>
       <Footer />
     </>
   );

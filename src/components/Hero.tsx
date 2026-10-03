@@ -2,7 +2,11 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { CirclePlay, Clock, MapPin, UserRound } from "lucide-react";
+import { LIVESTREAM_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
+
+const STRIP_ICONS = [Clock, MapPin, UserRound];
 
 export default function Hero() {
   const t = useT();
@@ -55,53 +59,42 @@ export default function Hero() {
       </div>
 
       <div className="wrap hero-inner">
-        <motion.div className="hero-kicker" {...enter(12, 0, 0.7)}>
-          {t.hero.kicker}
-        </motion.div>
-
-        <motion.h1 className="headline" {...enter(26, 0.1, 0.9)}>
+        <motion.h1 className="hero-title" {...enter(26, 0.05, 0.9)}>
           {t.hero.headline[0]}
           <br />
           {t.hero.headline[1]}
         </motion.h1>
 
-        <motion.div className="hero-cta" {...enter(16, 0.25)}>
-          <a href="#gottesdienst" className="btn-hero">
+        <motion.div className="btn-row" {...enter(16, 0.2)}>
+          <a href="#besuch" className="btn btn-light">
             {t.hero.ctaOnsite} <span aria-hidden="true">→</span>
           </a>
           <a
-            href="/api/live"
-            className="btn-hero"
+            href={LIVESTREAM_URL}
+            className="btn btn-outline-light"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t.hero.ctaOnline} <span aria-hidden="true">→</span>
+            <CirclePlay size={18} strokeWidth={1.8} aria-hidden="true" />
+            {t.hero.ctaOnline}
           </a>
         </motion.div>
-      </div>
 
-      <motion.div
-        className="hero-strip"
-        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={
-          reduced
-            ? { duration: 0 }
-            : { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const, delay: 0.5 }
-        }
-      >
-        <div className="wrap hero-strip-inner">
-          <div className="hero-strip-addr">{t.hero.address}</div>
-          <div className="hero-strip-facts">
-            {t.hero.strip.map((item) => (
-              <div key={item.num}>
-                <span className="num">{item.num}</span>
-                <span className="lbl">{item.lbl}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
+        <motion.ul className="info-strip" {...enter(12, 0.35)}>
+          {t.hero.strip.map((item, i) => {
+            const Icon = STRIP_ICONS[i];
+            return (
+              <li key={item.strong}>
+                <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+                <span>
+                  <strong>{item.strong}</strong>
+                  {item.text}
+                </span>
+              </li>
+            );
+          })}
+        </motion.ul>
+      </div>
     </section>
   );
 }

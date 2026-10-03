@@ -6,7 +6,7 @@ export default function SkipLink() {
   const t = useT();
 
   return (
-    <a href="#ueber-uns" className="skip-link">
+    <a href="#main" className="skip-link">
       {t.skipLink}
     </a>
   );

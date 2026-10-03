@@ -1,35 +1,29 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans, JetBrains_Mono } from "next/font/google";
+import { Montserrat, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/MotionProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import SkipLink from "@/components/SkipLink";
+import GiveProvider from "@/components/Give";
 import "./globals.css";
 
 const SITE_URL = "https://christusgemeinde-bo-nord.de";
 const SITE_NAME = "Christengemeinde Gottes Wort Bochum";
 const SITE_DESCRIPTION =
-  "Christengemeinde Gottes Wort Bochum — eine deutsch-russischsprachige Gemeinde für die ganze Familie. Jeden Sonntag 11 Uhr, Harpener Heide 9.";
+  "Christengemeinde Gottes Wort Bochum: eine deutsch-russische Freikirche für alle Generationen. Sonntags 11:00, Harpener Heide 9.";
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: "variable",
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "600"],
   style: ["normal", "italic"],
-  axes: ["opsz"],
 });
 
-const workSans = Work_Sans({
+const montserrat = Montserrat({
   variable: "--font-body",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -68,12 +62,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${fraunces.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
+      className={`${playfair.variable} ${montserrat.variable}`}
     >
       <body>
         <LanguageProvider>
           <SkipLink />
-          <MotionProvider>{children}</MotionProvider>
+          <MotionProvider>
+            <GiveProvider>{children}</GiveProvider>
+          </MotionProvider>
         </LanguageProvider>
         <Analytics />
         <SpeedInsights />

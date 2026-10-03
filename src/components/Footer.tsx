@@ -1,78 +1,72 @@
 "use client";
 
+import Link from "next/link";
+import { IMPRINT_URL, INSTAGRAM_URL, PRIVACY_URL } from "@/lib/links";
+import { useOpenGive } from "./Give";
 import { useT } from "./LanguageProvider";
 
 export default function Footer() {
   const t = useT();
+  const openGive = useOpenGive();
 
   return (
-    <footer>
+    <footer className="site-footer">
       <div className="wrap">
         <div className="foot-grid">
-          <div>
-            <h4>{t.footer.addressHeading}</h4>
-            <ul>
-              {t.footer.address.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
+          <div className="foot-brand">
+            <span className="brand-name">{t.brand.name}</span>
+            <span>
+              {t.brand.tagline}
+              <br />
+              Harpener Heide 9
+              <br />
+              44805 Bochum
+            </span>
           </div>
-          <div>
-            <h4>{t.footer.discoverHeading}</h4>
+          <nav aria-label={t.footer.discoverHeading}>
+            <h2>{t.footer.discoverHeading}</h2>
             <ul>
               <li>
-                <a href="#ueber-uns">{t.nav.about}</a>
+                <Link href="/#glaube">{t.nav.who}</Link>
               </li>
               <li>
-                <a href="#gottesdienst">{t.nav.service}</a>
+                <Link href="/was-wir-glauben">{t.nav.belief}</Link>
               </li>
               <li>
-                <a href="/api/live" target="_blank" rel="noopener noreferrer">
-                  {t.footer.livestream}
-                </a>
-              </li>
-              <li>
-                <a href="#kinder-jugend">{t.nav.kids}</a>
-              </li>
-              <li>
-                <a href="#programme">{t.nav.programs}</a>
+                <Link href="/#termine">{t.nav.events}</Link>
               </li>
             </ul>
-          </div>
-          <div>
-            <h4>{t.footer.joinHeading}</h4>
+          </nav>
+          <nav aria-label={t.footer.joinHeading}>
+            <h2>{t.footer.joinHeading}</h2>
             <ul>
               <li>
-                <a href="#geben">{t.nav.giving}</a>
+                <button type="button" onClick={openGive}>
+                  {t.nav.give}
+                </button>
               </li>
               <li>
-                <a href="#andacht">{t.nav.andacht}</a>
-              </li>
-              <li>
-                <a href="#kontakt">{t.nav.contact}</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4>{t.footer.legalHeading}</h4>
-            <ul>
-              {/* zeigen noch auf die alte wordpress-seite — vor domain-umzug prüfen */}
-              <li>
-                <a href="https://christusgemeinde-bo-nord.de/impressum/">
-                  {t.footer.imprint}
-                </a>
-              </li>
-              <li>
-                <a href="https://christusgemeinde-bo-nord.de/datenschutz/">
-                  {t.footer.privacy}
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                  {t.footer.instagram}
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
+          <nav aria-label={t.footer.legalHeading}>
+            <h2>{t.footer.legalHeading}</h2>
+            <ul>
+              <li>
+                <a href={IMPRINT_URL}>{t.footer.imprint}</a>
+              </li>
+              <li>
+                <a href={PRIVACY_URL}>{t.footer.privacy}</a>
+              </li>
+            </ul>
+          </nav>
         </div>
         <div className="foot-bottom">
           <span>{t.footer.copyright}</span>
-          <span>{t.footer.meta}</span>
+          <span>{t.footer.bfp}</span>
         </div>
       </div>
     </footer>

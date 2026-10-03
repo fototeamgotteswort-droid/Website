@@ -82,8 +82,8 @@ export default function LanguageProvider({ children }: { children: ReactNode }) 
   const lang = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
+    // Den Seitentitel setzt Next pro Route (metadata), hier nur die Sprache.
     document.documentElement.lang = lang;
-    document.title = translations[lang].documentTitle;
   }, [lang]);
 
   return (
