@@ -42,7 +42,6 @@ const de = {
   hero: {
     headline: ["Gemeinsam glauben", "Gemeinsam wachsen"],
     ctaOnsite: "Persönlich vorbeikommen",
-    ctaOnline: "Online mitfeiern",
     strip: [
       { strong: "Sonntags 11:00", text: "Deutsch & Russisch" },
       { strong: "Harpener Heide 9", text: "44805 Bochum" },

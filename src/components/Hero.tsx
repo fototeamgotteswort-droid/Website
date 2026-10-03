@@ -2,8 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { CirclePlay } from "lucide-react";
-import { LIVESTREAM_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
 
 export default function Hero() {
@@ -66,15 +64,6 @@ export default function Hero() {
         <motion.div className="btn-row" {...enter(16, 0.2)}>
           <a href="#besuch" className="btn btn-light">
             {t.hero.ctaOnsite} <span aria-hidden="true">→</span>
-          </a>
-          <a
-            href={LIVESTREAM_URL}
-            className="btn btn-outline-light"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <CirclePlay size={18} strokeWidth={1.8} aria-hidden="true" />
-            {t.hero.ctaOnline}
           </a>
         </motion.div>
 
