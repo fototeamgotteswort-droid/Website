@@ -1738,6 +1738,32 @@ summary:focus-visible,
   justify-content: center;
 }
 
+/* ---------- Rechtstexte (Impressum, Datenschutz) ---------- */
+
+.legal {
+  max-width: var(--measure);
+}
+.legal h2 {
+  font-size: clamp(24px, 2.6vw, 30px);
+  margin: 48px 0 16px;
+}
+.legal h2:first-child {
+  margin-top: 0;
+}
+.legal h3 {
+  font-family: var(--body);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 24px 0 6px;
+}
+.legal p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.legal a {
+  font-weight: 600;
+}
+
 /* ---------- Footer ---------- */
 
 .site-footer {
