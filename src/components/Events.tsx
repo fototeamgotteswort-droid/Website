@@ -76,10 +76,11 @@ function today() {
 }
 const noop = () => () => {};
 
-// Die Liste steht dreimal hintereinander im Markup. Gelaufen wird immer in
-// der mittleren Kopie: so ist links und rechts eine ganze Runde Vorlauf da,
-// und beim Umsetzen um genau eine Runde sieht das Bild identisch aus.
-const COPIES = 3;
+// Die Liste steht mehrfach hintereinander im Markup. Gelaufen wird immer in
+// der zweiten Kopie: links ist eine ganze Runde Vorlauf, rechts genug Inhalt,
+// dass der Bildschirm auch bei wenigen Terminen gefuellt bleibt. Beim
+// Umsetzen um genau eine Runde sieht das Bild identisch aus.
+const COPIES = 4;
 /** Tempo des Selbstlaufs in Pixeln pro Sekunde. */
 const SPEED = 26;
 /** So lange nach einer Eingabe bleibt der Selbstlauf aus. */
@@ -166,8 +167,10 @@ export default function Events() {
       hold(HOLD_AFTER_INPUT);
     };
     const input = () => hold(HOLD_AFTER_INPUT);
-    const enter = () => {
-      hovered.current = true;
+    // Nur eine echte Maus haelt an. Am Handy gilt ein Tippen sonst als
+    // Hover, das nie endet, und das Karussell bliebe fuer immer stehen.
+    const enter = (event: PointerEvent) => {
+      hovered.current = event.pointerType === "mouse";
     };
     const leave = () => {
       hovered.current = false;
@@ -176,8 +179,11 @@ export default function Events() {
     el.addEventListener("pointerdown", down);
     el.addEventListener("wheel", input, { passive: true });
     el.addEventListener("keydown", input);
-    el.addEventListener("mouseenter", enter);
-    el.addEventListener("mouseleave", leave);
+    // Tastaturfokus im Karussell: kurz anhalten, damit der Browser die
+    // fokussierte Karte ins Bild holen kann und sie dort bleibt.
+    el.addEventListener("focusin", input);
+    el.addEventListener("pointerenter", enter);
+    el.addEventListener("pointerleave", leave);
     window.addEventListener("pointerup", up);
     window.addEventListener("pointercancel", up);
 
@@ -185,8 +191,9 @@ export default function Events() {
       el.removeEventListener("pointerdown", down);
       el.removeEventListener("wheel", input);
       el.removeEventListener("keydown", input);
-      el.removeEventListener("mouseenter", enter);
-      el.removeEventListener("mouseleave", leave);
+      el.removeEventListener("focusin", input);
+      el.removeEventListener("pointerenter", enter);
+      el.removeEventListener("pointerleave", leave);
       window.removeEventListener("pointerup", up);
       window.removeEventListener("pointercancel", up);
     };
@@ -199,14 +206,6 @@ export default function Events() {
 
     let frame = 0;
     let previous = performance.now();
-
-    // Tastaturfokus im Karussell: der Browser scrollt das fokussierte Element
-    // selbst ins Bild. Dann darf weder der Selbstlauf noch der Umlauf die
-    // Position verschieben, sonst wandert der Fokusrahmen aus dem Bild.
-    const keyboardInside = () => {
-      const active = document.activeElement;
-      return !!active && el.contains(active) && active.matches(":focus-visible");
-    };
 
     const tick = (now: number) => {
       frame = requestAnimationFrame(tick);
@@ -227,8 +226,7 @@ export default function Events() {
       if (
         pointerDown.current ||
         now < holdUntil.current ||
-        dialogOpen.current ||
-        keyboardInside()
+        dialogOpen.current
       ) {
         // Der Nutzer hat das Steuer; danach lesen wir neu ein.
         target.current = null;
