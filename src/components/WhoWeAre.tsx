@@ -13,11 +13,11 @@ type CardId = keyof Dict["who"]["cards"];
 // Fotos von Unsplash (freie Unsplash-Lizenz, Namensnennung nicht noetig):
 // Bibel: Aaron Burden · unsplash.com/photos/9zsHNt5OpqE
 // Kreuz: Shutter Speed · unsplash.com/photos/3APnkQ8h60Q
-// Taube: Ahmed Nishaath · unsplash.com/photos/2EoMV_zj9gQ
+// Taube: Shubhankar Bhowmick · unsplash.com/photos/qscY0de8YUY
 const CARDS: { id: CardId; image: string; position: string }[] = [
   { id: "bibel", image: "/images/glaube/bibel.jpg", position: "50% 70%" },
   { id: "jesus", image: "/images/glaube/kreuz.jpg", position: "52% center" },
-  { id: "geist", image: "/images/glaube/taube-himmel.jpg", position: "48% 40%" },
+  { id: "geist", image: "/images/glaube/taube-nah.jpg", position: "center 12%" },
 ];
 
 export default function WhoWeAre() {
