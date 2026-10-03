@@ -66,7 +66,6 @@ export default function Hero() {
             {t.hero.ctaOnsite} <span aria-hidden="true">→</span>
           </a>
         </motion.div>
-
       </div>
 
       {/* Leiste im Stil der bisherigen Seite: volle Breite am unteren Rand */}
