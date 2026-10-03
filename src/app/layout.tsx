@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import { ScrollToTopOnNavigate } from "@/components/PageLink";
 import "./globals.css";
 
-const SITE_URL = "https://christusgemeinde-bo-nord.de";
+const SITE_URL = "https://gottes-wort-bochum.de";
 const SITE_NAME = "Christengemeinde Gottes Wort Bochum";
 const SITE_DESCRIPTION =
   "Christengemeinde Gottes Wort Bochum: eine deutsch-russische Freikirche für alle Generationen. Sonntags 11:00, Harpener Heide 9.";
