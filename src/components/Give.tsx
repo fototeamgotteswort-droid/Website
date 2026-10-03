@@ -4,14 +4,13 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
 import { Heart, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { BANK } from "@/lib/links";
+import Dialog from "./Dialog";
 import { useT } from "./LanguageProvider";
 
 // EPC-QR ("GiroCode"): wird von deutschen Banking-Apps als Ueberweisung erkannt.
@@ -36,18 +35,8 @@ export function useOpenGive() {
 
 export default function GiveProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  // Fokus nach dem Schliessen dorthin zurueckgeben, wo er herkam.
-  const returnFocus = useRef<HTMLElement | null>(null);
-
-  const open = useCallback(() => {
-    returnFocus.current = document.activeElement as HTMLElement | null;
-    setIsOpen(true);
-  }, []);
-
-  const close = useCallback(() => {
-    setIsOpen(false);
-    returnFocus.current?.focus();
-  }, []);
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   return (
     <GiveContext.Provider value={open}>
@@ -75,39 +64,7 @@ function GiveFab({ onOpen }: { onOpen: () => void }) {
 
 function GiveDialog({ onClose }: { onClose: () => void }) {
   const t = useT();
-  const dialog = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const el = dialog.current;
-    if (!el) return;
-    el.querySelector<HTMLElement>("button")?.focus();
-
-    // Fokus-Falle: Tab bleibt im Dialog, Esc schliesst.
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onClose();
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const focusable = Array.from(
-        el.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
-      );
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
   const copy = async () => {
     try {
@@ -120,60 +77,52 @@ function GiveDialog({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div
-      className="give-overlay"
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
+    <Dialog
+      onClose={onClose}
+      labelledBy="give-title"
+      overlayClassName="give-overlay"
+      className="give-dialog"
     >
-      <div
-        ref={dialog}
-        className="give-dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="give-title"
-      >
-        <div className="give-head">
-          <h2 id="give-title">{t.give.heading}</h2>
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label={t.give.close}
-            onClick={onClose}
-          >
-            <X size={18} strokeWidth={2.2} aria-hidden="true" />
-          </button>
-        </div>
-        <p>{t.give.text}</p>
-        <div className="give-bank">
-          <QRCodeSVG
-            value={GIROCODE}
-            size={96}
-            level="M"
-            marginSize={0}
-            fgColor="#1B3B4D"
-            bgColor="transparent"
-            role="img"
-            aria-label={t.give.qrLabel}
-            className="give-qr"
-          />
-          <dl>
-            <dt>{t.give.ibanLabel}</dt>
-            <dd>{BANK.ibanDisplay}</dd>
-            <dt>{t.give.recipientLabel}</dt>
-            <dd>{BANK.recipient}</dd>
-          </dl>
-        </div>
-        <div>
-          <button type="button" className="btn btn-primary btn-sm" onClick={copy}>
-            {copied ? t.give.copied : t.give.copy}
-          </button>
-          <span className="sr-only" aria-live="polite">
-            {copied ? t.give.copied : ""}
-          </span>
-        </div>
-        <small>{t.give.note}</small>
+      <div className="give-head">
+        <h2 id="give-title">{t.give.heading}</h2>
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label={t.give.close}
+          onClick={onClose}
+        >
+          <X size={18} strokeWidth={2.2} aria-hidden="true" />
+        </button>
       </div>
-    </div>
+      <p>{t.give.text}</p>
+      <div className="give-bank">
+        <QRCodeSVG
+          value={GIROCODE}
+          size={96}
+          level="M"
+          marginSize={0}
+          fgColor="#1B3B4D"
+          bgColor="transparent"
+          role="img"
+          aria-label={t.give.qrLabel}
+          className="give-qr"
+        />
+        <dl>
+          <dt>{t.give.ibanLabel}</dt>
+          <dd>{BANK.ibanDisplay}</dd>
+          <dt>{t.give.recipientLabel}</dt>
+          <dd>{BANK.recipient}</dd>
+        </dl>
+      </div>
+      <div>
+        <button type="button" className="btn btn-primary btn-sm" onClick={copy}>
+          {copied ? t.give.copied : t.give.copy}
+        </button>
+        <span className="sr-only" aria-live="polite">
+          {copied ? t.give.copied : ""}
+        </span>
+      </div>
+      <small>{t.give.note}</small>
+    </Dialog>
   );
 }

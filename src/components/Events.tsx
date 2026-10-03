@@ -1,15 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useSyncExternalStore } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import { useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import {
   EVENTBRITE_URL,
   INSTAGRAM_YOUTH_URL,
   whatsappUrl,
 } from "@/lib/links";
+import Dialog from "./Dialog";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
@@ -19,14 +20,16 @@ type EventId = keyof Dict["events"]["items"];
 // Darstellung und Ziel. "until" (JJJJ-MM-TT) blendet einmalige Termine nach
 // diesem Tag automatisch aus; regelmaessige Termine haben keins.
 // "Mehr erfahren"-Links sind Uebergaenge, bis es /gemeindeleben gibt.
-const EVENTS: {
+type EventEntry = {
   id: EventId;
   image: string;
   position: string;
   until?: string;
   href: (t: Dict) => string;
   external: boolean;
-}[] = [
+};
+
+const EVENTS: EventEntry[] = [
   {
     id: "machineGunPreacher",
     image: "/images/events/machine-gun-preacher.jpg",
@@ -91,6 +94,9 @@ export default function Events() {
   const reduced = useReducedMotion();
   const scroller = useRef<HTMLDivElement>(null);
   const now = useSyncExternalStore(noop, today, () => null);
+  const [openId, setOpenId] = useState<EventId | null>(null);
+  const close = useCallback(() => setOpenId(null), []);
+  const opened = EVENTS.find((event) => event.id === openId);
 
   const upcoming = EVENTS.filter(
     (event) => !event.until || now === null || event.until >= now,
@@ -155,7 +161,7 @@ export default function Events() {
                     src={event.image}
                     alt={info.imageAlt}
                     fill
-                    sizes="330px"
+                    sizes="(max-width: 640px) 84vw, 330px"
                     loading={i < 3 ? "eager" : "lazy"}
                     style={{ objectFit: "cover", objectPosition: event.position }}
                   />
@@ -163,27 +169,84 @@ export default function Events() {
                 <div className="event-body">
                   <span className="event-when">{info.when}</span>
                   <h3>{info.title}</h3>
-                  {info.verse && (
-                    <p className="event-verse">
-                      {info.verse.text} <cite>{info.verse.ref}</cite>
-                    </p>
-                  )}
+                  {/* auf der Karte nur angerissen, alles Weitere im Pop-up */}
                   <p className="event-text">{info.text}</p>
-                  <a
-                    href={event.href(t)}
+                  <button
+                    type="button"
                     className="text-link event-cta"
-                    {...(event.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
+                    aria-haspopup="dialog"
+                    onClick={() => setOpenId(event.id)}
                   >
-                    {info.cta} <span aria-hidden="true">→</span>
-                  </a>
+                    {t.events.more} <span aria-hidden="true">→</span>
+                  </button>
                 </div>
               </article>
             );
           })}
         </div>
       </div>
+
+      {opened && <EventDialog event={opened} onClose={close} />}
     </section>
+  );
+}
+
+function EventDialog({
+  event,
+  onClose,
+}: {
+  event: EventEntry;
+  onClose: () => void;
+}) {
+  const t = useT();
+  const info = t.events.items[event.id];
+
+  return (
+    <Dialog
+      onClose={onClose}
+      labelledBy="event-dialog-title"
+      overlayClassName="event-overlay"
+      className="event-dialog"
+    >
+      <button
+        type="button"
+        className="icon-btn event-dialog-close"
+        aria-label={t.events.close}
+        onClick={onClose}
+      >
+        <X size={18} strokeWidth={2.2} aria-hidden="true" />
+      </button>
+      <div className="event-dialog-media">
+        <Image
+          src={event.image}
+          alt={info.imageAlt}
+          fill
+          sizes="(max-width: 640px) 100vw, 560px"
+          style={{ objectFit: "cover", objectPosition: event.position }}
+        />
+      </div>
+      <div className="event-dialog-body">
+        <span className="event-when">{info.when}</span>
+        <h2 id="event-dialog-title">{info.title}</h2>
+        {info.verse && (
+          <p className="event-verse">
+            {info.verse.text} <cite>{info.verse.ref}</cite>
+          </p>
+        )}
+        <p>{info.text}</p>
+        <div>
+          <a
+            href={event.href(t)}
+            className="btn btn-primary"
+            {...(event.external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {info.action}
+            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </Dialog>
   );
 }

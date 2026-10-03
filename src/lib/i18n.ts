@@ -112,13 +112,15 @@ const de = {
     regionLabel: "Termine",
     prev: "Vorherige Termine",
     next: "Nächste Termine",
+    more: "Mehr erfahren",
+    close: "Schließen",
     items: {
       machineGunPreacher: {
         when: "18. Oktober · 11:00",
         title: "Gastprediger: Machine Gun Preacher",
         text: "Der Machine Gun Preacher, Sam Childers, ist bei uns zu Gast und erzählt seine persönliche Geschichte: vom Rocker zum Pastor und Retter von Kindern im Südsudan.",
         verse: null,
-        cta: "Jetzt anmelden",
+        action: "Jetzt anmelden",
         imageAlt: "Plakat: Machine Gun Preacher Sam Childers zu Gast",
       },
       gebetsabend: {
@@ -129,7 +131,7 @@ const de = {
           ref: "Matthäus 18,20",
         },
         text: "Jeden Freitag kommen wir gemeinsam vor Gott, bringen ihm, was uns bewegt, danken ihm und beten für unsere Stadt und füreinander. Wir glauben: Wenn Christen gemeinsam beten, liegt darin eine gewaltige Kraft, die etwas bewegt.",
-        cta: "Mehr erfahren",
+        action: "Frag uns per WhatsApp",
         imageAlt: "Frau mit rotem Kopftuch betet mit gefalteten Händen an einem Tisch",
       },
       jugendtreff: {
@@ -137,7 +139,7 @@ const de = {
         title: "Jugendtreff (16–24 Jahre)",
         verse: null,
         text: "Wir sind eine Generation, die für Jesus brennt, und glauben, dass Gott mit der Jugend Großes vorhat. Komm samstags dazu, feiere mit uns Gottesdienst, tausch dich aus und lass uns gemeinsam im Glauben wachsen.",
-        cta: "Mehr erfahren",
+        action: "Zur Jugend auf Instagram",
         imageAlt: "Jugendliche mit erhobenen Händen beim Lobpreis, im Hintergrund ein Gitarrist",
       },
       teenieTreff: {
@@ -145,7 +147,7 @@ const de = {
         title: "Teenie Treff (12–16 Jahre)",
         verse: null,
         text: "Wir glauben, dass Glaube schon in jungen Herzen Wurzeln schlägt. Deshalb treffen wir uns alle zwei Wochen samstags, lernen zusammen von Jesus, spielen, lachen und verbringen Zeit miteinander. Wer neu dazukommt, findet bei uns schnell Freunde.",
-        cta: "Mehr erfahren",
+        action: "Frag uns per WhatsApp",
         imageAlt: "Gruppe von Kindern und Teenagern mit erhobenen Händen vor einer Leinwand",
       },
       // nicht aus dem Briefing: aus der Einladung des Frauendienst-Teams zusammengefasst
@@ -154,7 +156,7 @@ const de = {
         title: "Frauentreff",
         verse: null,
         text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen.",
-        cta: "Mehr erfahren",
+        action: "Frag uns per WhatsApp",
         imageAlt: "Drei Frauen sitzen lächelnd zusammen an einem Tisch",
       },
       kleingruppen: {
@@ -162,7 +164,7 @@ const de = {
         title: "Kleingruppen",
         verse: null,
         text: "Christliches Leben spielt sich nicht nur am Sonntag ab. Deshalb treffen wir uns wie die ersten Christen in kleinen Gruppen, in der Gemeinde oder zu Hause. Wir sprechen über den Glauben und unseren Alltag und stärken uns gegenseitig als Brüder und Schwestern. Es gibt viele Gruppen, bestimmt auch eine, die zu dir passt.",
-        cta: "Finde deine Gruppe",
+        action: "Finde deine Gruppe",
         imageAlt: "Frau spricht zu einer Gruppe an einem festlich gedeckten Tisch mit Kerzen",
       },
     },
