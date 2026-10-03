@@ -129,52 +129,52 @@ export default function Events() {
             </button>
           </div>
         </Reveal>
-      </div>
 
-      <div
-        id="events-scroller"
-        className="events-scroller"
-        ref={scroller}
-        role="region"
-        aria-label={t.events.regionLabel}
-        tabIndex={0}
-      >
-        {upcoming.map((event, i) => {
-          const info = t.events.items[event.id];
-          return (
-            <article className="event-card" key={event.id}>
-              <div className="event-media">
-                <Image
-                  src={event.image}
-                  alt={info.imageAlt}
-                  fill
-                  sizes="330px"
-                  loading={i < 3 ? "eager" : "lazy"}
-                  style={{ objectFit: "cover", objectPosition: event.position }}
-                />
-              </div>
-              <div className="event-body">
-                <span className="event-when">{info.when}</span>
-                <h3>{info.title}</h3>
-                {info.verse && (
-                  <p className="event-verse">
-                    {info.verse.text} <cite>{info.verse.ref}</cite>
-                  </p>
-                )}
-                <p className="event-text">{info.text}</p>
-                <a
-                  href={event.href(t)}
-                  className="text-link event-cta"
-                  {...(event.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                >
-                  {info.cta} <span aria-hidden="true">→</span>
-                </a>
-              </div>
-            </article>
-          );
-        })}
+        <div
+          id="events-scroller"
+          className="events-scroller"
+          ref={scroller}
+          role="region"
+          aria-label={t.events.regionLabel}
+          tabIndex={0}
+        >
+          {upcoming.map((event, i) => {
+            const info = t.events.items[event.id];
+            return (
+              <article className="event-card" key={event.id}>
+                <div className="event-media">
+                  <Image
+                    src={event.image}
+                    alt={info.imageAlt}
+                    fill
+                    sizes="330px"
+                    loading={i < 3 ? "eager" : "lazy"}
+                    style={{ objectFit: "cover", objectPosition: event.position }}
+                  />
+                </div>
+                <div className="event-body">
+                  <span className="event-when">{info.when}</span>
+                  <h3>{info.title}</h3>
+                  {info.verse && (
+                    <p className="event-verse">
+                      {info.verse.text} <cite>{info.verse.ref}</cite>
+                    </p>
+                  )}
+                  <p className="event-text">{info.text}</p>
+                  <a
+                    href={event.href(t)}
+                    className="text-link event-cta"
+                    {...(event.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    {info.cta} <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

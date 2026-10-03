@@ -16,7 +16,8 @@
   --line: #d9cdb8;
   --on-navy: #d5e3e8;
 
-  --maxw: 1200px;
+  /* inkl. Seitenrand; auf grossen Bildschirmen bleibt der Inhalt so ~1220px breit */
+  --maxw: 1320px;
   /* eine Textbreite fuer alle Einleitungen, FAQ und Kaesten */
   --measure: 860px;
   --gutter: 24px;
@@ -147,6 +148,18 @@ summary:focus-visible,
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 var(--gutter);
+}
+
+/* Seitenrand waechst mit dem Bildschirm, damit nichts an der Kante klebt */
+@media (min-width: 761px) {
+  :root {
+    --gutter: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 48px;
+  }
 }
 
 .section {
@@ -980,6 +993,9 @@ summary:focus-visible,
   .section-deep.section {
     padding: 96px 0;
   }
+}
+/* nebeneinander erst, wenn das Zitat genug Platz hat */
+@media (min-width: 1000px) {
   .stories {
     flex-direction: row;
     align-items: center;
@@ -1014,17 +1030,25 @@ summary:focus-visible,
 
 /* Karten fluchten links mit dem Container und laufen rechts aus dem Bild */
 .events-scroller {
-  margin-top: -8px;
-  /* fluchtet mit .wrap: % statt vw, sonst zaehlt der Scrollbalken mit */
-  --inset: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+  /* mobil: Karten laufen bis an den Bildschirmrand und lassen sich wischen */
+  --bleed: var(--gutter);
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 12px var(--inset) 28px;
-  scroll-padding: 0 var(--inset);
-  scrollbar-width: thin;
-  scrollbar-color: var(--sand) transparent;
+  margin: -12px calc(var(--bleed) * -1) -16px;
+  padding: 12px var(--bleed) 28px;
+  scroll-padding: 0 var(--bleed);
+  scrollbar-width: none;
+}
+.events-scroller::-webkit-scrollbar {
+  display: none;
+}
+/* ab Tablet: im Container bleiben, nur Platz fuer Schatten und Hover */
+@media (min-width: 761px) {
+  .events-scroller {
+    --bleed: 12px;
+  }
 }
 .events-scroller:focus-visible {
   outline-offset: -3px;
