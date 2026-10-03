@@ -61,16 +61,16 @@ const EVENTS: {
   },
   {
     id: "frauentreff",
-    image: "/images/events/frauentreff.jpg",
-    position: "40% center",
+    image: "/images/events/frauentreff-runde.jpg",
+    position: "center 30%",
     // spaeter: /gemeindeleben#frauen
     href: (t) => whatsappUrl(t.whatsappText.frauentreff),
     external: true,
   },
   {
     id: "kleingruppen",
-    image: "/images/events/kleingruppen-runde.jpg",
-    position: "center 30%",
+    image: "/images/events/kleingruppen-tisch.jpg",
+    position: "40% center",
     // spaeter: /gemeindeleben#kleingruppen
     href: (t) => whatsappUrl(t.whatsappText.kleingruppen),
     external: true,

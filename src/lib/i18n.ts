@@ -155,7 +155,7 @@ const de = {
         verse: null,
         text: "Bei uns ist jede Frau von Herzen willkommen, egal wie alt du bist oder in welcher Lebensphase du gerade stehst. Wir lachen miteinander, beten füreinander und wachsen gemeinsam im Glauben. Hier dürfen neue Freundschaften entstehen, von Herz zu Herz.",
         cta: "Mehr erfahren",
-        imageAlt: "Frau spricht zu einer Gruppe an einem festlich gedeckten Tisch mit Kerzen",
+        imageAlt: "Drei Frauen sitzen lächelnd zusammen an einem Tisch",
       },
       kleingruppen: {
         when: "Nach Absprache",
@@ -163,7 +163,7 @@ const de = {
         verse: null,
         text: "Christliches Leben spielt sich nicht nur am Sonntag ab. Deshalb treffen wir uns wie die ersten Christen in kleinen Gruppen, in der Gemeinde oder zu Hause. Wir sprechen über den Glauben und unseren Alltag und stärken uns gegenseitig als Brüder und Schwestern. Es gibt viele Gruppen, bestimmt auch eine, die zu dir passt.",
         cta: "Finde deine Gruppe",
-        imageAlt: "Drei Frauen sitzen lächelnd zusammen an einem Tisch",
+        imageAlt: "Frau spricht zu einer Gruppe an einem festlich gedeckten Tisch mit Kerzen",
       },
     },
   },
