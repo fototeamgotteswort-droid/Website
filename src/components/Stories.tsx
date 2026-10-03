@@ -6,8 +6,12 @@ import { STORIES_HIGHLIGHT_URL, STORY_REEL_URL } from "@/lib/links";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
-/** Section laut Briefing optional — auf false setzen, um sie auszublenden. */
-export const SHOW_STORIES = true;
+/**
+ * Section laut Briefing optional. Vorerst ausgeblendet, bis es ein
+ * freigegebenes Zeugnis gibt: dann Zitat, Vorname und Links in i18n.ts bzw.
+ * links.ts eintragen und hier auf true setzen.
+ */
+export const SHOW_STORIES = false;
 
 export default function Stories() {
   const t = useT();
