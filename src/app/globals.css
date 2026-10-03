@@ -882,10 +882,12 @@ summary:focus-visible,
 .day-stop:hover .day-photo img {
   transform: scale(1.04);
 }
-/* Uhrzeit als helles Etikett unten links auf dem Foto */
+/* Uhrzeit als helles Etikett unten mittig auf dem Foto */
 .day-time {
   position: absolute;
-  left: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
   bottom: 14px;
   z-index: 1;
   padding: 6px 16px 7px;
@@ -917,7 +919,6 @@ summary:focus-visible,
     aspect-ratio: 4 / 5;
   }
   .day-time {
-    left: 16px;
     bottom: 16px;
     font-size: 22px;
   }
