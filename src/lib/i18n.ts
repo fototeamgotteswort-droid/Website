@@ -201,10 +201,6 @@ const de = {
         a: "Kein Problem! Predigt und Moderation werden live übersetzt, so verstehst du alles auf Deutsch.",
       },
     ],
-    contactHeading: "Hast du noch Fragen oder ist etwas unklar geblieben?",
-    contactText: "Schreib uns jederzeit, wir melden uns so bald wie möglich bei dir.",
-    whatsapp: "WhatsApp",
-    phone: "[Telefonnummer]",
   },
 
   map: {
@@ -245,7 +241,7 @@ const de = {
       {
         label: "Teil I",
         heading: "Gott und sein Wort",
-        photo: "Foto: aufgeschlagene Bibel",
+        imageAlt: "Aufgeschlagene Bibel mit rotem Lesebändchen",
         items: [
           {
             num: "01",
@@ -273,7 +269,7 @@ const de = {
       {
         label: "Teil II",
         heading: "Der Mensch und die Erlösung",
-        photo: "Foto: Taufe",
+        imageAlt: "Holzkreuz vor einem dunklen Wolkenhimmel",
         items: [
           {
             num: "04",
@@ -301,7 +297,7 @@ const de = {
       {
         label: "Teil III",
         heading: "Gemeinde und Hoffnung",
-        photo: "Foto: Lobpreis im Gottesdienst",
+        imageAlt: "Lobpreisband auf der Bühne vor einem leuchtenden Kreuz, davor steht die Gemeinde",
         items: [
           {
             num: "07",

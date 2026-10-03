@@ -1,16 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { Mail, MessageCircle } from "lucide-react";
 import { EMAIL_URL, whatsappUrl } from "@/lib/links";
 import { useT } from "./LanguageProvider";
-import PhotoPlaceholder from "./PhotoPlaceholder";
 import Reveal from "./Reveal";
 
-// Hintergrund und Bildflaeche je Teil (Briefing 4.2: weiss, Shell, weiss).
+// Hintergrund und Foto je Teil (Briefing 4.2: weiss, Shell, weiss).
+// Teil II sollte laut Briefing ein Tauffoto zeigen, bis dahin das Kreuz.
 const PARTS = [
-  { section: "section-white", photo: "#B0E0E6" },
-  { section: "section-shell", photo: "#E8D8C3" },
-  { section: "section-white", photo: "#7EC8E3" },
+  { section: "section-white", image: "/images/glaube/bibel.jpg", position: "50% 70%" },
+  { section: "section-shell", image: "/images/glaube/kreuz.jpg", position: "50% 35%" },
+  { section: "section-white", image: "/images/sonntag/gottesdienst.jpg", position: "50% 45%" },
 ];
 
 export default function BeliefPage() {
@@ -40,12 +41,15 @@ export default function BeliefPage() {
                 <span className="part-label">{part.label}</span>
                 <h2 id={`teil-${i + 1}`}>{part.heading}</h2>
               </div>
-              <PhotoPlaceholder
-                className="part-photo"
-                label={part.photo}
-                color={PARTS[i].photo}
-                ratio="16 / 7"
-              />
+              <div className="part-photo">
+                <Image
+                  src={PARTS[i].image}
+                  alt={part.imageAlt}
+                  fill
+                  sizes="(max-width: 760px) 90vw, 420px"
+                  style={{ objectFit: "cover", objectPosition: PARTS[i].position }}
+                />
+              </div>
             </div>
 
             <ol className="creed">

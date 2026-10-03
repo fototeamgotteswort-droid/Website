@@ -903,23 +903,6 @@ summary:focus-visible,
   }
 }
 
-/* Platzhalterflaeche fuer fehlende Fotos */
-.photo-ph {
-  width: 100%;
-  border-radius: var(--radius);
-  display: flex;
-  align-items: flex-end;
-  padding: 14px;
-}
-.photo-ph span {
-  background: rgba(27, 59, 77, 0.85);
-  color: var(--shell);
-  font-size: 12px;
-  line-height: 1.4;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
 /* ---------- Bochumer Geschichten ---------- */
 
 .section-deep.section {
@@ -1421,41 +1404,10 @@ summary:focus-visible,
   padding: 0 40px 24px 0;
 }
 
-.contact-box {
-  max-width: var(--measure);
-  margin-top: 8px;
-  padding: 28px 24px;
-  border-radius: 20px;
-  background: var(--sea-mist);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.contact-box > div:first-child {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.contact-box h3 {
-  font-size: 24px;
-  line-height: 1.3;
-}
-
 @media (min-width: 761px) {
   .faq-list summary {
     font-size: 18px;
     padding: 22px 0;
-  }
-  .contact-box {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px 32px;
-    padding: 32px;
-  }
-  .contact-box > div:first-child {
-    flex: 1 1 280px;
   }
 }
 
@@ -1490,7 +1442,12 @@ summary:focus-visible,
   line-height: 1.1;
 }
 .part-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
   border-radius: 14px;
+  overflow: hidden;
+  background: var(--storm);
 }
 
 .creed {
@@ -1701,6 +1658,11 @@ summary:focus-visible,
 .give-fab:hover {
   transform: scale(1.06);
   background: var(--deep-sea);
+}
+/* Herz in Rot, gefuellt */
+.give-fab svg {
+  color: #e5484d;
+  fill: currentColor;
 }
 
 .give-overlay {

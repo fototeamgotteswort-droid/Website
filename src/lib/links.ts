@@ -3,7 +3,6 @@
 
 /** Zentrale Gemeinde-/Welcome-Nummer fuer WhatsApp, international ohne "+", z. B. 49234… */
 export const WHATSAPP_NUMBER = "[Nummer]";
-export const PHONE_NUMBER = "[Nummer]";
 export const EMAIL = "info@christusgemeinde-bo-nord.de";
 
 // leitet serverseitig auf den aktuellen YouTube-Livestream weiter
@@ -31,5 +30,4 @@ export function whatsappUrl(text?: string) {
   return text ? `${base}?text=${encodeURIComponent(text)}` : base;
 }
 
-export const PHONE_URL = `tel:${PHONE_NUMBER}`;
 export const EMAIL_URL = `mailto:${EMAIL}`;
