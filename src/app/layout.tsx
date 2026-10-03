@@ -6,6 +6,8 @@ import MotionProvider from "@/components/MotionProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import SkipLink from "@/components/SkipLink";
 import GiveProvider from "@/components/Give";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const SITE_URL = "https://christusgemeinde-bo-nord.de";
@@ -68,7 +70,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LanguageProvider>
           <SkipLink />
           <MotionProvider>
-            <GiveProvider>{children}</GiveProvider>
+            {/* Header und Footer im Layout: so beginnt jede Seite mit ihrem
+                Inhalt, und Next scrollt beim Seitenwechsel nach oben */}
+            <GiveProvider>
+              <Header />
+              <main id="main">{children}</main>
+              <Footer />
+            </GiveProvider>
           </MotionProvider>
         </LanguageProvider>
         <Analytics />
