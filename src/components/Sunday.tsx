@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { photos } from "@/lib/photos";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
 // Fotos echter Gemeindemomente, in Reihenfolge des Tages.
 const PHOTOS = [
-  { src: "/images/sonntag/gottesdienst.jpg", position: "50% 45%" },
-  { src: "/images/sonntag/mittagstisch.jpg", position: "28% center" },
-  { src: "/images/sonntag/gemeinschaft.jpg", position: "45% center" },
+  { src: photos.gottesdienst, position: "50% 45%" },
+  { src: photos.mittagstisch, position: "28% center" },
+  { src: photos.gemeinschaft, position: "45% center" },
 ];
 
 export default function Sunday() {
@@ -31,6 +32,8 @@ export default function Sunday() {
                   <span className="day-time">{item.time}</span>
                   <Image
                     src={PHOTOS[i].src}
+                    placeholder="blur"
+                    loading="eager"
                     alt={item.imageAlt}
                     fill
                     sizes="(max-width: 760px) 90vw, 400px"

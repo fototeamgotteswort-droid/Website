@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import { photos } from "@/lib/photos";
 import {
   useCallback,
   useEffect,
@@ -25,7 +26,7 @@ type EventId = keyof Dict["events"]["items"];
 // regelmaessigen Treffen kommt er mit der Seite /gemeindeleben.
 type EventEntry = {
   id: EventId;
-  image: string;
+  image: StaticImageData;
   position: string;
   until?: string;
   href?: string;
@@ -34,35 +35,35 @@ type EventEntry = {
 const EVENTS: EventEntry[] = [
   {
     id: "machineGunPreacher",
-    image: "/images/events/machine-gun-preacher.jpg",
+    image: photos.machineGunPreacher,
     position: "center",
     until: "2026-10-18",
     href: EVENTBRITE_URL,
   },
   {
     id: "gebetsabend",
-    image: "/images/events/gebetsabend.jpg",
+    image: photos.gebetsabend,
     position: "55% center",
   },
   {
     id: "jugendtreff",
-    image: "/images/events/jugendtreff-wiese.jpg",
+    image: photos.jugendtreff,
     position: "30% center",
   },
   {
     id: "teenieTreff",
-    image: "/images/events/teenie-treff.jpg",
+    image: photos.teenieTreff,
     position: "center",
   },
   {
     id: "frauentreff",
-    image: "/images/events/frauentreff-runde.jpg",
+    image: photos.frauentreff,
     // im Hochformat passen nicht alle drei: so sind zwei Gesichter ganz im Bild
     position: "22% center",
   },
   {
     id: "kleingruppen",
-    image: "/images/events/kleingruppen-tisch.jpg",
+    image: photos.kleingruppen,
     position: "40% center",
   },
 ];
@@ -305,7 +306,7 @@ export default function Events() {
           tabIndex={0}
         >
           {Array.from({ length: COPIES }, (_, copy) =>
-            upcoming.map((event, i) => {
+            upcoming.map((event) => {
               // nur die erste Kopie ist fuer Screenreader und Tastatur da
               const copy0 = copy === 0;
               const info = t.events.items[event.id];
@@ -318,10 +319,12 @@ export default function Events() {
                   <div className="event-media">
                     <Image
                       src={event.image}
+                      placeholder="blur"
                       alt={copy0 ? info.imageAlt : ""}
                       fill
                       sizes="(max-width: 640px) 84vw, 330px"
-                      loading={copy0 && i < 3 ? "eager" : "lazy"}
+                      // Safari laedt "lazy"-Bilder in verschobenen Containern teils nie
+                      loading="eager"
                       style={{ objectFit: "cover", objectPosition: event.position }}
                     />
                   </div>
@@ -380,6 +383,7 @@ function EventDialog({
       <div className="event-dialog-media">
         <Image
           src={event.image}
+          placeholder="blur"
           alt={info.imageAlt}
           fill
           sizes="(max-width: 640px) 100vw, 560px"

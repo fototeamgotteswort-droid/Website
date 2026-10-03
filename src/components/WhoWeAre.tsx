@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import Image, { type StaticImageData } from "next/image";
+import { photos } from "@/lib/photos";
+import { useRef, useState } from "react";
 import { Plus, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import { useT } from "./LanguageProvider";
@@ -14,10 +15,10 @@ type CardId = keyof Dict["who"]["cards"];
 // Bibel: Aaron Burden · unsplash.com/photos/9zsHNt5OpqE
 // Kreuz: Shutter Speed · unsplash.com/photos/3APnkQ8h60Q
 // Taube: Oleg Sotnikov · unsplash.com/photos/QNrlMTX91a4
-const CARDS: { id: CardId; image: string; position: string }[] = [
-  { id: "bibel", image: "/images/glaube/bibel.jpg", position: "50% 70%" },
-  { id: "jesus", image: "/images/glaube/kreuz.jpg", position: "52% center" },
-  { id: "geist", image: "/images/glaube/taube-see.jpg", position: "50% 40%" },
+const CARDS: { id: CardId; image: StaticImageData; position: string }[] = [
+  { id: "bibel", image: photos.bibel, position: "50% 70%" },
+  { id: "jesus", image: photos.kreuz, position: "52% center" },
+  { id: "geist", image: photos.taube, position: "50% 40%" },
 ];
 
 export default function WhoWeAre() {
@@ -27,6 +28,36 @@ export default function WhoWeAre() {
     jesus: false,
     geist: false,
   });
+  // Handy: die Karten stehen in einer wischbaren Reihe, die Punkte darunter
+  // zeigen, welche gerade zu sehen ist, und springen per Tipp dorthin.
+  const row = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const onScroll = () => {
+    const el = row.current;
+    if (!el) return;
+    const cards = Array.from(el.children) as HTMLElement[];
+    const start = el.scrollLeft;
+    let nearest = 0;
+    cards.forEach((card, i) => {
+      if (
+        Math.abs(card.offsetLeft - cards[0].offsetLeft - start) <
+        Math.abs(cards[nearest].offsetLeft - cards[0].offsetLeft - start)
+      ) {
+        nearest = i;
+      }
+    });
+    // am Ende der Reihe gilt die letzte Karte
+    if (start + el.clientWidth >= el.scrollWidth - 4) nearest = cards.length - 1;
+    setActive(nearest);
+  };
+
+  const goTo = (i: number) => {
+    const el = row.current;
+    const cards = el ? (Array.from(el.children) as HTMLElement[]) : [];
+    if (!el || !cards[i]) return;
+    el.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: "smooth" });
+  };
 
   return (
     <section className="section section-shell" id="glaube">
@@ -36,7 +67,7 @@ export default function WhoWeAre() {
           <p className="lead">{t.who.text}</p>
         </Reveal>
 
-        <div className="flip-cards">
+        <div className="flip-cards" ref={row} onScroll={onScroll}>
           {CARDS.map(({ id, image, position }) => {
             const card = t.who.cards[id];
             const isBack = flipped[id];
@@ -64,6 +95,8 @@ export default function WhoWeAre() {
                     <span className="flip-media">
                       <Image
                         src={image}
+                        placeholder="blur"
+                        loading="eager"
                         alt=""
                         fill
                         sizes="(max-width: 760px) 82vw, 400px"
@@ -81,6 +114,18 @@ export default function WhoWeAre() {
               </button>
             );
           })}
+        </div>
+
+        <div className="flip-dots">
+          {CARDS.map(({ id }, i) => (
+            <button
+              key={id}
+              type="button"
+              aria-label={t.who.cards[id].word}
+              aria-current={active === i ? "true" : undefined}
+              onClick={() => goTo(i)}
+            />
+          ))}
         </div>
 
         <div className="section-foot">

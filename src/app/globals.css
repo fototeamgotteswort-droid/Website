@@ -916,7 +916,39 @@ summary:focus-visible,
   padding-top: 20px;
 }
 
+/* Punkte unter der Kartenreihe, nur am Handy */
+.flip-dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: -24px;
+}
+.flip-dots button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flip-dots button::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #c3d6dd;
+  transition: background-color 0.2s ease;
+}
+.flip-dots button[aria-current="true"]::before {
+  background: var(--deep-sea);
+}
+
 @media (min-width: 761px) {
+  .flip-dots {
+    display: none;
+  }
   .flip-cards {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
