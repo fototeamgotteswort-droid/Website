@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import { useT } from "./LanguageProvider";
+import PageLink from "./PageLink";
 import Reveal from "./Reveal";
 
 type CardId = keyof Dict["who"]["cards"];
@@ -84,9 +84,9 @@ export default function WhoWeAre() {
         </div>
 
         <div className="section-foot">
-          <Link href="/was-wir-glauben" className="text-link">
+          <PageLink href="/was-wir-glauben" className="text-link">
             {t.who.readAll} <span aria-hidden="true">→</span>
-          </Link>
+          </PageLink>
           {/* spaeter mit offiziellem BFP-Logo */}
           <span className="muted-label">{t.who.bfp}</span>
         </div>

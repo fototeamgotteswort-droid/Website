@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
 import { useT } from "./LanguageProvider";
 import LanguageToggle from "./LanguageToggle";
+import PageLink from "./PageLink";
 import { useOpenGive } from "./Give";
 
 // Absolute Pfade, damit die Links auch von Unterseiten aus funktionieren.
@@ -57,7 +57,7 @@ export default function Header() {
       className={`site-header${solid ? " solid" : ""}${open ? " menu-open" : ""}`}
     >
       <div className="wrap navrow">
-        <Link href="/" className="brand">
+        <PageLink href="/" className="brand">
           <svg className="brand-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
             <path
               d="M17 2 L17 32 M8 11 L26 11"
@@ -70,13 +70,13 @@ export default function Header() {
             <span className="brand-name">{t.brand.name}</span>
             <span className="brand-tag">{t.brand.tagline}</span>
           </span>
-        </Link>
+        </PageLink>
 
         <nav aria-label={t.nav.label} className="nav-main">
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href}>{t.nav[link.key]}</Link>
+                <PageLink href={link.href}>{t.nav[link.key]}</PageLink>
               </li>
             ))}
             <li>
@@ -120,9 +120,9 @@ export default function Header() {
             <ul>
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} onClick={() => setOpen(false)}>
+                  <PageLink href={link.href} onClick={() => setOpen(false)}>
                     {t.nav[link.key]}
-                  </Link>
+                  </PageLink>
                 </li>
               ))}
               <li>

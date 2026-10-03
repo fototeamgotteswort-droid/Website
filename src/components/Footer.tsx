@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { INSTAGRAM_URL } from "@/lib/links";
 import { useOpenGive } from "./Give";
+import PageLink from "./PageLink";
 import { useT } from "./LanguageProvider";
 
 export default function Footer() {
@@ -30,7 +31,7 @@ export default function Footer() {
                 <Link href="/#glaube">{t.nav.who}</Link>
               </li>
               <li>
-                <Link href="/was-wir-glauben">{t.nav.belief}</Link>
+                <PageLink href="/was-wir-glauben">{t.nav.belief}</PageLink>
               </li>
               <li>
                 <Link href="/#termine">{t.nav.events}</Link>
@@ -56,10 +57,10 @@ export default function Footer() {
             <h2>{t.footer.legalHeading}</h2>
             <ul>
               <li>
-                <Link href="/impressum">{t.footer.imprint}</Link>
+                <PageLink href="/impressum">{t.footer.imprint}</PageLink>
               </li>
               <li>
-                <Link href="/datenschutz">{t.footer.privacy}</Link>
+                <PageLink href="/datenschutz">{t.footer.privacy}</PageLink>
               </li>
             </ul>
           </nav>

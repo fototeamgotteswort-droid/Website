@@ -8,6 +8,7 @@ import SkipLink from "@/components/SkipLink";
 import GiveProvider from "@/components/Give";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ScrollToTopOnNavigate } from "@/components/PageLink";
 import "./globals.css";
 
 const SITE_URL = "https://christusgemeinde-bo-nord.de";
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {/* Header und Footer im Layout: so beginnt jede Seite mit ihrem
                 Inhalt, und Next scrollt beim Seitenwechsel nach oben */}
             <GiveProvider>
+              <ScrollToTopOnNavigate />
               <Header />
               <main id="main">{children}</main>
               <Footer />

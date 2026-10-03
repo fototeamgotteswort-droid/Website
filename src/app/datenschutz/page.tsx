@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import PageLink from "@/components/PageLink";
 import { EMAIL, EMAIL_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function Datenschutz() {
               E-Mail: <a href={EMAIL_URL}>{EMAIL}</a>
             </p>
             <p>
-              Weitere Angaben findest du im <Link href="/impressum">Impressum</Link>.
+              Weitere Angaben findest du im <PageLink href="/impressum">Impressum</PageLink>.
             </p>
 
             <h2>Das Wichtigste in Kürze</h2>
