@@ -1151,6 +1151,23 @@ summary:focus-visible,
   line-clamp: 2;
   overflow: hidden;
 }
+/* Die ganze Karte oeffnet das Pop-up: die Klickflaeche des Buttons wird
+   ueber die Karte gezogen, Tastatur und Screenreader nutzen weiter den Button */
+.event-card {
+  position: relative;
+  cursor: pointer;
+}
+.event-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.event-card:hover .event-cta {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .event-cta {
   margin-top: auto;
   padding: 0;
