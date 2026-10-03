@@ -181,11 +181,6 @@ summary:focus-visible,
   background: var(--deep-sea);
   color: var(--shell);
 }
-.section-navy {
-  background: var(--navy);
-  color: var(--shell);
-}
-.section-navy h2,
 .section-deep h2 {
   color: var(--shell);
 }
@@ -1508,55 +1503,6 @@ summary:focus-visible,
   font-size: 18px;
 }
 
-/* Hero: Titel links, die drei Teile als Bildkacheln rechts */
-.belief-hero-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.belief-toc ol {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-.belief-toc a {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-decoration: none;
-  color: var(--navy);
-}
-.belief-toc-photo {
-  position: relative;
-  display: block;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 8px;
-  background: var(--storm);
-  box-shadow: 0 12px 28px -14px rgba(27, 59, 77, 0.5);
-}
-.belief-toc-photo img {
-  transition: transform 0.6s ease;
-}
-.belief-toc a:hover .belief-toc-photo img {
-  transform: scale(1.05);
-}
-.belief-toc .part-label {
-  font-size: 15px;
-}
-.belief-toc-title {
-  font-family: var(--display);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-.belief-toc a:hover .belief-toc-title {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .part-label {
   font-family: var(--display);
   font-style: italic;
@@ -1675,12 +1621,6 @@ summary:focus-visible,
   .page-hero .lead {
     font-size: 19px;
   }
-  .belief-toc ol {
-    gap: 16px;
-  }
-  .belief-toc-title {
-    font-size: 18px;
-  }
   .part-banner {
     aspect-ratio: 21 / 8;
   }
@@ -1706,36 +1646,6 @@ summary:focus-visible,
   .creed-left h3 {
     font-size: 27px;
   }
-}
-
-@media (min-width: 1000px) {
-  .belief-hero-inner {
-    flex-direction: row;
-    align-items: center;
-    gap: 56px;
-  }
-  .belief-hero-inner > .section-head {
-    flex: 1 1 0;
-  }
-  .belief-toc {
-    flex: 0 0 min(620px, 52%);
-  }
-}
-
-.closing-inner {
-  max-width: var(--measure);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
-}
-.closing-inner p {
-  font-size: 17px;
-  color: #e6eef0;
-}
-.closing-inner .btn-row {
-  justify-content: center;
 }
 
 /* ---------- Rechtstexte (Impressum, Datenschutz) ---------- */

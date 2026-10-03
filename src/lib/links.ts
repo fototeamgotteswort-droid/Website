@@ -1,8 +1,6 @@
 // Alle Ziel-URLs an einer Stelle (Briefing, Abschnitt 6). Werte in
 // [eckigen Klammern] sind Platzhalter und muessen vor dem Go-live ersetzt werden.
 
-/** Zentrale Gemeinde-/Welcome-Nummer fuer WhatsApp, international ohne "+", z. B. 49234… */
-export const WHATSAPP_NUMBER = "[Nummer]";
 export const EMAIL = "info@christusgemeinde-bo-nord.de";
 
 // leitet serverseitig auf den aktuellen YouTube-Livestream weiter
@@ -23,10 +21,5 @@ export const BANK = {
   ibanDisplay: "DE62 4526 0475 0012 6367 00",
   bic: "GENODEM1BFG",
 };
-
-export function whatsappUrl(text?: string) {
-  const base = `https://wa.me/${WHATSAPP_NUMBER}`;
-  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
-}
 
 export const EMAIL_URL = `mailto:${EMAIL}`;

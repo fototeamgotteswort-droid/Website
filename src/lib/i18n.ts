@@ -326,10 +326,6 @@ const de = {
         ],
       },
     ],
-    closingHeading: "Fragen zu unserem Glauben?",
-    closingText: "Schreib uns gern, wir nehmen uns Zeit für deine Fragen.",
-    whatsapp: "WhatsApp",
-    email: "E-Mail",
   },
 };
 
@@ -643,10 +639,6 @@ const ru: typeof de = {
         ],
       },
     ],
-    closingHeading: "Есть вопросы о нашей вере?",
-    closingText: "Напиши нам, мы найдём время для твоих вопросов.",
-    whatsapp: "WhatsApp",
-    email: "E-Mail",
   },
 };
 

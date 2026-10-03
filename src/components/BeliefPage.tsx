@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Mail, MessageCircle } from "lucide-react";
-import { EMAIL_URL, whatsappUrl } from "@/lib/links";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
@@ -20,35 +18,12 @@ export default function BeliefPage() {
 
   return (
     <>
-      <section className="page-hero belief-hero">
-        <div className="wrap belief-hero-inner">
+      <section className="page-hero">
+        <div className="wrap">
           <Reveal className="section-head">
             <h1>{b.heading}</h1>
             <p className="lead">{b.lead}</p>
           </Reveal>
-
-          {/* Die drei Teile als Bildkacheln: Ueberblick und Sprungmarken zugleich */}
-          <nav aria-label={b.heading} className="belief-toc">
-            <ol>
-              {b.parts.map((part, i) => (
-                <li key={part.label}>
-                  <a href={`#teil-${i + 1}`}>
-                    <span className="belief-toc-photo">
-                      <Image
-                        src={PARTS[i].image}
-                        alt=""
-                        fill
-                        sizes="(max-width: 760px) 30vw, 200px"
-                        style={{ objectFit: "cover", objectPosition: PARTS[i].position }}
-                      />
-                    </span>
-                    <span className="part-label">{part.label}</span>
-                    <span className="belief-toc-title">{part.heading}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
         </div>
       </section>
 
@@ -101,28 +76,6 @@ export default function BeliefPage() {
           </div>
         </section>
       ))}
-
-      <section className="section section-navy closing">
-        <div className="wrap closing-inner">
-          <h2>{b.closingHeading}</h2>
-          <p>{b.closingText}</p>
-          <div className="btn-row">
-            <a
-              href={whatsappUrl()}
-              className="btn btn-light"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle size={20} strokeWidth={1.8} aria-hidden="true" />
-              {b.whatsapp}
-            </a>
-            <a href={EMAIL_URL} className="btn btn-outline-light">
-              <Mail size={20} strokeWidth={1.8} aria-hidden="true" />
-              {b.email}
-            </a>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
