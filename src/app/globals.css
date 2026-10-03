@@ -708,42 +708,31 @@ summary:focus-visible,
   }
 }
 
+/* Vorderseite: Foto oben, darunter ein festes Band mit dem Wort */
 .flip-card:not(.is-back) {
-  position: relative;
-  isolation: isolate;
+  padding: 0;
+  gap: 0;
+  justify-content: flex-start;
   overflow: hidden;
-  justify-content: flex-end;
-  background: var(--storm);
+  background: var(--navy);
   color: var(--shell);
 }
-/* gleichmaessig abgedunkelt statt Verlauf (Briefing: keine Verlaeufe auf Karten) */
-.flip-card:not(.is-back)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: rgba(27, 59, 77, 0.12);
-  transition: background-color 0.3s ease;
+.flip-media {
+  position: relative;
+  flex: 1;
+  min-height: 200px;
+  overflow: hidden;
 }
-.flip-card:not(.is-back):hover::before {
-  background: rgba(27, 59, 77, 0);
-}
-/* Wort auf festem Band, damit es auf jedem Foto lesbar bleibt */
-.flip-card:not(.is-back) .flip-bottom {
-  align-items: center;
-  margin: 0 -28px -28px;
-  width: calc(100% + 56px);
-  padding: 16px 20px 16px 28px;
-  background: rgba(27, 59, 77, 0.82);
-}
-.flip-photo {
-  z-index: -2;
+.flip-media img {
   transition: transform 0.6s ease;
 }
-.flip-card:hover .flip-photo {
+.flip-card:hover .flip-media img {
   transform: scale(1.04);
 }
-
+.flip-card:not(.is-back) .flip-bottom {
+  align-items: center;
+  padding: 18px 20px 18px 28px;
+}
 .flip-bottom {
   width: 100%;
   display: flex;
@@ -830,9 +819,10 @@ summary:focus-visible,
   .flip-card {
     padding: 32px;
   }
+  .flip-card:not(.is-back) {
+    padding: 0;
+  }
   .flip-card:not(.is-back) .flip-bottom {
-    margin: 0 -32px -32px;
-    width: calc(100% + 64px);
     padding-left: 32px;
   }
 }

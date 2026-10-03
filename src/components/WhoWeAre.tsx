@@ -13,11 +13,11 @@ type CardId = keyof Dict["who"]["cards"];
 // Fotos von Unsplash (freie Unsplash-Lizenz, Namensnennung nicht noetig):
 // Bibel: Aaron Burden · unsplash.com/photos/9zsHNt5OpqE
 // Kreuz: Shutter Speed · unsplash.com/photos/3APnkQ8h60Q
-// Taube: Shubhankar Bhowmick · unsplash.com/photos/qscY0de8YUY
+// Taube: Oleg Sotnikov · unsplash.com/photos/QNrlMTX91a4
 const CARDS: { id: CardId; image: string; position: string }[] = [
   { id: "bibel", image: "/images/glaube/bibel.jpg", position: "50% 70%" },
   { id: "jesus", image: "/images/glaube/kreuz.jpg", position: "52% center" },
-  { id: "geist", image: "/images/glaube/taube-nah.jpg", position: "center 12%" },
+  { id: "geist", image: "/images/glaube/taube-see.jpg", position: "50% 40%" },
 ];
 
 export default function WhoWeAre() {
@@ -61,14 +61,15 @@ export default function WhoWeAre() {
                 ) : (
                   <>
                     {/* Bild ist Stimmung, der Name der Karte steht im Text */}
-                    <Image
-                      className="flip-photo"
-                      src={image}
-                      alt=""
-                      fill
-                      sizes="(max-width: 760px) 82vw, 400px"
-                      style={{ objectFit: "cover", objectPosition: position }}
-                    />
+                    <span className="flip-media">
+                      <Image
+                        src={image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 760px) 82vw, 400px"
+                        style={{ objectFit: "cover", objectPosition: position }}
+                      />
+                    </span>
                     <span className="flip-bottom">
                       <span className="flip-word">{card.word}</span>
                       <span className="flip-plus" aria-hidden="true">
