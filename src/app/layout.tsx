@@ -13,8 +13,24 @@ import "./globals.css";
 
 const SITE_URL = "https://gottes-wort-bochum.de";
 const SITE_NAME = "Christengemeinde Gottes Wort Bochum";
+const SITE_TITLE = "Freikirche in Bochum · Christengemeinde Gottes Wort";
 const SITE_DESCRIPTION =
-  "Christengemeinde Gottes Wort Bochum: eine deutsch-russische Freikirche für alle Generationen. Sonntags 11:00, Harpener Heide 9.";
+  "Deutsch-russische Freikirche in Bochum für alle Generationen. Gottesdienst sonntags um 11 Uhr, mit Kinderkirche, Teenie- und Jugendtreff. Harpener Heide 9, herzlich willkommen!";
+
+// Beim Neuladen soll die Seite immer oben beginnen. Der Browser wuerde sonst
+// die alte Scrollposition wiederherstellen oder zu einem #anker springen.
+// Laeuft im <head>, also bevor der Browser scrollt. Danach gilt fuer Vor und
+// Zurueck wieder das normale Verhalten.
+const SCROLL_TOP_ON_RELOAD = `(function(){try{
+var nav=performance.getEntriesByType("navigation")[0];
+if(!nav||nav.type!=="reload")return;
+history.scrollRestoration="manual";
+if(location.hash)history.replaceState(history.state,"",location.pathname+location.search);
+addEventListener("load",function(){
+window.scrollTo({top:0,behavior:"instant"});
+setTimeout(function(){history.scrollRestoration="auto";},0);
+});
+}catch(e){}})();`;
 
 const playfair = Playfair_Display({
   variable: "--font-display",
@@ -31,13 +47,24 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_NAME,
+  title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  keywords: [
+    "Freikirche Bochum",
+    "Gemeinde Bochum",
+    "Gottesdienst Bochum",
+    "russische Gemeinde Bochum",
+    "русская церковь Бохум",
+    "Pfingstgemeinde Bochum",
+    "Kinderkirche Bochum",
+    "Jugendgottesdienst Bochum",
+  ],
   openGraph: {
     type: "website",
     locale: "de_DE",
+    alternateLocale: ["ru_RU"],
     siteName: SITE_NAME,
-    title: SITE_NAME,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: "/",
     images: [
@@ -67,6 +94,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="de"
       className={`${playfair.variable} ${montserrat.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCROLL_TOP_ON_RELOAD }} />
+      </head>
       <body>
         <LanguageProvider>
           <SkipLink />

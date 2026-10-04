@@ -185,16 +185,16 @@ const de = {
     heading: "Häufige Fragen",
     items: [
       {
+        q: "Ich spreche kein Russisch. Kann ich trotzdem kommen?",
+        a: "Kein Problem! Predigt und Moderation werden live übersetzt, so verstehst du alles auf Deutsch.",
+      },
+      {
         q: "Muss ich mich anmelden?",
         a: "Nein, komm einfach vorbei, so wie du bist. Unser Welcome-Team begrüßt dich am Eingang, zeigt dir alles und beantwortet gern deine Fragen. Wir freuen uns auf dich!",
       },
       {
         q: "Gibt es einen Dresscode?",
         a: "Nein, komm so, wie du dich wohlfühlst. Bei uns ist von Jeans bis Sonntagsgarderobe alles dabei.",
-      },
-      {
-        q: "Ich spreche kein Russisch. Kann ich trotzdem kommen?",
-        a: "Kein Problem! Predigt und Moderation werden live übersetzt, so verstehst du alles auf Deutsch.",
       },
     ],
   },
@@ -498,16 +498,16 @@ const ru: typeof de = {
     heading: "Частые вопросы",
     items: [
       {
+        q: "Я не говорю по-немецки. Могу ли я всё равно прийти?",
+        a: "Конечно! Проповедь и ведение переводятся в реальном времени, так что ты всё поймёшь на русском.",
+      },
+      {
         q: "Нужно ли записываться заранее?",
         a: "Нет, просто приходи такой, какой ты есть. Наша команда встречающих поприветствует тебя у входа, всё покажет и с радостью ответит на твои вопросы. Мы рады тебе!",
       },
       {
         q: "Есть ли дресс-код?",
         a: "Нет, приходи в том, в чём тебе удобно. У нас бывают все, от джинсов до воскресного костюма.",
-      },
-      {
-        q: "Я не говорю по-немецки. Могу ли я всё равно прийти?",
-        a: "Конечно! Проповедь и ведение переводятся в реальном времени, так что ты всё поймёшь на русском.",
       },
     ],
   },
