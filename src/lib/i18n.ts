@@ -64,7 +64,7 @@ const de = {
       },
       geist: {
         word: "Heiliger Geist",
-        back: "Wir glauben, dass der Heilige Geist heute noch wirkt. Er rüstet uns zu, und durch die Taufe im Heiligen Geist sendet er uns mit Kraft und Vollmacht in den Dienst.",
+        back: "Wir glauben, dass der Heilige Geist heute noch wirkt. Er tröstet und leitet uns, und durch die Taufe im Heiligen Geist schenkt er uns Kraft, anderen mit Liebe zu dienen.",
       },
     },
     readAll: "Unser ganzes Glaubensbekenntnis lesen",
@@ -385,7 +385,7 @@ const ru: typeof de = {
       },
       geist: {
         word: "Святой Дух",
-        back: "Мы верим, что Святой Дух действует и сегодня. Он снаряжает нас и через крещение Святым Духом посылает нас служить с силой и властью.",
+        back: "Мы верим, что Святой Дух действует и сегодня. Он утешает и ведёт нас, а через крещение Святым Духом даёт нам силу с любовью служить другим.",
       },
     },
     readAll: "Прочитать наше вероучение полностью",
