@@ -44,6 +44,7 @@ export default function JsonLd() {
         description: `${de.who.text} Gottesdienst sonntags um 11 Uhr auf Deutsch und Russisch, mit Kinderkirche, Teenie- und Jugendtreff.`,
         url: SITE_URL,
         email: EMAIL,
+        telephone: "+49 1578 2986760",
         image: `${SITE_URL}/images/hero-poster.jpg`,
         logo: `${SITE_URL}/icon.svg`,
         address: place.address,
@@ -56,12 +57,20 @@ export default function JsonLd() {
           name: "Bund Freikirchlicher Pfingstgemeinden (BFP)",
         },
         sameAs: [INSTAGRAM_URL],
-        openingHoursSpecification: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: "https://schema.org/Sunday",
-          opens: "11:00",
-          closes: "13:00",
-        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: "https://schema.org/Sunday",
+            opens: "11:00",
+            closes: "13:00",
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: "https://schema.org/Friday",
+            opens: "19:00",
+            closes: "21:00",
+          },
+        ],
         event: recurring.map((e) => ({
           "@type": "Event",
           name: e.name,
