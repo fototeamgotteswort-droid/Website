@@ -220,7 +220,6 @@ const de = {
   },
 
   footer: {
-    discoverHeading: "Entdecken",
     joinHeading: "Mitmachen",
     legalHeading: "Rechtliches",
     instagram: "Instagram",
@@ -533,7 +532,6 @@ const ru: typeof de = {
   },
 
   footer: {
-    discoverHeading: "Обзор",
     joinHeading: "Участвовать",
     legalHeading: "Правовая информация",
     instagram: "Instagram",

@@ -1789,14 +1789,14 @@ summary:focus-visible,
   }
   /* Tablet: Logo ueber der Zeile, darunter drei Link-Spalten */
   .foot-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 48px;
   }
 }
 
 @media (min-width: 1000px) {
   .foot-grid {
-    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr));
     gap: 32px 56px;
   }
   .foot-brand {

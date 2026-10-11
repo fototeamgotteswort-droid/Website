@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { INSTAGRAM_URL } from "@/lib/links";
 import { useOpenGive } from "./Give";
 import PageLink from "./PageLink";
@@ -24,20 +23,6 @@ export default function Footer() {
               44805 Bochum
             </span>
           </div>
-          <nav aria-label={t.footer.discoverHeading}>
-            <h2>{t.footer.discoverHeading}</h2>
-            <ul>
-              <li>
-                <Link href="/#glaube">{t.nav.who}</Link>
-              </li>
-              <li>
-                <PageLink href="/was-wir-glauben">{t.nav.belief}</PageLink>
-              </li>
-              <li>
-                <Link href="/#termine">{t.nav.events}</Link>
-              </li>
-            </ul>
-          </nav>
           <nav aria-label={t.footer.joinHeading}>
             <h2>{t.footer.joinHeading}</h2>
             <ul>
