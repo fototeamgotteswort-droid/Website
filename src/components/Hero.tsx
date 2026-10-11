@@ -22,18 +22,10 @@ export default function Hero() {
           transition: { duration, ease: [0.16, 1, 0.3, 1] as const, delay },
         };
 
-  // Die Quelle wird erst im Browser gesetzt: So laden Handys die kleine
-  // Datei, und wer "Bewegung reduzieren" aktiviert hat, sieht nur das
-  // Standbild.
+  // Safari startet den Autoplay gelegentlich erst nach einem play()-Aufruf.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    video.src = window.matchMedia("(max-width: 900px)").matches
-      ? "/video/hero-mobile.mp4"
-      : "/video/hero.mp4";
-    // Safari startet den Autoplay gelegentlich erst nach einem play()-Aufruf.
     video.play().catch(() => {});
   }, []);
 
@@ -51,7 +43,20 @@ export default function Hero() {
           preload="auto"
           aria-hidden="true"
           tabIndex={-1}
-        />
+        >
+          {/* Die Quellen stehen direkt im HTML, damit der Browser das Video
+              als Erstes laedt, noch vor den Fotos weiter unten. Handys
+              bekommen die kleine Datei. */}
+          <source
+            src="/video/hero-mobile.mp4"
+            type="video/mp4"
+            media="(max-width: 900px)"
+          />
+          <source
+            src="/video/hero.mp4"
+            type="video/mp4"
+          />
+        </video>
       </div>
 
       <div className="wrap hero-inner">
