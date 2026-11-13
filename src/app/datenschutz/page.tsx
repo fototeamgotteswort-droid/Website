@@ -28,7 +28,7 @@ export default function Datenschutz() {
           <div className="legal">
             <h2>Verantwortlich</h2>
             <p>
-              Christengemeinde Gottes Wort e. V.
+              Gemeinschaft freier Christusgemeinden e.V.
               <br />
               Harpener Heide 9
               <br />
