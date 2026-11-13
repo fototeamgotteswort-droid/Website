@@ -25,7 +25,7 @@ export default function Impressum() {
           <div className="legal">
           <h2>Angaben gemäß § 5 DDG</h2>
           <p>
-            Christengemeinde Gottes Wort e. V.
+            Gemeinschaft freier Christusgemeinden e.V.
             <br />
             Harpener Heide 9
             <br />
