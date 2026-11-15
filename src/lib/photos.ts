@@ -8,6 +8,7 @@ import gottesdienst from "../../public/images/sonntag/gottesdienst.jpg";
 import mittagstisch from "../../public/images/sonntag/mittagstisch.jpg";
 import gemeinschaft from "../../public/images/sonntag/gemeinschaft.jpg";
 import machineGunPreacher from "../../public/images/events/machine-gun-preacher.jpg";
+import weihnachtsmusical from "../../public/images/events/weihnachtsmusical-nur-liebe.jpg";
 import gebetsabend from "../../public/images/events/gebetsabend.jpg";
 import jugendtreff from "../../public/images/events/jugendtreff-wiese.jpg";
 import teenieTreff from "../../public/images/events/teenie-treff.jpg";
@@ -22,6 +23,7 @@ export const photos = {
   mittagstisch,
   gemeinschaft,
   machineGunPreacher,
+  weihnachtsmusical,
   gebetsabend,
   jugendtreff,
   teenieTreff,

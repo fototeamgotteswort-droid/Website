@@ -12,7 +12,7 @@ import {
 import { useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Dict } from "@/lib/i18n";
-import { EVENTBRITE_URL } from "@/lib/links";
+import { EVENTBRITE_URL, MUSICAL_URL } from "@/lib/links";
 import Dialog from "./Dialog";
 import { useT } from "./LanguageProvider";
 import Reveal from "./Reveal";
@@ -39,6 +39,14 @@ const EVENTS: EventEntry[] = [
     position: "center",
     until: "2026-10-18",
     href: EVENTBRITE_URL,
+  },
+  {
+    id: "weihnachtsmusical",
+    image: photos.weihnachtsmusical,
+    // Flyer im Hochformat: Titel "Nur Liebe" sitzt im oberen Drittel
+    position: "center 30%",
+    until: "2026-12-12",
+    href: MUSICAL_URL,
   },
   {
     id: "gebetsabend",

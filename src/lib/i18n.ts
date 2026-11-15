@@ -122,6 +122,14 @@ const de = {
         action: "Jetzt anmelden",
         imageAlt: "Plakat: Machine Gun Preacher Sam Childers zu Gast",
       },
+      weihnachtsmusical: {
+        when: "11. Dez · 18:00 & 12. Dez · 16:00",
+        title: "Weihnachtsmusical „Nur Liebe“",
+        verse: null,
+        text: "Erlebt die Weihnachtsgeschichte als Musical: „Nur Liebe“ erzählt mit Liedern und Szenen von der Liebe, mit der Gott in Bethlehem zu uns gekommen ist. Zwei Aufführungen: Freitag, 11. Dezember, um 18:00 Uhr und Samstag, 12. Dezember, um 16:00 Uhr. Bitte meldet euch vorher an.",
+        action: "Jetzt anmelden",
+        imageAlt: "Plakat: Weihnachtsmusical „Nur Liebe“ mit Stern über dem nächtlichen Bethlehem",
+      },
       gebetsabend: {
         when: "Freitag · 19:00",
         title: "Gebetsabend",
@@ -435,6 +443,14 @@ const ru: typeof de = {
         verse: null,
         action: "Зарегистрироваться",
         imageAlt: "Плакат: в гостях Machine Gun Preacher Сэм Чилдерс",
+      },
+      weihnachtsmusical: {
+        when: "11 дек · 18:00 и 12 дек · 16:00",
+        title: "Рождественский мюзикл «Nur Liebe»",
+        verse: null,
+        text: "Рождественская история в виде мюзикла: «Nur Liebe» («Только любовь») в песнях и сценах рассказывает о любви, с которой Бог пришёл к нам в Вифлееме. Два представления: в пятницу, 11 декабря, в 18:00 и в субботу, 12 декабря, в 16:00. Пожалуйста, зарегистрируйтесь заранее.",
+        action: "Зарегистрироваться",
+        imageAlt: "Плакат: рождественский мюзикл «Nur Liebe» со звездой над ночным Вифлеемом",
       },
       gebetsabend: {
         when: "Пятница · 19:00",
