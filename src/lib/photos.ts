@@ -5,6 +5,7 @@ import bibel from "../../public/images/glaube/bibel.jpg";
 import kreuz from "../../public/images/glaube/kreuz.jpg";
 import taube from "../../public/images/glaube/taube-see.jpg";
 import gottesdienst from "../../public/images/sonntag/gottesdienst.jpg";
+import kinderstunde from "../../public/images/sonntag/kinderstunde.jpg";
 import mittagstisch from "../../public/images/sonntag/mittagstisch.jpg";
 import gemeinschaft from "../../public/images/sonntag/gemeinschaft.jpg";
 import machineGunPreacher from "../../public/images/events/machine-gun-preacher.jpg";
@@ -20,6 +21,7 @@ export const photos = {
   kreuz,
   taube,
   gottesdienst,
+  kinderstunde,
   mittagstisch,
   gemeinschaft,
   machineGunPreacher,

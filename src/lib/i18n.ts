@@ -83,6 +83,12 @@ const de = {
         text: "Wir feiern mit Lobpreis, Gebet und einer Predigt, die mitten ins Leben spricht. Alles wird auf Deutsch und Russisch übersetzt, und auch für Kinder haben wir eine eigene Kinderkirche.",
       },
       {
+        time: "12–13 Uhr",
+        title: "Kinderstunde",
+        imageAlt: "Kinder sitzen am Tisch und malen mit Buntstiften",
+        text: "Während des Gottesdienstes haben die Kinder ihre eigene Stunde: Sie hören Geschichten aus der Bibel, malen und lernen Jesus auf ihre Weise kennen. Die Eltern können in Ruhe den Gottesdienst erleben.",
+      },
+      {
         time: "13–14:30 Uhr",
         title: "Mittagstisch",
         imageAlt: "Eine Frau mit Kaffeebecher unterhält sich lächelnd mit anderen am Tisch",
@@ -409,6 +415,12 @@ const ru: typeof de = {
         title: "Богослужение",
         imageAlt: "Группа прославления на сцене перед светящимся крестом, перед ней стоит община",
         text: "Мы празднуем с прославлением, молитвой и проповедью, которая говорит прямо в жизнь. Всё переводится на немецкий и русский, а для детей у нас есть своя детская церковь.",
+      },
+      {
+        time: "12–13 ч",
+        title: "Детский час",
+        imageAlt: "Дети сидят за столом и рисуют цветными карандашами",
+        text: "Во время богослужения у детей свой час: они слушают истории из Библии, рисуют и по-своему знакомятся с Иисусом. А родители могут спокойно участвовать в богослужении.",
       },
       {
         time: "13–14:30 ч",

@@ -8,6 +8,8 @@ import Reveal from "./Reveal";
 // Fotos echter Gemeindemomente, in Reihenfolge des Tages.
 const PHOTOS = [
   { src: photos.gottesdienst, position: "50% 45%" },
+  // Maedchen beim Malen rechts im Bild
+  { src: photos.kinderstunde, position: "64% center" },
   { src: photos.mittagstisch, position: "28% center" },
   { src: photos.gemeinschaft, position: "45% center" },
 ];
@@ -23,7 +25,7 @@ export default function Sunday() {
           <p className="lead">{t.sunday.text}</p>
         </Reveal>
 
-        {/* Der Tag in drei Stationen, die Uhrzeit steht als Etikett auf dem Foto */}
+        {/* Der Tag in vier Stationen, die Uhrzeit steht als Etikett auf dem Foto */}
         <ol className="day-line">
           {t.sunday.items.map((item, i) => (
             <li key={item.title} className="day-stop">
