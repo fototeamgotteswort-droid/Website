@@ -408,11 +408,16 @@ summary:focus-visible,
 .brand:hover {
   color: inherit;
 }
+/* Gemeindelogo (Kreuz, Flammen, Bibel) als Maske: so nimmt es die
+   Textfarbe an, hell ueber dem Video und Teal im hellen Header. */
 .brand-mark {
   flex: none;
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
   color: var(--sand);
+  background-color: currentColor;
+  -webkit-mask: url("/images/logo-mark.png") center / contain no-repeat;
+  mask: url("/images/logo-mark.png") center / contain no-repeat;
 }
 .site-header.solid:not(.menu-open) .brand-mark {
   color: var(--teal);
@@ -550,8 +555,8 @@ summary:focus-visible,
 
 @media (min-width: 420px) {
   .brand-mark {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
   }
   .brand-name {
     font-size: 16px;

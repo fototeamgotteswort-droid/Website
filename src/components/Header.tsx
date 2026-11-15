@@ -58,14 +58,7 @@ export default function Header() {
     >
       <div className="wrap navrow">
         <PageLink href="/" className="brand">
-          <svg className="brand-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <path
-              d="M17 2 L17 32 M8 11 L26 11"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-          </svg>
+          <span className="brand-mark" aria-hidden="true" />
           <span className="brand-text">
             <span className="brand-name">{t.brand.name}</span>
             <span className="brand-tag">{t.brand.tagline}</span>
